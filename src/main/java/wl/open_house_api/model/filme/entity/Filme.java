@@ -4,6 +4,7 @@ package wl.open_house_api.model.filme.entity;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import wl.open_house_api.model.filme.Categoria;
+import wl.open_house_api.model.filme.request.FilmeRequest;
 
 
 import java.util.Date;
@@ -22,6 +23,15 @@ public class Filme {
     private String duracao;
     private String imagem;
     private Categoria categoria;
+
+    public Filme(FilmeRequest filmeRequest) {
+        this.nome = filmeRequest.nome();
+        this.descricao = filmeRequest.descricao();
+        this.dataLancamento = filmeRequest.dataLancamento();
+        this.duracao = filmeRequest.duracao();
+        this.imagem = filmeRequest.imagem();
+        this.categoria = filmeRequest.categoria();
+    }
 
     public Filme() {}
 
