@@ -1,4 +1,4 @@
-package wl.openhouseapi.model.filme;
+package wl.open_house_api.model.filme;
 
 public enum Categoria {
     ACAO,

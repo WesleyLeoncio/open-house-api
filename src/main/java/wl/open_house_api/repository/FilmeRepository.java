@@ -1,7 +1,7 @@
-package wl.openhouseapi.repository;
+package wl.open_house_api.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import wl.openhouseapi.model.filme.entity.Filme;
+import wl.open_house_api.model.filme.entity.Filme;
 
 
 public interface FilmeRepository extends JpaRepository<Filme, Long> {

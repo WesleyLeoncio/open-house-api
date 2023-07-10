@@ -1,9 +1,9 @@
-package wl.openhouseapi.model.filme.entity;
+package wl.open_house_api.model.filme.entity;
 
 
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
-import wl.openhouseapi.model.filme.Categoria;
+import wl.open_house_api.model.filme.Categoria;
 
 
 import java.util.Date;
