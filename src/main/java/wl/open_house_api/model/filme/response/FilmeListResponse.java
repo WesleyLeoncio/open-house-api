@@ -5,17 +5,16 @@ import wl.open_house_api.model.filme.entity.Filme;
 
 import java.time.LocalDate;
 
-public record FilmeResponse(
+public record FilmeListResponse(
         Long id,
         String nome,
-        String descricao,
         LocalDate dataLancamento,
         String duracao,
         String imagem,
         Categoria categoria
-)
-{
-    public FilmeResponse(Filme filme){
-        this(filme.getId(), filme.getNome(),filme.getDescricao(),filme.getDataLancamento(),filme.getDuracao(),filme.getImagem(),filme.getCategoria());
+) {
+    public FilmeListResponse(Filme filme){
+        this(filme.getId(), filme.getNome(),filme.getDataLancamento(),filme.getDuracao(),filme.getImagem(),filme.getCategoria());
     }
+
 }

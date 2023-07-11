@@ -1,13 +1,12 @@
 package wl.open_house_api.model.filme.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import wl.open_house_api.model.filme.Categoria;
 import wl.open_house_api.model.filme.request.FilmeRequest;
-
-
-import java.util.Date;
+import java.time.LocalDate;
 
 @EqualsAndHashCode(of = "id")
 @Table(name = "filmes")
@@ -19,19 +18,25 @@ public class Filme {
     private Long id;
     private String nome;
     private String descricao;
-    private Date dataLancamento;
+
+    @JsonProperty("data_lancamento")
+    private LocalDate dataLancamento;
     private String duracao;
     private String imagem;
+
+    @Enumerated(EnumType.STRING)
     private Categoria categoria;
 
     public Filme(FilmeRequest filmeRequest) {
-        this.nome = filmeRequest.nome();
-        this.descricao = filmeRequest.descricao();
-        this.dataLancamento = filmeRequest.dataLancamento();
-        this.duracao = filmeRequest.duracao();
-        this.imagem = filmeRequest.imagem();
-        this.categoria = filmeRequest.categoria();
+        setId(null);
+        setNome(filmeRequest.nome());
+        setDescricao(filmeRequest.descricao());
+        setDataLancamento(filmeRequest.dataLancamento());
+        setDuracao(filmeRequest.duracao());
+        setImagem(filmeRequest.imagem());
+        setCategoria(filmeRequest.categoria());
     }
+
 
     public Filme() {}
 
@@ -59,11 +64,11 @@ public class Filme {
         this.descricao = descricao;
     }
 
-    public Date getDataLancamento() {
+    public LocalDate getDataLancamento() {
         return dataLancamento;
     }
 
-    public void setDataLancamento(Date dataLancamento) {
+    public void setDataLancamento(LocalDate dataLancamento) {
         this.dataLancamento = dataLancamento;
     }
 
