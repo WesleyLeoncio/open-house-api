@@ -6,13 +6,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import wl.open_house_api.infra.exeptions.ValidacaoExeption;
 import wl.open_house_api.model.filme.entity.Filme;
+import wl.open_house_api.service.interfaces.FilmeServiceCrud;
 import wl.open_house_api.model.filme.request.FilmeRequest;
 import wl.open_house_api.model.filme.response.FilmeListResponse;
 import wl.open_house_api.model.filme.response.FilmeResponse;
 import wl.open_house_api.repository.FilmeRepository;
 
 @Service
-public class FilmeService implements FilmeServiceCrud{
+public class FilmeService implements FilmeServiceCrud {
 
     private final FilmeRepository repository;
 

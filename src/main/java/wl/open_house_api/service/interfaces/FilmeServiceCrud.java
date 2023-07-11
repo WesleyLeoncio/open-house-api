@@ -1,4 +1,4 @@
-package wl.open_house_api.service;
+package wl.open_house_api.service.interfaces;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

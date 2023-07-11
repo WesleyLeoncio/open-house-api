@@ -1,6 +1,6 @@
 package wl.open_house_api.model.filme.response;
 
-import wl.open_house_api.model.filme.Categoria;
+import wl.open_house_api.model.filme.enuns.Categoria;
 import wl.open_house_api.model.filme.entity.Filme;
 
 import java.time.LocalDate;

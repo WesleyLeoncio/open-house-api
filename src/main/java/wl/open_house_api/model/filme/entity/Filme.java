@@ -4,7 +4,7 @@ package wl.open_house_api.model.filme.entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
-import wl.open_house_api.model.filme.Categoria;
+import wl.open_house_api.model.filme.enuns.Categoria;
 import wl.open_house_api.model.filme.request.FilmeRequest;
 import java.time.LocalDate;
 
