@@ -38,7 +38,6 @@ public class FilmeController {
     @PutMapping
     public ResponseEntity<FilmeResponse> editar(@RequestBody @Valid FilmeRequestEdit filme, UriComponentsBuilder uriBuilder) {
         FilmeResponse response = service.update(filme);
-        URI uri = uriBuilder.path("filmes/{id}").buildAndExpand(response.id()).toUri();
         return ResponseEntity.ok(response);
     }
 
@@ -55,7 +54,7 @@ public class FilmeController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> excluirFilme(@PathVariable Long id) {
-        FilmeResponse filmeResponse = service.deleteMovie(id);
+        service.deleteMovie(id);
         return ResponseEntity.noContent().build();
     }
 

@@ -16,7 +16,7 @@ import java.util.List;
 public class TratadorDeErros {
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<NotFound> tratarErro404() {
+    public ResponseEntity<NotFound> tratarErro404(EntityNotFoundException e) {
         return ResponseEntity.notFound().build();
     }
 
@@ -31,8 +31,5 @@ public class TratadorDeErros {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> tratarErro500(Exception ex) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro: " +ex.getLocalizedMessage());
-    }
+
 }

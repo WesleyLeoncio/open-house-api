@@ -16,6 +16,6 @@ public interface FilmeServiceCrud {
 
     public FilmeResponse findMovie(Long id);
 
-    public FilmeResponse deleteMovie(Long id);
+    public void deleteMovie(Long id);
 
 }
