@@ -7,22 +7,19 @@ import wl.open_house_api.model.filme.enuns.Categoria;
 
 import java.time.LocalDate;
 
-public record FilmeRequest(
+public record FilmeRequestEdit(
+        @NotNull
+        Long id,
         @NotBlank
         String nome,
-
         @NotBlank
         String descricao,
-
         @NotNull
         LocalDate dataLancamento,
-
         @NotBlank
         String duracao,
-
         @NotBlank
         String imagem,
-
         @NotNull @Valid()
         Categoria categoria
 ) {

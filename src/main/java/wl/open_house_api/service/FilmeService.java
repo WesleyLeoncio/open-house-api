@@ -1,16 +1,16 @@
 package wl.open_house_api.service;
 
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import wl.open_house_api.infra.exeptions.ValidacaoExeption;
+import org.springframework.transaction.annotation.Transactional;
 import wl.open_house_api.model.filme.entity.Filme;
-import wl.open_house_api.service.interfaces.FilmeServiceCrud;
-import wl.open_house_api.model.filme.request.FilmeRequest;
+import wl.open_house_api.model.filme.request.FilmeRequestCreat;
+import wl.open_house_api.model.filme.request.FilmeRequestEdit;
 import wl.open_house_api.model.filme.response.FilmeListResponse;
 import wl.open_house_api.model.filme.response.FilmeResponse;
 import wl.open_house_api.repository.FilmeRepository;
+import wl.open_house_api.service.interfaces.FilmeServiceCrud;
 
 @Service
 public class FilmeService implements FilmeServiceCrud {
@@ -22,33 +22,37 @@ public class FilmeService implements FilmeServiceCrud {
     }
 
     @Override
-    public FilmeResponse insert(FilmeRequest filmeRequest){
-        try {
-            Filme filme = repository.save(new Filme(filmeRequest));
-            return new FilmeResponse(filme);
-        }catch (DataIntegrityViolationException e){
-            throw new ValidacaoExeption("Erro ao cadastrar filme verifique os dados!");
-        }
+    @Transactional
+    public FilmeResponse insert(FilmeRequestCreat filmeRequestCreat) {
+        Filme filme = repository.save(new Filme(filmeRequestCreat));
+        return new FilmeResponse(filme);
     }
 
     @Override
-    public FilmeResponse update(FilmeRequest filmeRequest) {
-        return null;
+    public FilmeResponse update(FilmeRequestEdit filmeRequestEdit) {
+        Filme filme = repository.save(new Filme(filmeRequestEdit));
+        return new FilmeResponse(filme);
     }
+
 
     @Override
     public Page<FilmeListResponse> findMovies(Pageable pageable) {
-        return null;
+        return repository.findAll(pageable).map(FilmeListResponse::new);
     }
 
     @Override
+    @Transactional
     public FilmeResponse findMovie(Long id) {
-        return null;
+        Filme filme = repository.getReferenceById(id);
+        return new FilmeResponse(filme);
     }
 
     @Override
-    public void deleteMovie(Long id) {
-        //deletar filme
+    @Transactional
+    public FilmeResponse deleteMovie(Long id) {
+        Filme filme = repository.getReferenceById(id);
+        repository.delete(filme);
+        return new FilmeResponse(filme);
     }
 
 

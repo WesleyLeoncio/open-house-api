@@ -1,11 +1,12 @@
 package wl.open_house_api.model.filme.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import wl.open_house_api.model.filme.enuns.Categoria;
-import wl.open_house_api.model.filme.request.FilmeRequest;
+import wl.open_house_api.model.filme.request.FilmeRequestCreat;
+import wl.open_house_api.model.filme.request.FilmeRequestEdit;
+
 import java.time.LocalDate;
 
 @EqualsAndHashCode(of = "id")
@@ -19,7 +20,6 @@ public class Filme {
     private String nome;
     private String descricao;
 
-    @JsonProperty("data_lancamento")
     private LocalDate dataLancamento;
     private String duracao;
     private String imagem;
@@ -27,14 +27,24 @@ public class Filme {
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
 
-    public Filme(FilmeRequest filmeRequest) {
+    public Filme(FilmeRequestCreat filmeRequestCreat) {
         setId(null);
-        setNome(filmeRequest.nome());
-        setDescricao(filmeRequest.descricao());
-        setDataLancamento(filmeRequest.dataLancamento());
-        setDuracao(filmeRequest.duracao());
-        setImagem(filmeRequest.imagem());
-        setCategoria(filmeRequest.categoria());
+        setNome(filmeRequestCreat.nome());
+        setDescricao(filmeRequestCreat.descricao());
+        setDataLancamento(filmeRequestCreat.dataLancamento());
+        setDuracao(filmeRequestCreat.duracao());
+        setImagem(filmeRequestCreat.imagem());
+        setCategoria(filmeRequestCreat.categoria());
+    }
+
+    public Filme(FilmeRequestEdit filmeRequestEdit) {
+        setId(filmeRequestEdit.id());
+        setNome(filmeRequestEdit.nome());
+        setDescricao(filmeRequestEdit.descricao());
+        setDataLancamento(filmeRequestEdit.dataLancamento());
+        setDuracao(filmeRequestEdit.duracao());
+        setImagem(filmeRequestEdit.imagem());
+        setCategoria(filmeRequestEdit.categoria());
     }
 
 
@@ -95,4 +105,5 @@ public class Filme {
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
+
 }

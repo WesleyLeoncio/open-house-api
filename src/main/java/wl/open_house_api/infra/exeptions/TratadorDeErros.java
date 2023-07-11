@@ -21,9 +21,9 @@ public class TratadorDeErros {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<List<ErroValidacaoExeption>> tratarErro400(MethodArgumentNotValidException ex) {
+    public ResponseEntity<List<ErroValidacaoException>> tratarErro400(MethodArgumentNotValidException ex) {
         List<FieldError> erros = ex.getFieldErrors();
-        return ResponseEntity.badRequest().body(erros.stream().map(ErroValidacaoExeption::new).toList());
+        return ResponseEntity.badRequest().body(erros.stream().map(ErroValidacaoException::new).toList());
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
