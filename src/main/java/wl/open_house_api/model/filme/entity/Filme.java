@@ -2,14 +2,12 @@ package wl.open_house_api.model.filme.entity;
 
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
 import wl.open_house_api.model.filme.enuns.Categoria;
 import wl.open_house_api.model.filme.request.FilmeRequestCreat;
 import wl.open_house_api.model.filme.request.FilmeRequestEdit;
 
 import java.time.LocalDate;
 
-@EqualsAndHashCode(of = "id")
 @Table(name = "filmes")
 @Entity(name = "Filme")
 public class Filme {
@@ -19,7 +17,6 @@ public class Filme {
     private Long id;
     private String nome;
     private String descricao;
-
     private LocalDate dataLancamento;
     private String duracao;
     private String imagem;
