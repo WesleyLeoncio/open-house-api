@@ -43,7 +43,7 @@ public class FilmeService implements FilmeServiceCrud {
 
     @Override
     public Page<FilmeListResponse> findMovies(Pageable pageable) {
-        return repository.findAll(pageable).map(FilmeListResponse::new);
+        return repository.findAll(pageable).map(filme -> FilmeMapper.INSTANCE.filmeToFilmeListResponse(filme));
     }
 
     @Override

@@ -15,7 +15,4 @@ public record FilmeResponse(
         Categoria categoria
 )
 {
-    public FilmeResponse(Filme filme){
-        this(filme.getId(), filme.getNome(),filme.getDescricao(),filme.getDataLancamento(),filme.getDuracao(),filme.getImagem(),filme.getCategoria());
-    }
 }

@@ -1,4 +1,6 @@
 package wl.open_house_api.model.profile.request;
 
-public record ProfileRequestCreat(String nome) {
+import jakarta.validation.constraints.NotBlank;
+
+public record ProfileRequestCreat(@NotBlank String nome) {
 }
