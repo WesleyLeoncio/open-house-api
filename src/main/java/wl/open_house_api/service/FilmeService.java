@@ -5,7 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import wl.open_house_api.infra.exeptions.ValidacaoException;
 import wl.open_house_api.model.filme.entity.Filme;
 import wl.open_house_api.model.filme.mapper.FilmeMapper;
 import wl.open_house_api.model.filme.request.FilmeRequestCreat;
