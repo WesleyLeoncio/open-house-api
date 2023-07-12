@@ -24,27 +24,6 @@ public class Filme {
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
 
-    public Filme(FilmeRequestCreat filmeRequestCreat) {
-        setId(null);
-        setNome(filmeRequestCreat.nome());
-        setDescricao(filmeRequestCreat.descricao());
-        setDataLancamento(filmeRequestCreat.dataLancamento());
-        setDuracao(filmeRequestCreat.duracao());
-        setImagem(filmeRequestCreat.imagem());
-        setCategoria(filmeRequestCreat.categoria());
-    }
-
-    public Filme(FilmeRequestEdit filmeRequestEdit) {
-        setId(filmeRequestEdit.id());
-        setNome(filmeRequestEdit.nome());
-        setDescricao(filmeRequestEdit.descricao());
-        setDataLancamento(filmeRequestEdit.dataLancamento());
-        setDuracao(filmeRequestEdit.duracao());
-        setImagem(filmeRequestEdit.imagem());
-        setCategoria(filmeRequestEdit.categoria());
-    }
-
-
     public Filme() {}
 
     public Long getId() {

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wl.open_house_api.infra.exeptions.ValidacaoException;
 import wl.open_house_api.model.filme.entity.Filme;
+import wl.open_house_api.model.filme.mapper.FilmeMapper;
 import wl.open_house_api.model.filme.request.FilmeRequestCreat;
 import wl.open_house_api.model.filme.request.FilmeRequestEdit;
 import wl.open_house_api.model.filme.response.FilmeListResponse;
@@ -28,15 +29,15 @@ public class FilmeService implements FilmeServiceCrud {
     @Override
     @Transactional
     public FilmeResponse insert(FilmeRequestCreat filmeRequestCreat) {
-        Filme filme = repository.save(new Filme(filmeRequestCreat));
-        return new FilmeResponse(filme);
+        Filme filme = repository.save(FilmeMapper.INSTANCE.filmeRequestCreatToFilme(filmeRequestCreat));
+        return FilmeMapper.INSTANCE.filmeToFilmeResponse(filme);
     }
 
     @Override
     public FilmeResponse update(FilmeRequestEdit filmeRequestEdit) {
         verfificarFilme(filmeRequestEdit.id());
-        Filme filme = repository.save(new Filme(filmeRequestEdit));
-        return new FilmeResponse(filme);
+        Filme filme = repository.save(FilmeMapper.INSTANCE.filmeRequestEditToFilme(filmeRequestEdit));
+        return FilmeMapper.INSTANCE.filmeToFilmeResponse(filme);
     }
 
 
@@ -49,7 +50,7 @@ public class FilmeService implements FilmeServiceCrud {
     @Transactional
     public FilmeResponse findMovie(Long id) {
         Filme filme = repository.getReferenceById(id);
-        return new FilmeResponse(filme);
+        return FilmeMapper.INSTANCE.filmeToFilmeResponse(filme);
     }
 
     @Override

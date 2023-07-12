@@ -36,7 +36,7 @@ public class FilmeController {
     }
 
     @PutMapping
-    public ResponseEntity<FilmeResponse> editar(@RequestBody @Valid FilmeRequestEdit filme, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<FilmeResponse> editar(@RequestBody @Valid FilmeRequestEdit filme) {
         FilmeResponse response = service.update(filme);
         return ResponseEntity.ok(response);
     }
