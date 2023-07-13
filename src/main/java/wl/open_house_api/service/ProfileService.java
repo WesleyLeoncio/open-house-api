@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import wl.open_house_api.infra.exeptions.ValidacaoException;
 import wl.open_house_api.model.profile.entity.Profile;
 import wl.open_house_api.model.profile.mapper.ProfileMapper;
 import wl.open_house_api.model.profile.request.ProfileRequestCreat;
@@ -56,6 +57,14 @@ public class ProfileService implements ProfileServiceCrud {
     @Transactional
     public void deleteProfile(Long id) {
         repository.delete(verificiarProfile(id));
+    }
+
+    @Override
+    public Boolean existProfile(Long id) {
+        if(!repository.existsById(id)){
+            throw new ValidacaoException("Profile não existe, verifique e tente e novamente!");
+        }
+        return true;
     }
 
     public Profile verificiarProfile(Long id){

@@ -18,4 +18,6 @@ public interface ProfileServiceCrud {
 
     public void deleteProfile(Long id);
 
+    public Boolean existProfile(Long id);
+
 }

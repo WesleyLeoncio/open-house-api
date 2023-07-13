@@ -1,6 +1,7 @@
 package wl.open_house_api.model.usuario.entity;
 
 import jakarta.persistence.*;
+
 import wl.open_house_api.model.profile.entity.Profile;
 
 @Table(name = "usuarios")
@@ -18,7 +19,10 @@ public class Usuario {
     @JoinColumn(name = "profile_id")
     private Profile profile;
 
+    private Boolean status;
+
     public Usuario() {
+        this.status = true;
     }
 
     public Usuario(Long id, String nome, String login, String senha, Profile profile) {
@@ -27,6 +31,15 @@ public class Usuario {
         this.login = login;
         this.senha = senha;
         this.profile = profile;
+        this.status = true;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     public Long getId() {
