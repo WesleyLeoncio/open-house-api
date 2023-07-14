@@ -3,7 +3,6 @@ package wl.open_house_api.model.filme.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-import org.springframework.data.domain.Page;
 import wl.open_house_api.model.filme.entity.Filme;
 import wl.open_house_api.model.filme.request.FilmeRequestCreat;
 import wl.open_house_api.model.filme.request.FilmeRequestEdit;

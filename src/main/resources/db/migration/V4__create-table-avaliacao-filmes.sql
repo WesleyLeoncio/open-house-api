@@ -1,9 +1,9 @@
 CREATE TABLE avaliacoes
 (
-    id            SERIAL       NOT NULL,
+    id            SERIAL      NOT NULL,
     filme_id     INTEGER      NOT NULL,
     usuario_id   INTEGER      NOT NULL,
-    data          TIMESTAMP    NOT NULL,
+    nota         INTEGER      NOT NULL,
 
     CONSTRAINT pk_avaliacao
       PRIMARY KEY (id),

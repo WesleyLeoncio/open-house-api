@@ -26,6 +26,16 @@ public class Filme {
 
     public Filme() {}
 
+    public Filme(Long id, String nome, String descricao, LocalDate dataLancamento, String duracao, String imagem, Categoria categoria) {
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.dataLancamento = dataLancamento;
+        this.duracao = duracao;
+        this.imagem = imagem;
+        this.categoria = categoria;
+    }
+
     public Long getId() {
         return id;
     }
