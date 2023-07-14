@@ -1,6 +1,5 @@
 package wl.open_house_api.service;
 
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -50,7 +49,7 @@ public class ProfileService implements ProfileServiceCrud {
 
     @Override
     public Page<ProfileResponse> findProfiles(Pageable pageable) {
-        return repository.findAll(pageable).map(profile -> ProfileMapper.INSTANCE.profileToProfileResponse(profile));
+        return repository.findAll(pageable).map(ProfileMapper.INSTANCE::profileToProfileResponse);
     }
 
     @Override
@@ -59,19 +58,12 @@ public class ProfileService implements ProfileServiceCrud {
         repository.delete(verificiarProfile(id));
     }
 
-    @Override
-    public Boolean existProfile(Long id) {
-        if(!repository.existsById(id)){
-            throw new ValidacaoException("Profile não existe, verifique e tente e novamente!");
-        }
-        return true;
-    }
 
     public Profile verificiarProfile(Long id){
         Optional<Profile> profile = repository.findById(id);
-        if(!profile.isPresent()){
-            throw new EntityNotFoundException();
+        if(profile.isEmpty()){
+            throw new ValidacaoException("Profile não existe, verifique e tente e novamente!");
         }
-        return  profile.get();
+        return profile.get();
     }
 }

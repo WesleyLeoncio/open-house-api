@@ -18,7 +18,7 @@ import java.net.URI;
 @RequestMapping("profiles")
 public class ProfileController {
     //TODO TRATAR AS EXCEPTIONS
-    final private ProfileService service;
+    final ProfileService service;
 
     public ProfileController(ProfileService service) {
         this.service = service;

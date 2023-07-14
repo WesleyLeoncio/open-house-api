@@ -42,7 +42,7 @@ public class FilmeService implements FilmeServiceCrud {
 
     @Override
     public Page<FilmeListResponse> findMovies(Pageable pageable) {
-        return repository.findAll(pageable).map(filme -> FilmeMapper.INSTANCE.filmeToFilmeListResponse(filme));
+        return repository.findAll(pageable).map(FilmeMapper.INSTANCE::filmeToFilmeListResponse);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class FilmeService implements FilmeServiceCrud {
 
     public Filme verfificarFilme(Long id){
         Optional<Filme> filme = repository.findById(id);
-        if(!filme.isPresent()){
+        if(filme.isEmpty()){
             throw new EntityNotFoundException();
         }
         return filme.get();

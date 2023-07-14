@@ -15,7 +15,7 @@ public class Usuario {
     private String login;
     private String senha;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "profile_id")
     private Profile profile;
 

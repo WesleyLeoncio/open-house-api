@@ -42,7 +42,7 @@ public class FilmeController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<FilmeListResponse>> listarFilmes(@PageableDefault(size = 10, sort = {"dataLancamento"},
+    public ResponseEntity<Page<FilmeListResponse>> listarFilmes(@PageableDefault(sort = {"dataLancamento"},
             direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok(service.findMovies(pageable));
     }
