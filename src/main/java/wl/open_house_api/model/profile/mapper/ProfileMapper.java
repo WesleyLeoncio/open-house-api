@@ -3,8 +3,8 @@ package wl.open_house_api.model.profile.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import wl.open_house_api.model.profile.entity.Profile;
+import wl.open_house_api.model.profile.request.ProfileRequest;
 import wl.open_house_api.model.profile.request.ProfileRequestCreat;
-import wl.open_house_api.model.profile.request.ProfileRequestEdit;
 import wl.open_house_api.model.profile.response.ProfileResponse;
 
 
@@ -14,7 +14,7 @@ public interface ProfileMapper {
 
     Profile profileRequestCreatToProfile(ProfileRequestCreat profileRequestCreat);
 
-    Profile profileRequestEditToProfile(ProfileRequestEdit profileRequestEdit);
+    Profile profileRequestEditToProfile(ProfileRequest profileRequestEdit);
 
     ProfileResponse profileToProfileResponse(Profile profile);
 

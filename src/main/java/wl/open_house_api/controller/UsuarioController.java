@@ -13,7 +13,6 @@ import wl.open_house_api.model.usuario.request.UsuarioRequestEditMaster;
 import wl.open_house_api.model.usuario.request.UsuarioRequestModifyStatus;
 import wl.open_house_api.model.usuario.response.UsuarioResponse;
 import wl.open_house_api.service.UsuarioService;
-
 import java.net.URI;
 
 @RestController

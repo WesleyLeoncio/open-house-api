@@ -7,8 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+import wl.open_house_api.model.profile.request.ProfileRequest;
 import wl.open_house_api.model.profile.request.ProfileRequestCreat;
-import wl.open_house_api.model.profile.request.ProfileRequestEdit;
 import wl.open_house_api.model.profile.response.ProfileResponse;
 import wl.open_house_api.service.ProfileService;
 
@@ -32,7 +32,7 @@ public class ProfileController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProfileResponse> editar(@RequestBody @Valid ProfileRequestEdit profileRequestEdit){
+    public ResponseEntity<ProfileResponse> editar(@RequestBody @Valid ProfileRequest profileRequestEdit){
         ProfileResponse response = service.update(profileRequestEdit);
         return ResponseEntity.ok(response);
     }

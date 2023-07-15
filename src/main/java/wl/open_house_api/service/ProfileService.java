@@ -7,8 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import wl.open_house_api.infra.exeptions.ValidacaoException;
 import wl.open_house_api.model.profile.entity.Profile;
 import wl.open_house_api.model.profile.mapper.ProfileMapper;
+import wl.open_house_api.model.profile.request.ProfileRequest;
 import wl.open_house_api.model.profile.request.ProfileRequestCreat;
-import wl.open_house_api.model.profile.request.ProfileRequestEdit;
 import wl.open_house_api.model.profile.response.ProfileResponse;
 import wl.open_house_api.repository.ProfileRepository;
 import wl.open_house_api.service.interfaces.ProfileServiceCrud;
@@ -34,7 +34,7 @@ public class ProfileService implements ProfileServiceCrud {
 
     @Override
     @Transactional
-    public ProfileResponse update(ProfileRequestEdit profileRequestEdit) {
+    public ProfileResponse update(ProfileRequest profileRequestEdit) {
         verificiarProfile(profileRequestEdit.id());
         Profile profile = repository.save(ProfileMapper.INSTANCE.profileRequestEditToProfile(profileRequestEdit));
         return ProfileMapper.INSTANCE.profileToProfileResponse(profile);

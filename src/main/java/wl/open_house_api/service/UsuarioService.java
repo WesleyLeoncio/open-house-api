@@ -31,7 +31,7 @@ public class UsuarioService implements UsuarioServiceCrud {
     @Override
     @Transactional
     public UsuarioResponse insert(UsuarioRequestCreatMaster user) {
-        serviceProfile.verificiarProfile(user.profile().getId());
+        serviceProfile.verificiarProfile(user.profile().id());
         Usuario usuario = repository.save(UsuarioMapper.INSTANCE.usuarioResquestCreatMasterToUsuario(user));
         return UsuarioMapper.INSTANCE.usuarioToUsuarioResponse(usuario);
     }
@@ -47,7 +47,7 @@ public class UsuarioService implements UsuarioServiceCrud {
     @Transactional
     public UsuarioResponse update(UsuarioRequestEditMaster user) {
         verificarUser(user.id());
-        serviceProfile.verificiarProfile(user.profile().getId());
+        serviceProfile.verificiarProfile(user.profile().id());
         Usuario usuario = repository.save(UsuarioMapper.INSTANCE.usuarioResquestEditMasterToUsuario(user));
         return UsuarioMapper.INSTANCE.usuarioToUsuarioResponse(usuario);
     }
@@ -82,12 +82,15 @@ public class UsuarioService implements UsuarioServiceCrud {
         repository.save(usuario);
     }
 
-
     public Usuario verificarUser(Long id) {
         Optional<Usuario> usuario = repository.findById(id);
         if (usuario.isEmpty()) {
             throw new EntityNotFoundException();
         }
         return usuario.get();
+    }
+
+    public Boolean usuarioAtivo(Long id){
+        return repository.findStatusById(id);
     }
 }
