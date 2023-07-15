@@ -5,13 +5,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+import wl.open_house_api.model.usuario.entity.Usuario;
 import wl.open_house_api.model.usuario.request.UsuarioRequestCreatMaster;
 import wl.open_house_api.model.usuario.request.UsuarioRequestCreatUser;
 import wl.open_house_api.model.usuario.request.UsuarioRequestEditMaster;
 import wl.open_house_api.model.usuario.request.UsuarioRequestModifyStatus;
 import wl.open_house_api.model.usuario.response.UsuarioResponse;
+import wl.open_house_api.repository.UsuarioRepository;
 import wl.open_house_api.service.UsuarioService;
 import java.net.URI;
 
@@ -21,8 +24,11 @@ public class UsuarioController {
 
     private final UsuarioService service;
 
-    public UsuarioController(UsuarioService service) {
+    private final UsuarioRepository repository;
+
+    public UsuarioController(UsuarioService service, UsuarioRepository repository) {
         this.service = service;
+        this.repository = repository;
     }
 
     @PostMapping
@@ -60,9 +66,11 @@ public class UsuarioController {
         return ResponseEntity.ok(service.findUsersStatusTrue(pageable));
     }
 
+    //TODO MODIFICADO
     @GetMapping("/{id}")
-    public ResponseEntity<UsuarioResponse> detalharUsuario(@PathVariable Long id){
-        return ResponseEntity.ok(service.findUser(id));
+    public ResponseEntity<Usuario> detalharUsuario(@PathVariable Long id){
+        Usuario usuario = repository.findById(id).get();
+        return ResponseEntity.ok(usuario);
     }
 
     @DeleteMapping

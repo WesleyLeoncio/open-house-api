@@ -2,11 +2,14 @@ package wl.open_house_api.model.usuario.entity;
 
 import jakarta.persistence.*;
 
-import wl.open_house_api.model.profile.entity.Profile;
+import wl.open_house_api.model.role.entity.Role;
+
+import java.io.Serializable;
+import java.util.List;
 
 @Table(name = "usuarios")
 @Entity(name = "Usuario")
-public class Usuario {
+public class Usuario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,9 +18,11 @@ public class Usuario {
     private String login;
     private String senha;
 
-    @ManyToOne
-    @JoinColumn(name = "profile_id")
-    private Profile profile;
+    @ManyToMany
+    @JoinTable(name = "profiles",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> role;
 
     private Boolean status;
 
@@ -25,12 +30,12 @@ public class Usuario {
         this.status = true;
     }
 
-    public Usuario(Long id, String nome, String login, String senha, Profile profile) {
+    public Usuario(Long id, String nome, String login, String senha, List<Role> role) {
         this.id = id;
         this.nome = nome;
         this.login = login;
         this.senha = senha;
-        this.profile = profile;
+        this.role = role;
         this.status = true;
     }
 
@@ -74,11 +79,11 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public Profile getProfile() {
-        return profile;
+    public List<Role> getRole() {
+        return role;
     }
 
-    public void setProfile(Profile profile) {
-        this.profile = profile;
+    public void setRole(List<Role> role) {
+        this.role = role;
     }
 }

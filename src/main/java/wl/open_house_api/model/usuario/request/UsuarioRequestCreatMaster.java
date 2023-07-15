@@ -4,7 +4,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import wl.open_house_api.model.profile.request.ProfileRequest;
 
 public record UsuarioRequestCreatMaster(
         @NotBlank
@@ -15,10 +14,9 @@ public record UsuarioRequestCreatMaster(
         String login,
 
         @NotBlank
-        String senha,
+        String senha
 
-        @NotNull @Valid()
-        ProfileRequest profile
+
 
 ) {
 

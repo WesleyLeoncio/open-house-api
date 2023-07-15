@@ -1,19 +1,20 @@
-package wl.open_house_api.model.profile.entity;
+package wl.open_house_api.model.role.entity;
 
 import jakarta.persistence.*;
 
-@Table(name = "profiles")
-@Entity(name = "profile")
-public class Profile {
+@Table(name = "roles")
+@Entity(name = "Role")
+public class Role { //TODO VERIFICAR IMPLEMTACAO VERIFICAR NO VIDEO
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
 
-    public Profile(){}
+    public Role(){}
 
-    public Profile(Long id, String nome) {
+    public Role(Long id, String nome) {
         this.id = id;
         this.nome = nome;
     }

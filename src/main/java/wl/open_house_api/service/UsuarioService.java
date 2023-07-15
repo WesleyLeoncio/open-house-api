@@ -21,17 +21,14 @@ public class UsuarioService implements UsuarioServiceCrud {
 
     final UsuarioRepository repository;
 
-    final ProfileService serviceProfile;
 
-    public UsuarioService(UsuarioRepository repository, ProfileService serviceProfile) {
+    public UsuarioService(UsuarioRepository repository) {
         this.repository = repository;
-        this.serviceProfile = serviceProfile;
     }
 
     @Override
     @Transactional
     public UsuarioResponse insert(UsuarioRequestCreatMaster user) {
-        serviceProfile.verificiarProfile(user.profile().id());
         Usuario usuario = repository.save(UsuarioMapper.INSTANCE.usuarioResquestCreatMasterToUsuario(user));
         return UsuarioMapper.INSTANCE.usuarioToUsuarioResponse(usuario);
     }
@@ -39,7 +36,6 @@ public class UsuarioService implements UsuarioServiceCrud {
     @Override
     public UsuarioResponse insertUserProfileUser(UsuarioRequestCreatUser user) {
         Usuario usuario = UsuarioMapper.INSTANCE.usuarioResquestCreatUserToUsuario(user);
-        usuario.setProfile(serviceProfile.verificiarProfile(3L));
         return UsuarioMapper.INSTANCE.usuarioToUsuarioResponse(repository.save(usuario));
     }
 
@@ -47,7 +43,6 @@ public class UsuarioService implements UsuarioServiceCrud {
     @Transactional
     public UsuarioResponse update(UsuarioRequestEditMaster user) {
         verificarUser(user.id());
-        serviceProfile.verificiarProfile(user.profile().id());
         Usuario usuario = repository.save(UsuarioMapper.INSTANCE.usuarioResquestEditMasterToUsuario(user));
         return UsuarioMapper.INSTANCE.usuarioToUsuarioResponse(usuario);
     }
