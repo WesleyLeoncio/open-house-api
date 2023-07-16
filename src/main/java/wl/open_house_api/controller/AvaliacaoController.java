@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import wl.open_house_api.model.avaliacao.request.AvaliarFilmeRequest;
-import wl.open_house_api.model.avaliacao.response.AvaliacaoDeFilmesResponse;
 import wl.open_house_api.service.AvaliacaoService;
 
 @RestController
@@ -22,7 +21,7 @@ public class AvaliacaoController {
     }
 
     @PostMapping
-    public ResponseEntity<AvaliacaoDeFilmesResponse> avaliarFilmes(@RequestBody @Valid AvaliarFilmeRequest avaliarFilme){
+    public ResponseEntity<HttpStatus> avaliarFilmes(@RequestBody @Valid AvaliarFilmeRequest avaliarFilme){
         service.avaliarFilme(avaliarFilme);
         return ResponseEntity.noContent().build();
     }

@@ -3,8 +3,6 @@ package wl.open_house_api.model.filme.entity;
 
 import jakarta.persistence.*;
 import wl.open_house_api.model.filme.enuns.Categoria;
-import wl.open_house_api.model.filme.request.FilmeRequestCreat;
-import wl.open_house_api.model.filme.request.FilmeRequestEdit;
 
 import java.time.LocalDate;
 
