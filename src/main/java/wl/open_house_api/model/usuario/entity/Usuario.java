@@ -1,9 +1,6 @@
 package wl.open_house_api.model.usuario.entity;
-
 import jakarta.persistence.*;
-
 import wl.open_house_api.model.role.entity.Role;
-
 import java.io.Serializable;
 import java.util.List;
 

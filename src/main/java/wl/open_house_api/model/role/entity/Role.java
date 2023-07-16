@@ -2,10 +2,11 @@ package wl.open_house_api.model.role.entity;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 @Table(name = "roles")
 @Entity(name = "Role")
-public class Role { //TODO VERIFICAR IMPLEMTACAO VERIFICAR NO VIDEO
-    private static final long serialVersionUID = 1L;
+public class Role implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

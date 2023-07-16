@@ -4,11 +4,12 @@ package wl.open_house_api.model.filme.entity;
 import jakarta.persistence.*;
 import wl.open_house_api.model.filme.enuns.Categoria;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Table(name = "filmes")
 @Entity(name = "Filme")
-public class Filme {
+public class Filme implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

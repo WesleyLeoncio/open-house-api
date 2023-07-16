@@ -2,10 +2,12 @@ package wl.open_house_api.model.profile.entity;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 
 @Table(name = "profiles")
 @Entity(name = "Profile")
-public class Profile {
+public class Profile implements Serializable {
     @EmbeddedId
     ProfileId profileId;
 
