@@ -40,7 +40,7 @@ public class ProfileService implements ProfileServiceMetodos {
     @Transactional
     public ProfileResponse adicionarProfile(ProfileRequest profileRequest) {
         Profile profile = profileFactory(profileRequest);
-        return ProfileMapper.INSTANCE.profileToProfileResponse(profile);
+        return ProfileMapper.INSTANCE.profileToProfileResponse(repository.save(profile));
     }
 
     @Override
