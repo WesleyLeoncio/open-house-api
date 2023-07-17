@@ -7,10 +7,9 @@ import java.io.Serializable;
 
 @Embeddable
 public class ProfileId implements Serializable {
-    @Column(name = "usuario_id")
+
     private Long usuarioId;
 
-    @Column(name = "role_id")
     private Long roleId;
 
     public ProfileId() {

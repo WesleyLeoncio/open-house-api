@@ -68,6 +68,7 @@ public class UsuarioController {
 
     //TODO MODIFICADO
     @GetMapping("/{id}")
+    @Transactional
     public ResponseEntity<Usuario> detalharUsuario(@PathVariable Long id){
         Usuario usuario = repository.findById(id).get();
         return ResponseEntity.ok(usuario);

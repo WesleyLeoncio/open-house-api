@@ -36,6 +36,7 @@ public class ProfileService implements ProfileServiceMetodos {
     @Transactional
     public ProfileResponse adicionarProfile(ProfileRequest profileRequest) {
         Profile profile = profileFactory(profileRequest);
+        System.out.println(profile);
         return ProfileMapper.INSTANCE.profileToProfileResponse(repository.save(profile));
     }
 
@@ -57,14 +58,14 @@ public class ProfileService implements ProfileServiceMetodos {
         Usuario usuario = verificiarUsuario(profileRequest.usuarioId());
         Role role = serviceRole.verificiarRole(profileRequest.roleId());
         ProfileId profileId = new ProfileId(usuario.getId(),role.getId());
-        return new Profile(profileId);
+        return new Profile(profileId, usuario,role);
     }
 
     public Profile profileFactoryUser(ProfileRequestUser profileRequestUser) {
         Usuario usuario = verificiarUsuario(profileRequestUser.usuarioId());
         Role role = serviceRole.verificiarRole(3L);
         ProfileId profileId = new ProfileId(usuario.getId(),role.getId());
-        return new Profile(profileId);
+        return new Profile(profileId,usuario,role);
     }
 
     public Usuario verificiarUsuario(Long id){
