@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Table(name = "roles")
 @Entity(name = "Role")
-public class Role implements Serializable {
+public class Role implements Serializable { //TODO VERIFICAR VIDEO
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
