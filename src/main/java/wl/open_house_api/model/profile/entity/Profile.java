@@ -40,13 +40,28 @@ public class Profile implements Serializable {
         this.profileId = profileId;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     @Override
     public String toString() {
         return "Profile{" +
                "profileId=" + profileId +
+               ", usuario=" + usuario +
+               ", role=" + role +
                '}';
     }
-
-
 }

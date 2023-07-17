@@ -10,7 +10,11 @@ import wl.open_house_api.model.profile.request.ProfileRequest;
 import wl.open_house_api.model.profile.request.ProfileRequestUser;
 import wl.open_house_api.model.profile.response.ProfileResponse;
 import wl.open_house_api.model.role.entity.Role;
+import wl.open_house_api.model.role.mapper.RoleMapper;
+import wl.open_house_api.model.role.response.RoleResponse;
 import wl.open_house_api.model.usuario.entity.Usuario;
+import wl.open_house_api.model.usuario.mapper.UsuarioMapper;
+import wl.open_house_api.model.usuario.response.UsuarioResponse;
 import wl.open_house_api.repository.ProfileRepository;
 import wl.open_house_api.repository.UsuarioRepository;
 import wl.open_house_api.service.interfaces.ProfileServiceMetodos;
@@ -36,8 +40,7 @@ public class ProfileService implements ProfileServiceMetodos {
     @Transactional
     public ProfileResponse adicionarProfile(ProfileRequest profileRequest) {
         Profile profile = profileFactory(profileRequest);
-        System.out.println(profile);
-        return ProfileMapper.INSTANCE.profileToProfileResponse(repository.save(profile));
+        return ProfileMapper.INSTANCE.profileToProfileResponse(profile);
     }
 
     @Override

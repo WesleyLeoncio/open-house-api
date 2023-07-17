@@ -35,4 +35,12 @@ public class Role implements Serializable { //TODO VERIFICAR VIDEO
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+               "id=" + id +
+               ", nome='" + nome + '\'' +
+               '}';
+    }
 }
