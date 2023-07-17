@@ -38,7 +38,7 @@ public class UsuarioController {
         return ResponseEntity.created(uri).body(response);
     }
 
-    @PostMapping("/roleUser")
+    @PostMapping("/comum")
     public ResponseEntity<UsuarioResponse> cadastrarUserProfileUser(@RequestBody @Valid UsuarioRequestCreatUser user, UriComponentsBuilder uriBuilder) {
         UsuarioResponse response = service.insertUserProfileUser(user);
         URI uri = uriBuilder.path("usuarios/{id}").buildAndExpand(response.id()).toUri();
@@ -73,8 +73,8 @@ public class UsuarioController {
         return ResponseEntity.ok(usuario);
     }
 
-    @DeleteMapping
-    public ResponseEntity<HttpStatus> excluiruUsuario(Long id){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<HttpStatus> excluiruUsuario(@PathVariable Long id){
         service.deleteUser(id);
         return ResponseEntity.noContent().build();
     }

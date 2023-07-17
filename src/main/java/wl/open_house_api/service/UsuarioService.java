@@ -1,10 +1,12 @@
 package wl.open_house_api.service;
 
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import wl.open_house_api.model.profile.request.ProfileRequest;
+import wl.open_house_api.model.profile.request.ProfileRequestRole;
+import wl.open_house_api.model.profile.request.ProfileRequestUser;
 import wl.open_house_api.model.usuario.entity.Usuario;
 import wl.open_house_api.model.usuario.mapper.UsuarioMapper;
 import wl.open_house_api.model.usuario.request.UsuarioRequestCreatMaster;
@@ -14,29 +16,35 @@ import wl.open_house_api.model.usuario.response.UsuarioResponse;
 import wl.open_house_api.repository.UsuarioRepository;
 import wl.open_house_api.service.interfaces.UsuarioServiceCrud;
 
-import java.util.Optional;
+import java.util.List;
+
 
 @Service
 public class UsuarioService implements UsuarioServiceCrud {
 
     final UsuarioRepository repository;
 
+    final ProfileService profileService;
 
-    public UsuarioService(UsuarioRepository repository) {
+
+    public UsuarioService(UsuarioRepository repository, ProfileService profileService) {
         this.repository = repository;
+        this.profileService = profileService;
     }
 
     @Override
     @Transactional
     public UsuarioResponse insert(UsuarioRequestCreatMaster user) {
         Usuario usuario = repository.save(UsuarioMapper.INSTANCE.usuarioResquestCreatMasterToUsuario(user));
+        adicionarProfiles(usuario,user.rolesList());
         return UsuarioMapper.INSTANCE.usuarioToUsuarioResponse(usuario);
     }
 
     @Override
     public UsuarioResponse insertUserProfileUser(UsuarioRequestCreatUser user) {
-        Usuario usuario = UsuarioMapper.INSTANCE.usuarioResquestCreatUserToUsuario(user);
-        return UsuarioMapper.INSTANCE.usuarioToUsuarioResponse(repository.save(usuario));
+        Usuario usuario = repository.save(UsuarioMapper.INSTANCE.usuarioResquestCreatUserToUsuario(user));
+        adicionarProfileUser(usuario);
+        return UsuarioMapper.INSTANCE.usuarioToUsuarioResponse(usuario);
     }
 
     @Override
@@ -78,14 +86,18 @@ public class UsuarioService implements UsuarioServiceCrud {
     }
 
     public Usuario verificarUser(Long id) {
-        Optional<Usuario> usuario = repository.findById(id);
-        if (usuario.isEmpty()) {
-            throw new EntityNotFoundException();
-        }
-        return usuario.get();
+        return repository.getReferenceById(id);
     }
 
     public Boolean usuarioAtivo(Long id){
         return repository.findStatusById(id);
+    }
+
+
+    public void adicionarProfiles(Usuario usuario, List<ProfileRequestRole> roles){
+        roles.forEach(r -> profileService.adicionarProfile(new ProfileRequest(usuario.getId(),r.roleId())));
+    }
+    public void adicionarProfileUser(Usuario usuario){
+        profileService.adicionarProfileUser(new ProfileRequestUser(usuario.getId()));
     }
 }

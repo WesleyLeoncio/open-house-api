@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-import wl.open_house_api.model.profile.entity.Profile;
 import wl.open_house_api.model.role.request.RoleRequest;
 import wl.open_house_api.model.role.request.RoleRequestCreat;
 import wl.open_house_api.model.role.response.RoleResponse;
@@ -36,7 +35,7 @@ public class RoleController {
         return ResponseEntity.created(uri).body(response);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     public ResponseEntity<RoleResponse> editar(@RequestBody @Valid RoleRequest roleRequest){
         RoleResponse response = service.update(roleRequest);
         return ResponseEntity.ok(response);
@@ -59,10 +58,4 @@ public class RoleController {
     }
 
 
-    ////////////////////////////////////// TESTE ///////////////////////////////////
-
-    @PostMapping("/profile")
-    public ResponseEntity<Profile> cadatrar(@RequestBody @Valid Profile profile){
-        return ResponseEntity.ok(repository.save(profile));
-    }
 }
