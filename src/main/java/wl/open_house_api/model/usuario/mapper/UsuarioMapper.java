@@ -7,6 +7,7 @@ import wl.open_house_api.model.usuario.request.UsuarioRequestCreatMaster;
 import wl.open_house_api.model.usuario.request.UsuarioRequestCreatUser;
 import wl.open_house_api.model.usuario.request.UsuarioRequestEditMaster;
 import wl.open_house_api.model.usuario.response.UsuarioResponse;
+import wl.open_house_api.model.usuario.response.UsuarioResponseCrud;
 
 
 @Mapper
@@ -17,7 +18,7 @@ public interface UsuarioMapper {
 
     Usuario usuarioResquestCreatUserToUsuario(UsuarioRequestCreatUser usuarioRequestCreatUser);
 
-    Usuario usuarioResquestEditMasterToUsuario(UsuarioRequestEditMaster usuarioRequestEditMaster);
+    UsuarioResponseCrud usuarioToUsuarioResponseCrud(Usuario usuario);
 
     UsuarioResponse usuarioToUsuarioResponse(Usuario usuario);
 

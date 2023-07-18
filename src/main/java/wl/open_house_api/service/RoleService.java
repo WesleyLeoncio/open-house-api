@@ -13,7 +13,6 @@ import wl.open_house_api.model.role.response.RoleResponse;
 import wl.open_house_api.repository.RoleRepository;
 import java.util.Optional;
 
-
 @Service
 public class RoleService {
 

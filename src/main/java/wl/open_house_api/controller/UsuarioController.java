@@ -14,6 +14,7 @@ import wl.open_house_api.model.usuario.request.UsuarioRequestCreatUser;
 import wl.open_house_api.model.usuario.request.UsuarioRequestEditMaster;
 import wl.open_house_api.model.usuario.request.UsuarioRequestModifyStatus;
 import wl.open_house_api.model.usuario.response.UsuarioResponse;
+import wl.open_house_api.model.usuario.response.UsuarioResponseCrud;
 import wl.open_house_api.repository.UsuarioRepository;
 import wl.open_house_api.service.UsuarioService;
 import java.net.URI;
@@ -32,22 +33,22 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<UsuarioResponse> cadastrar(@RequestBody @Valid UsuarioRequestCreatMaster user, UriComponentsBuilder uriBuilder) {
-        UsuarioResponse response = service.insert(user);
+    public ResponseEntity<UsuarioResponseCrud> cadastrar(@RequestBody @Valid UsuarioRequestCreatMaster user, UriComponentsBuilder uriBuilder) {
+        UsuarioResponseCrud response = service.insert(user);
         URI uri = uriBuilder.path("usuarios/{id}").buildAndExpand(response.id()).toUri();
         return ResponseEntity.created(uri).body(response);
     }
 
     @PostMapping("/comum")
-    public ResponseEntity<UsuarioResponse> cadastrarUserProfileUser(@RequestBody @Valid UsuarioRequestCreatUser user, UriComponentsBuilder uriBuilder) {
-        UsuarioResponse response = service.insertUserProfileUser(user);
+    public ResponseEntity<UsuarioResponseCrud> cadastrarUserProfileUser(@RequestBody @Valid UsuarioRequestCreatUser user, UriComponentsBuilder uriBuilder) {
+        UsuarioResponseCrud response = service.insertUserProfileUser(user);
         URI uri = uriBuilder.path("usuarios/{id}").buildAndExpand(response.id()).toUri();
         return ResponseEntity.created(uri).body(response);
     }
 
     @PutMapping
-    public ResponseEntity<UsuarioResponse> editar(@RequestBody @Valid UsuarioRequestEditMaster user) {
-        UsuarioResponse response = service.update(user);
+    public ResponseEntity<UsuarioResponseCrud> editar(@RequestBody @Valid UsuarioRequestEditMaster user) {
+        UsuarioResponseCrud response = service.update(user);
         return ResponseEntity.ok(response);
     }
 
@@ -66,12 +67,11 @@ public class UsuarioController {
         return ResponseEntity.ok(service.findUsersStatusTrue(pageable));
     }
 
-    //TODO MODIFICADO
+
     @GetMapping("/{id}")
     @Transactional
-    public ResponseEntity<Usuario> detalharUsuario(@PathVariable Long id){
-        Usuario usuario = repository.findById(id).get();
-        return ResponseEntity.ok(usuario);
+    public ResponseEntity<UsuarioResponse> detalharUsuario(@PathVariable Long id){
+        return ResponseEntity.ok(service.findUser(id));
     }
 
     @DeleteMapping("/{id}")

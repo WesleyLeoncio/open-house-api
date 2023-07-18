@@ -16,10 +16,6 @@ public record UsuarioRequestEditMaster(
         String login,
 
         @NotBlank
-        String senha,
-
-        @NotNull
-        Boolean status
-
+        String senha
 ) {
 }

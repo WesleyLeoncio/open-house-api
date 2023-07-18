@@ -1,7 +1,8 @@
 package wl.open_house_api.model.usuario.entity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import wl.open_house_api.model.role.entity.Role;
+import wl.open_house_api.model.usuario.request.UsuarioRequestEditMaster;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -83,6 +84,12 @@ public class Usuario implements Serializable {
 
     public void setRole(List<Role> role) {
         this.role = role;
+    }
+
+    public void atualizarDados(UsuarioRequestEditMaster user){
+        setNome(user.nome());
+        setLogin(user.login());
+        setSenha(user.senha());
     }
 
     @Override

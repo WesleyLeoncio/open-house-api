@@ -13,11 +13,11 @@ import wl.open_house_api.model.usuario.request.UsuarioRequestCreatMaster;
 import wl.open_house_api.model.usuario.request.UsuarioRequestCreatUser;
 import wl.open_house_api.model.usuario.request.UsuarioRequestEditMaster;
 import wl.open_house_api.model.usuario.response.UsuarioResponse;
+import wl.open_house_api.model.usuario.response.UsuarioResponseCrud;
 import wl.open_house_api.repository.UsuarioRepository;
 import wl.open_house_api.service.interfaces.UsuarioServiceCrud;
 
 import java.util.List;
-
 
 @Service
 public class UsuarioService implements UsuarioServiceCrud {
@@ -34,25 +34,25 @@ public class UsuarioService implements UsuarioServiceCrud {
 
     @Override
     @Transactional
-    public UsuarioResponse insert(UsuarioRequestCreatMaster user) {
+    public UsuarioResponseCrud insert(UsuarioRequestCreatMaster user) {
         Usuario usuario = repository.save(UsuarioMapper.INSTANCE.usuarioResquestCreatMasterToUsuario(user));
-        adicionarProfiles(usuario,user.rolesList());
-        return UsuarioMapper.INSTANCE.usuarioToUsuarioResponse(usuario);
+        adicionarProfiles(usuario, user.rolesList());
+        return UsuarioMapper.INSTANCE.usuarioToUsuarioResponseCrud(usuario);
     }
 
     @Override
-    public UsuarioResponse insertUserProfileUser(UsuarioRequestCreatUser user) {
+    public UsuarioResponseCrud insertUserProfileUser(UsuarioRequestCreatUser user) {
         Usuario usuario = repository.save(UsuarioMapper.INSTANCE.usuarioResquestCreatUserToUsuario(user));
         adicionarProfileUser(usuario);
-        return UsuarioMapper.INSTANCE.usuarioToUsuarioResponse(usuario);
+        return UsuarioMapper.INSTANCE.usuarioToUsuarioResponseCrud(usuario);
     }
 
     @Override
     @Transactional
-    public UsuarioResponse update(UsuarioRequestEditMaster user) {
-        verificarUser(user.id());
-        Usuario usuario = repository.save(UsuarioMapper.INSTANCE.usuarioResquestEditMasterToUsuario(user));
-        return UsuarioMapper.INSTANCE.usuarioToUsuarioResponse(usuario);
+    public UsuarioResponseCrud update(UsuarioRequestEditMaster user) {
+        Usuario usuario = verificarUser(user.id());
+        usuario.atualizarDados(user);
+        return UsuarioMapper.INSTANCE.usuarioToUsuarioResponseCrud(usuario);
     }
 
     @Override
@@ -73,6 +73,7 @@ public class UsuarioService implements UsuarioServiceCrud {
     }
 
     @Override
+    @Transactional
     public void deleteUser(Long id) {
         repository.delete(verificarUser(id));
     }
@@ -89,15 +90,16 @@ public class UsuarioService implements UsuarioServiceCrud {
         return repository.getReferenceById(id);
     }
 
-    public Boolean usuarioAtivo(Long id){
+    public Boolean usuarioAtivo(Long id) {
         return repository.findStatusById(id);
     }
 
 
-    public void adicionarProfiles(Usuario usuario, List<ProfileRequestRole> roles){
-        roles.forEach(r -> profileService.adicionarProfile(new ProfileRequest(usuario.getId(),r.roleId())));
+    public void adicionarProfiles(Usuario usuario, List<ProfileRequestRole> roles) {
+        roles.forEach(r -> profileService.adicionarProfile(new ProfileRequest(usuario.getId(), r.roleId())));
     }
-    public void adicionarProfileUser(Usuario usuario){
+
+    public void adicionarProfileUser(Usuario usuario) {
         profileService.adicionarProfileUser(new ProfileRequestUser(usuario.getId()));
     }
 }
