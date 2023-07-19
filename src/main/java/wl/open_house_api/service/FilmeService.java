@@ -33,6 +33,7 @@ public class FilmeService implements FilmeServiceCrud {
     }
 
     @Override
+    @Transactional
     public FilmeResponse update(FilmeRequestEdit filmeRequestEdit) {
         verfificarFilme(filmeRequestEdit.id());
         Filme filme = repository.save(FilmeMapper.INSTANCE.filmeRequestEditToFilme(filmeRequestEdit));

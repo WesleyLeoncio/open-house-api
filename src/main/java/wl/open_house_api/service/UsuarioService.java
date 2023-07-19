@@ -41,6 +41,7 @@ public class UsuarioService implements UsuarioServiceCrud {
     }
 
     @Override
+    @Transactional
     public UsuarioResponseCrud insertUserProfileUser(UsuarioRequestCreatUser user) {
         Usuario usuario = repository.save(UsuarioMapper.INSTANCE.usuarioResquestCreatUserToUsuario(user));
         adicionarProfileUser(usuario);
@@ -93,7 +94,6 @@ public class UsuarioService implements UsuarioServiceCrud {
     public Boolean usuarioAtivo(Long id) {
         return repository.findStatusById(id);
     }
-
 
     public void adicionarProfiles(Usuario usuario, List<ProfileRequestRole> roles) {
         roles.forEach(r -> profileService.adicionarProfile(new ProfileRequest(usuario.getId(), r.roleId())));
