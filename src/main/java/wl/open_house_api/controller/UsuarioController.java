@@ -8,14 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-import wl.open_house_api.model.usuario.entity.Usuario;
 import wl.open_house_api.model.usuario.request.UsuarioRequestCreatMaster;
 import wl.open_house_api.model.usuario.request.UsuarioRequestCreatUser;
 import wl.open_house_api.model.usuario.request.UsuarioRequestEditMaster;
 import wl.open_house_api.model.usuario.request.UsuarioRequestModifyStatus;
 import wl.open_house_api.model.usuario.response.UsuarioResponse;
 import wl.open_house_api.model.usuario.response.UsuarioResponseCrud;
-import wl.open_house_api.repository.UsuarioRepository;
 import wl.open_house_api.service.UsuarioService;
 import java.net.URI;
 
@@ -25,11 +23,8 @@ public class UsuarioController {
 
     private final UsuarioService service;
 
-    private final UsuarioRepository repository;
-
-    public UsuarioController(UsuarioService service, UsuarioRepository repository) {
+    public UsuarioController(UsuarioService service) {
         this.service = service;
-        this.repository = repository;
     }
 
     @PostMapping
