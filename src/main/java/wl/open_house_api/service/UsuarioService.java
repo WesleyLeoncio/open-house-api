@@ -15,12 +15,12 @@ import wl.open_house_api.model.usuario.request.UsuarioRequestEditMaster;
 import wl.open_house_api.model.usuario.response.UsuarioResponse;
 import wl.open_house_api.model.usuario.response.UsuarioResponseCrud;
 import wl.open_house_api.repository.UsuarioRepository;
-import wl.open_house_api.service.interfaces.UsuarioServiceCrud;
+import wl.open_house_api.service.interfaces.UsuarioServiceMetodos;
 
 import java.util.List;
 
 @Service
-public class UsuarioService implements UsuarioServiceCrud {
+public class UsuarioService implements UsuarioServiceMetodos {
 
     final UsuarioRepository repository;
 
