@@ -1,5 +1,6 @@
 package wl.open_house_api.controller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("roles")
+@SecurityRequirement(name = "bearer-key")
 public class RoleController {
 
     final RoleService service;

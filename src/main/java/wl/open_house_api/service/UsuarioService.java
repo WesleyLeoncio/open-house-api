@@ -92,7 +92,7 @@ public class UsuarioService implements UsuarioServiceMetodos {
     }
 
     public Boolean usuarioAtivo(Long id) {
-        return repository.findStatusById(id);
+        return true;
     }
 
     public void adicionarProfiles(Usuario usuario, List<ProfileRequestRole> roles) {

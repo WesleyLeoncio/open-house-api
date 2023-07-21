@@ -1,5 +1,6 @@
 package wl.open_house_api.controller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +15,7 @@ import wl.open_house_api.service.AvaliacaoService;
 
 @RestController
 @RequestMapping("avaliacoes")
+@SecurityRequirement(name = "bearer-key")
 public class AvaliacaoController {
 
     final AvaliacaoService service;

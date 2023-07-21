@@ -1,5 +1,6 @@
 package wl.open_house_api.controller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import wl.open_house_api.service.ProfileService;
 
 @RestController
 @RequestMapping("profiles")
+@SecurityRequirement(name = "bearer-key")
 public class ProfileController {
 
     final ProfileService service;
