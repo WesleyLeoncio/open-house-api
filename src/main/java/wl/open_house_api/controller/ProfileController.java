@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import wl.open_house_api.model.profile.request.ProfileRequest;
 import wl.open_house_api.model.profile.response.ProfileResponse;
@@ -23,12 +24,14 @@ public class ProfileController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('MASTER')")
     public ResponseEntity<ProfileResponse> adicionarProfile(@RequestBody @Valid ProfileRequest profileRequest){
         ProfileResponse response = service.adicionarProfile(profileRequest);
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping
+    @PreAuthorize("hasAnyRole('MASTER')")
     public ResponseEntity<HttpStatus> removerProfile(@RequestBody @Valid ProfileRequest profileRequest){
         service.removerProfile(profileRequest);
         return ResponseEntity.noContent().build();

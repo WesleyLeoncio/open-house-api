@@ -1,7 +1,6 @@
 package wl.open_house_api.model.usuario.entity;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import wl.open_house_api.model.role.entity.Role;
 import wl.open_house_api.model.usuario.request.UsuarioRequestEditMaster;

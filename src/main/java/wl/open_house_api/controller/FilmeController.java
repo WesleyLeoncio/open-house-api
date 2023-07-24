@@ -32,6 +32,7 @@ public class FilmeController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<FilmeResponse> cadastrar(@RequestBody @Valid FilmeRequestCreat filme, UriComponentsBuilder uriBuilder) {
         FilmeResponse response = service.insert(filme);
         URI uri = uriBuilder.path("filmes/{id}").buildAndExpand(response.id()).toUri();
@@ -39,24 +40,27 @@ public class FilmeController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<FilmeResponse> editar(@RequestBody @Valid FilmeRequestEdit filme) {
         FilmeResponse response = service.update(filme);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER')")
     public ResponseEntity<Page<FilmeListResponse>> listarFilmes(@PageableDefault(sort = {"dataLancamento"},
             direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok(service.findMovies(pageable));
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('USER')")
     public ResponseEntity<FilmeResponse> detalharFilme(@PathVariable Long id) {
         return ResponseEntity.ok(service.findMovie(id));
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<HttpStatus> excluirFilme(@PathVariable Long id) {
         service.deleteMovie(id);
         return ResponseEntity.noContent().build();
