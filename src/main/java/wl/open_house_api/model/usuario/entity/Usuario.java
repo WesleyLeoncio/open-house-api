@@ -20,7 +20,7 @@ public class Usuario implements UserDetails {
     private String login;
     private String senha;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "profiles",
             joinColumns = @JoinColumn(name = "usuario_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -109,17 +109,17 @@ public class Usuario implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        return getRole();
     }
 
     @Override
     public String getPassword() {
-        return senha;
+        return getSenha();
     }
 
     @Override
     public String getUsername() {
-        return login;
+        return getLogin();
     }
 
     @Override

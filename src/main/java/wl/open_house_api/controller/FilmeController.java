@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import wl.open_house_api.model.filme.request.FilmeRequestCreat;
@@ -44,6 +45,7 @@ public class FilmeController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<Page<FilmeListResponse>> listarFilmes(@PageableDefault(sort = {"dataLancamento"},
             direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok(service.findMovies(pageable));
