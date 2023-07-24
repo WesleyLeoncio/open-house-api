@@ -34,7 +34,7 @@ public class TokenService { // TODO RESOLVER EXEPTIONS
         try {
             Algorithm algoritmo = Algorithm.HMAC256(secret);
             return JWT.require(algoritmo)
-                    .withIssuer("API Voll.med")
+                    .withIssuer("API Open House")
                     .build()
                     .verify(tokenJWT)
                     .getSubject();
