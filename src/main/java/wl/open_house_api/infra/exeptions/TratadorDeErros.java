@@ -2,7 +2,6 @@ package wl.open_house_api.infra.exeptions;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.hibernate.annotations.NotFound;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
@@ -36,5 +35,9 @@ public class TratadorDeErros {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
 
+    @ExceptionHandler(JWTException.class)
+    public ResponseEntity tratarErroJwt(JWTException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
 
 }
