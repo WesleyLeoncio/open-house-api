@@ -22,9 +22,7 @@ public class AvaliacaoDeFilmes implements Serializable {
 
     private int nota;
 
-
-    public AvaliacaoDeFilmes() {
-    }
+    public AvaliacaoDeFilmes() {}
 
     public AvaliacaoDeFilmes(Long id, Filme filme, Usuario usuario, int nota) {
         this.id = id;

@@ -29,7 +29,6 @@ public class UsuarioService implements UsuarioServiceMetodos {
 
     final BCryptPasswordEncoder passwordEncoder;
 
-
     public UsuarioService(UsuarioRepository repository, ProfileService profileService, BCryptPasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.profileService = profileService;
