@@ -20,7 +20,6 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("usuarios")
-@SecurityRequirement(name = "bearer-key")
 public class UsuarioController {
 
     private final UsuarioService service;
@@ -30,6 +29,7 @@ public class UsuarioController {
     }
 
     @PostMapping
+    @SecurityRequirement(name = "bearer-key")
     @PreAuthorize("hasAnyRole('MASTER')")
     public ResponseEntity<UsuarioResponseCrud> cadastrar(@RequestBody @Valid UsuarioRequestCreatMaster user, UriComponentsBuilder uriBuilder) {
         UsuarioResponseCrud response = service.insert(user);
@@ -45,6 +45,7 @@ public class UsuarioController {
     }
 
     @PutMapping
+    @SecurityRequirement(name = "bearer-key")
     @PreAuthorize("hasAnyRole('MASTER')")
     public ResponseEntity<UsuarioResponseCrud> editar(@RequestBody @Valid UsuarioRequestEditMaster user) {
         UsuarioResponseCrud response = service.update(user);
@@ -52,6 +53,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/modificarStatus")
+    @SecurityRequirement(name = "bearer-key")
     @PreAuthorize("hasAnyRole('MASTER')")
     public ResponseEntity<HttpStatus> modificarStatus(@RequestBody @Valid UsuarioRequestModifyStatus user){
         service.modifyStatus(user.id());
@@ -59,11 +61,13 @@ public class UsuarioController {
     }
 
     @GetMapping
+    @SecurityRequirement(name = "bearer-key")
     @PreAuthorize("hasAnyRole('MASTER')")
     public ResponseEntity<Page<UsuarioResponse>> listarUsuarios(Pageable pageable){
         return ResponseEntity.ok(service.findUsers(pageable));
     }
     @GetMapping("/ativos")
+    @SecurityRequirement(name = "bearer-key")
     @PreAuthorize("hasAnyRole('MASTER', 'ADMIN')")
     public ResponseEntity<Page<UsuarioResponse>> listarUsuariosAtivos(Pageable pageable){
         return ResponseEntity.ok(service.findUsersStatusTrue(pageable));
@@ -71,12 +75,14 @@ public class UsuarioController {
 
 
     @GetMapping("/{id}")
+    @SecurityRequirement(name = "bearer-key")
     @PreAuthorize("hasAnyRole('MASTER', 'ADMIN')")
     public ResponseEntity<UsuarioResponse> detalharUsuario(@PathVariable Long id){
         return ResponseEntity.ok(service.findUser(id));
     }
 
     @DeleteMapping("/{id}")
+    @SecurityRequirement(name = "bearer-key")
     @PreAuthorize("hasAnyRole('MASTER')")
     public ResponseEntity<HttpStatus> excluiruUsuario(@PathVariable Long id){
         service.deleteUser(id);

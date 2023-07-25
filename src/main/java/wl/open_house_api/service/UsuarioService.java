@@ -2,6 +2,7 @@ package wl.open_house_api.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wl.open_house_api.model.profile.request.ProfileRequest;
@@ -26,26 +27,38 @@ public class UsuarioService implements UsuarioServiceMetodos {
 
     final ProfileService profileService;
 
+    final BCryptPasswordEncoder passwordEncoder;
 
-    public UsuarioService(UsuarioRepository repository, ProfileService profileService) {
+
+    public UsuarioService(UsuarioRepository repository, ProfileService profileService, BCryptPasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.profileService = profileService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     @Transactional
     public UsuarioResponseCrud insert(UsuarioRequestCreatMaster user) {
-        Usuario usuario = repository.save(UsuarioMapper.INSTANCE.usuarioResquestCreatMasterToUsuario(user));
-        adicionarProfiles(usuario, user.rolesList());
-        return UsuarioMapper.INSTANCE.usuarioToUsuarioResponseCrud(usuario);
+        Usuario usuario = UsuarioMapper.INSTANCE.usuarioResquestCreatMasterToUsuario(user);
+        usuario.setSenha(passwordEncoder.encode(usuario.getPassword()));
+
+        Usuario cadastro = repository.save(usuario);
+
+        adicionarProfiles(cadastro, user.rolesList());
+        return UsuarioMapper.INSTANCE.usuarioToUsuarioResponseCrud(cadastro);
     }
 
     @Override
     @Transactional
     public UsuarioResponseCrud insertUserProfileUser(UsuarioRequestCreatUser user) {
-        Usuario usuario = repository.save(UsuarioMapper.INSTANCE.usuarioResquestCreatUserToUsuario(user));
-        adicionarProfileUser(usuario);
-        return UsuarioMapper.INSTANCE.usuarioToUsuarioResponseCrud(usuario);
+        Usuario usuario = UsuarioMapper.INSTANCE.usuarioResquestCreatUserToUsuario(user);
+
+        usuario.setSenha(passwordEncoder.encode(usuario.getPassword()));
+
+        Usuario cadastro = repository.save(usuario);
+
+        adicionarProfileUser(cadastro);
+        return UsuarioMapper.INSTANCE.usuarioToUsuarioResponseCrud(cadastro);
     }
 
     @Override
@@ -92,7 +105,7 @@ public class UsuarioService implements UsuarioServiceMetodos {
     }
 
     public Boolean usuarioAtivo(Long id) {
-        return true;
+        return repository.findStatusById(id);
     }
 
     public void adicionarProfiles(Usuario usuario, List<ProfileRequestRole> roles) {
