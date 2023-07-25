@@ -2,11 +2,13 @@ package wl.open_house_api.infra.exeptions;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.hibernate.annotations.NotFound;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.List;
 
 @RestControllerAdvice
-public class TratadorDeErros {
+public class TratadorDeErros { //TODO TRATAR WARNINGS
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<NotFound> tratarErro404(EntityNotFoundException e) {
@@ -34,9 +36,18 @@ public class TratadorDeErros {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
 
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<String> tratarErro422(DataIntegrityViolationException ex) {
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Registro já existe na Base de dados!");
+    }
+
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity tratarErroBadCredentials() {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais inválidas");
+    }
+    @ExceptionHandler(InternalAuthenticationServiceException.class)
+    public ResponseEntity tratarAuthenticationServiceException() {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario não existe!");
     }
 
     @ExceptionHandler(AuthenticationException.class)
@@ -59,9 +70,6 @@ public class TratadorDeErros {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
 
-    @ExceptionHandler(JWTException.class)
-    public ResponseEntity tratarErroJwt(JWTException ex) {
-        return ResponseEntity.badRequest().body(ex.getMessage());
-    }
+
 
 }

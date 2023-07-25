@@ -1,5 +1,4 @@
 package wl.open_house_api.service;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,19 +26,19 @@ public class UsuarioService implements UsuarioServiceMetodos {
 
     final ProfileService profileService;
 
-    final BCryptPasswordEncoder passwordEncoder;
+    final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public UsuarioService(UsuarioRepository repository, ProfileService profileService, BCryptPasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.profileService = profileService;
-        this.passwordEncoder = passwordEncoder;
+        this.bCryptPasswordEncoder = passwordEncoder;
     }
 
     @Override
     @Transactional
     public UsuarioResponseCrud insert(UsuarioRequestCreatMaster user) {
         Usuario usuario = UsuarioMapper.INSTANCE.usuarioResquestCreatMasterToUsuario(user);
-        usuario.setSenha(passwordEncoder.encode(usuario.getPassword()));
+        usuario.setSenha(bCryptPasswordEncoder.encode(usuario.getPassword()));
 
         Usuario cadastro = repository.save(usuario);
 
@@ -48,15 +47,15 @@ public class UsuarioService implements UsuarioServiceMetodos {
     }
 
     @Override
-    @Transactional
     public UsuarioResponseCrud insertUserProfileUser(UsuarioRequestCreatUser user) {
         Usuario usuario = UsuarioMapper.INSTANCE.usuarioResquestCreatUserToUsuario(user);
 
-        usuario.setSenha(passwordEncoder.encode(usuario.getPassword()));
+        usuario.setSenha(bCryptPasswordEncoder.encode(usuario.getPassword()));
 
         Usuario cadastro = repository.save(usuario);
 
         adicionarProfileUser(cadastro);
+
         return UsuarioMapper.INSTANCE.usuarioToUsuarioResponseCrud(cadastro);
     }
 
@@ -114,4 +113,6 @@ public class UsuarioService implements UsuarioServiceMetodos {
     public void adicionarProfileUser(Usuario usuario) {
         profileService.adicionarProfileUser(new ProfileRequestUser(usuario.getId()));
     }
+
+
 }
