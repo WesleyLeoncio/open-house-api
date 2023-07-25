@@ -1,4 +1,5 @@
 package wl.open_house_api.infra.config.security;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import wl.open_house_api.infra.exeptions.JWTException;
 import wl.open_house_api.repository.UsuarioRepository;
 import wl.open_house_api.service.TokenService;
 
@@ -28,18 +30,23 @@ public class SecurityFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String tokenJWT = recuperarToken(request);
+        try {
+            var tokenJWT = recuperarToken(request);
 
-        if (tokenJWT != null) {
-            String subject = tokenService.getSubject(tokenJWT);
-            UserDetails usuario = repository.findByLogin(subject);
+            if (tokenJWT != null) {
+                var subject = tokenService.getSubject(tokenJWT);
+                var usuario = repository.findByLogin(subject);
 
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
+                var authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
 
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+            filterChain.doFilter(request, response);
+        } catch (JWTException ex) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().println(ex.getLocalizedMessage());
         }
-
-        filterChain.doFilter(request, response);
     }
     private String recuperarToken(HttpServletRequest request) {
         String authorizationHeader = request.getHeader("Authorization");

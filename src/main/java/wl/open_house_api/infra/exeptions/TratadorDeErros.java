@@ -46,7 +46,7 @@ public class TratadorDeErros {
 
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity tratarErroAcessoNegado() {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Acesso negado");
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Acesso Negado");
     }
 
     @ExceptionHandler(Exception.class)
