@@ -18,8 +18,12 @@ public class SpingDocConfigurations {
                                 .scheme("bearer").bearerFormat("JWT")))
 
                 .info(new Info()
-                        .title("API OPEN HOUSE ")
-                        .description("API ....")
+                        .title("API OPEN HOUSE")
+                        .description("""
+                                <html>
+                                  <img height="200" width="220" src="https://titleinsurancewebdesign.com/firsttitleabstract/wp-content/uploads/sites/55/2014/03/open-house.jpg" alt="Descrição da Imagem">
+                                </html>
+                                """)
                         .contact(new Contact()
                                 .name("Time Backend")
                                 .email("backend@open.house"))
