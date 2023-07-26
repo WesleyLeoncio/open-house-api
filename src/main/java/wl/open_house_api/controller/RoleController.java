@@ -12,7 +12,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import wl.open_house_api.model.role.request.RoleRequest;
 import wl.open_house_api.model.role.request.RoleRequestCreat;
 import wl.open_house_api.model.role.response.RoleResponse;
-import wl.open_house_api.repository.ProfileRepository;
 import wl.open_house_api.service.RoleService;
 
 import java.net.URI;
@@ -24,11 +23,8 @@ public class RoleController {
 
     final RoleService service;
 
-    final ProfileRepository repository;
-
-    public RoleController(RoleService service, ProfileRepository repository) {
+    public RoleController(RoleService service) {
         this.service = service;
-        this.repository = repository;
     }
 
     @PostMapping

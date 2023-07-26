@@ -47,6 +47,7 @@ public class UsuarioService implements UsuarioServiceMetodos {
     }
 
     @Override
+    @Transactional
     public UsuarioResponseCrud insertUserProfileUser(UsuarioRequestCreatUser user) {
         Usuario usuario = UsuarioMapper.INSTANCE.usuarioResquestCreatUserToUsuario(user);
 

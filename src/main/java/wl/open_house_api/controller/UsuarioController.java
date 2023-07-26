@@ -22,7 +22,7 @@ import java.net.URI;
 @RequestMapping("usuarios")
 public class UsuarioController {
 
-    private final UsuarioService service;
+    final UsuarioService service;
 
     public UsuarioController(UsuarioService service) {
         this.service = service;
