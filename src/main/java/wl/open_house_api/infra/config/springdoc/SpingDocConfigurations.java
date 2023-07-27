@@ -21,7 +21,10 @@ public class SpingDocConfigurations {
                         .title("API OPEN HOUSE")
                         .description("""
                                 <html>
-                                  <img height="200" width="220" src="https://titleinsurancewebdesign.com/firsttitleabstract/wp-content/uploads/sites/55/2014/03/open-house.jpg" alt="Descrição da Imagem">
+                                <div>
+                                    <img height="80" width="100"  src="https://titleinsurancewebdesign.com/firsttitleabstract/wp-content/uploads/sites/55/2014/03/open-house.jpg" alt="Imagem">
+                                    <p>API DE EXEMPLO UTILIZANDO SPRING BOOT 3.1.1</p>
+                                </div>
                                 </html>
                                 """)
                         .contact(new Contact()
