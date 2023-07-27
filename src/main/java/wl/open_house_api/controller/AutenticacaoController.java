@@ -1,5 +1,6 @@
 package wl.open_house_api.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,6 +29,7 @@ public class AutenticacaoController {
     }
 
     @PostMapping()
+    @Operation( summary = "Realiza o login", description = "É necessário ter usuários previamente cadastrados.", tags = { "Endpoint De Login" } )
     public ResponseEntity<TokenJwtResponse> efetuarLogin(@RequestBody @Valid UsuarioAtenticaoRequest userLogin) {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userLogin.login(), userLogin.senha());
         Authentication authentication = manager.authenticate(token);
