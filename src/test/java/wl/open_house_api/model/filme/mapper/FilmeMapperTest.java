@@ -1,7 +1,9 @@
 package wl.open_house_api.model.filme.mapper;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import wl.open_house_api.model.filme.entity.Filme;
 import wl.open_house_api.model.filme.enuns.Categoria;
@@ -16,10 +18,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 class FilmeMapperTest {
 
+    private FilmeFactory filmeFactory;
+    @BeforeEach
+    public void beforeEach(){
+        MockitoAnnotations.initMocks((this));
+        this.filmeFactory = new FilmeFactory();
+    }
+
     @Test
     @DisplayName("Deveria converter um FilmeRequestCreat em uma entity Filme")
     void filmeRequestCreatToFilmeCenario() {
-        FilmeFactory filmeFactory = new FilmeFactory();
 
         Filme filme = FilmeMapper.INSTANCE.filmeRequestCreatToFilme(filmeFactory.getFilmeRequestCreat());
 
@@ -36,7 +44,6 @@ class FilmeMapperTest {
     @Test
     @DisplayName("Deveria converter um FilmeRequestEdit em uma entity Filme")
     void filmeRequestEditToFilme() {
-        FilmeFactory filmeFactory = new FilmeFactory();
 
         Filme filme = FilmeMapper.INSTANCE.filmeRequestEditToFilme(filmeFactory.getFilmeRequestEdit());
 
@@ -54,7 +61,6 @@ class FilmeMapperTest {
     @Test
     @DisplayName("Deveria converter um Filme em uma entity FilmeResponse")
     void filmeToFilmeResponse() {
-        FilmeFactory filmeFactory = new FilmeFactory();
 
         FilmeResponse filmeResponse = FilmeMapper.INSTANCE.filmeToFilmeResponse(filmeFactory.getFilme());
 
@@ -72,7 +78,6 @@ class FilmeMapperTest {
     @Test
     @DisplayName("Deveria converter um Filme em uma entity FilmeListResponse")
     void filmeToFilmeListResponse() {
-        FilmeFactory filmeFactory = new FilmeFactory();
 
         FilmeListResponse filmeListResponse = FilmeMapper.INSTANCE.filmeToFilmeListResponse(filmeFactory.getFilme());
 

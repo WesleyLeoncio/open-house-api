@@ -7,6 +7,7 @@ import wl.open_house_api.model.usuario.entity.Usuario;
 import wl.open_house_api.model.usuario.request.UsuarioRequestCreatMaster;
 import wl.open_house_api.model.usuario.request.UsuarioRequestCreatUser;
 import wl.open_house_api.model.usuario.response.UsuarioResponse;
+import wl.open_house_api.model.usuario.response.UsuarioResponseCrud;
 
 import java.util.List;
 
@@ -44,6 +45,10 @@ public class UsuarioFactory {
     public UsuarioResponse getUsuarioResponse(){
         RoleFactory roleFactory = new RoleFactory();
         return new UsuarioResponse(this.id, this.nome,this.login, roleFactory.getListRoleResponseUser(), status);
+    }
+
+    public UsuarioResponseCrud getUsuarioResponseCrud(){
+        return new UsuarioResponseCrud(this.id, this.nome,this.login, status);
     }
 
 

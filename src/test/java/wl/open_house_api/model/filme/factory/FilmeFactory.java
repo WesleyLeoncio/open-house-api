@@ -4,6 +4,7 @@ import wl.open_house_api.model.filme.entity.Filme;
 import wl.open_house_api.model.filme.enuns.Categoria;
 import wl.open_house_api.model.filme.request.FilmeRequestCreat;
 import wl.open_house_api.model.filme.request.FilmeRequestEdit;
+import wl.open_house_api.model.filme.response.FilmeResponse;
 
 import java.time.LocalDate;
 
@@ -41,6 +42,10 @@ public class FilmeFactory {
     public FilmeRequestEdit getFilmeRequestEdit(){
         return new FilmeRequestEdit(
                 this.id, this.nome, this.descricao, this.data, this.duracao, this.imagem, this.categoria);
+    }
+
+    public FilmeResponse getFilmeResponse(){
+        return new FilmeResponse(this.id, this.nome, this.descricao, this.data, this.duracao, this.imagem, this.categoria);
     }
 
 

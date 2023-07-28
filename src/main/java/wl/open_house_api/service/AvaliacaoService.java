@@ -42,7 +42,7 @@ public class AvaliacaoService implements AvaliacaoMetodos {
         realizarAvaliacao(avaliarFilme);
     }
 
-    public void realizarAvaliacao(AvaliarFilmeRequest avaliarFilme) {
+    private void realizarAvaliacao(AvaliarFilmeRequest avaliarFilme) {
         Filme filme = filmeService.verfificarFilme(avaliarFilme.idFilme());
         Usuario usuario = usuarioService.verificarUser(avaliarFilme.idUsuario());
 

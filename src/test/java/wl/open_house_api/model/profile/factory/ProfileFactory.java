@@ -2,6 +2,7 @@ package wl.open_house_api.model.profile.factory;
 
 import wl.open_house_api.model.profile.entity.Profile;
 import wl.open_house_api.model.profile.entity.ProfileId;
+import wl.open_house_api.model.profile.request.ProfileRequest;
 import wl.open_house_api.model.profile.request.ProfileRequestRole;
 import wl.open_house_api.model.profile.response.ProfileResponse;
 import wl.open_house_api.model.role.entity.Role;
@@ -15,8 +16,8 @@ import java.util.List;
 
 public class ProfileFactory {
 
-    private Usuario usuario;
-    private Role role;
+    private final Usuario usuario;
+    private final Role role;
 
     public ProfileFactory() {
         RoleFactory roleFactory = new RoleFactory();
@@ -28,6 +29,10 @@ public class ProfileFactory {
 
     public ProfileRequestRole getProfileRequestRole(){
         return new ProfileRequestRole(this.role.getId());
+    }
+
+    public ProfileRequest getProfileRequest(){
+        return new ProfileRequest(this.usuario.getId(),this.role.getId());
     }
 
     public List<ProfileRequestRole> getlistProfileRequestRole(){
