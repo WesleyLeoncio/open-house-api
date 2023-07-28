@@ -11,8 +11,8 @@ import java.util.List;
 
 public class RoleFactory {
 
-    private Long id;
-    private String nome;
+    private final Long id;
+    private final String nome;
 
 
     public RoleFactory() {

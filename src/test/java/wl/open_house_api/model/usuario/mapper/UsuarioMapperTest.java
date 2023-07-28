@@ -56,8 +56,9 @@ class UsuarioMapperTest {
     @Test
     @DisplayName("Deveria converter um usuario em uma entity UsuarioResponse")
     void usuarioToUsuarioResponse() {
+
         UsuarioResponse usuarioResponse =
-                UsuarioMapper.INSTANCE.usuarioToUsuarioResponse(usuarioFactory.getUsuario());
+                UsuarioMapper.INSTANCE.usuarioToUsuarioResponse(usuarioFactory.getUsuarioRoles());
 
         assertThat(usuarioResponse.nome()).isEqualTo("Usuario");
         assertThat(usuarioResponse.login()).isEqualTo("usuario@email.com");

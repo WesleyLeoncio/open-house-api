@@ -31,12 +31,11 @@ public class Usuario implements UserDetails {
         this.status = true;
     }
 
-    public Usuario(Long id, String nome, String login, String senha, List<Role> role) {
+    public Usuario(Long id, String nome, String login, String senha) {
         this.id = id;
         this.nome = nome;
         this.login = login;
         this.senha = senha;
-        this.role = role;
         this.status = true;
     }
 

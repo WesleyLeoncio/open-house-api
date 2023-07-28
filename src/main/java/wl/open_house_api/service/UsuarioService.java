@@ -1,7 +1,7 @@
 package wl.open_house_api.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wl.open_house_api.model.profile.request.ProfileRequest;
@@ -26,19 +26,19 @@ public class UsuarioService implements UsuarioServiceMetodos {
 
     final ProfileService profileService;
 
-    final BCryptPasswordEncoder bCryptPasswordEncoder;
+    final PasswordEncoder passwordEncoder;
 
-    public UsuarioService(UsuarioRepository repository, ProfileService profileService, BCryptPasswordEncoder passwordEncoder) {
+    public UsuarioService(UsuarioRepository repository, ProfileService profileService, PasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.profileService = profileService;
-        this.bCryptPasswordEncoder = passwordEncoder;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     @Transactional
     public UsuarioResponseCrud insert(UsuarioRequestCreatMaster user) {
         Usuario usuario = UsuarioMapper.INSTANCE.usuarioResquestCreatMasterToUsuario(user);
-        usuario.setSenha(bCryptPasswordEncoder.encode(usuario.getPassword()));
+        usuario.setSenha(passwordEncoder.encode(usuario.getPassword()));
 
         Usuario cadastro = repository.save(usuario);
 
@@ -51,7 +51,7 @@ public class UsuarioService implements UsuarioServiceMetodos {
     public UsuarioResponseCrud insertUserProfileUser(UsuarioRequestCreatUser user) {
         Usuario usuario = UsuarioMapper.INSTANCE.usuarioResquestCreatUserToUsuario(user);
 
-        usuario.setSenha(bCryptPasswordEncoder.encode(usuario.getPassword()));
+        usuario.setSenha(passwordEncoder.encode(usuario.getPassword()));
 
         Usuario cadastro = repository.save(usuario);
 

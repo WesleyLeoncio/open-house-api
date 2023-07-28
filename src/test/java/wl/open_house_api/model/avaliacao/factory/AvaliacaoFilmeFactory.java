@@ -10,10 +10,10 @@ import wl.open_house_api.model.usuario.factory.UsuarioFactory;
 
 public class AvaliacaoFilmeFactory {
 
-    private Long id;
-    private Filme filme;
-    private Usuario usuario;
-    private int nota;
+    private final Long id;
+    private final Filme filme;
+    private final Usuario usuario;
+    private final int nota;
 
     public AvaliacaoFilmeFactory() {
         FilmeFactory filmeFactory = new FilmeFactory();
