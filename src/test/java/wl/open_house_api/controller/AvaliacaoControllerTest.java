@@ -18,6 +18,8 @@ import wl.open_house_api.model.avaliacao.factory.AvaliacaoFilmeFactory;
 import wl.open_house_api.model.avaliacao.request.AvaliarFilmeRequest;
 import wl.open_house_api.service.AvaliacaoService;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @SpringBootTest
@@ -35,6 +37,7 @@ class AvaliacaoControllerTest {
     private AvaliacaoService avaliacaoService;
 
     private AvaliacaoFilmeFactory avaliacaoFilmeFactory;
+
 
     @BeforeEach
     public void beforeEach(){
@@ -56,6 +59,9 @@ class AvaliacaoControllerTest {
     @DisplayName("Deveria devolver codigo http 204 quando informacoes estao corretas")
     @WithMockUser(authorities = "ROLE_USER")
     void avaliarFilmesCenario2() throws Exception {
+
+       doNothing().when(avaliacaoService).avaliarFilme(any());
+
         MockHttpServletResponse response = mvc.perform(
                 post("/avaliacoes")
                         .contentType(MediaType.APPLICATION_JSON)
