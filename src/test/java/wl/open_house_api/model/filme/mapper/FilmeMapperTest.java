@@ -3,7 +3,6 @@ package wl.open_house_api.model.filme.mapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import wl.open_house_api.model.filme.entity.Filme;
 import wl.open_house_api.model.filme.enuns.Categoria;
@@ -21,7 +20,6 @@ class FilmeMapperTest {
     private FilmeFactory filmeFactory;
     @BeforeEach
     public void beforeEach(){
-        MockitoAnnotations.initMocks((this));
         this.filmeFactory = new FilmeFactory();
     }
 

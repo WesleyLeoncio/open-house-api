@@ -17,13 +17,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import wl.open_house_api.model.profile.factory.ProfileFactory;
 import wl.open_house_api.model.profile.request.ProfileRequest;
 import wl.open_house_api.model.profile.response.ProfileResponse;
-import wl.open_house_api.model.usuario.request.UsuarioRequestCreatMaster;
-import wl.open_house_api.model.usuario.request.UsuarioRequestCreatUser;
-import wl.open_house_api.model.usuario.response.UsuarioResponseCrud;
 import wl.open_house_api.service.ProfileService;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;

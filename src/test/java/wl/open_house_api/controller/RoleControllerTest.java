@@ -17,11 +17,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import wl.open_house_api.model.role.factory.RoleFactory;
 import wl.open_house_api.model.role.request.RoleRequestCreat;
 import wl.open_house_api.model.role.response.RoleResponse;
-import wl.open_house_api.model.usuario.response.UsuarioResponseCrud;
 import wl.open_house_api.service.RoleService;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;

@@ -6,7 +6,6 @@ import wl.open_house_api.model.avaliacao.factory.AvaliacaoFilmeFactory;
 import wl.open_house_api.model.avaliacao.response.AvaliacaoDeFilmesResponse;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class AvaliacaoMapperTest {
 
