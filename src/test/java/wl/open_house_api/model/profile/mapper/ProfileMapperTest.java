@@ -2,23 +2,22 @@ package wl.open_house_api.model.profile.mapper;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import wl.open_house_api.model.profile.entity.Profile;
-import wl.open_house_api.model.profile.request.ProfileRequestCreat;
-
+import wl.open_house_api.model.profile.factory.ProfileFactory;
+import wl.open_house_api.model.profile.response.ProfileResponse;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+
 
 class ProfileMapperTest {
 
     @Test
-    @DisplayName("Deveria converter um ProfileRequestCreat em uma entity Profile")
-    void profileRequestCreatToProfileCenario1() {
-        ProfileRequestCreat profileRequestCreat = new ProfileRequestCreat("ROLE_ADMIN");
+    @DisplayName("Deveria converter um profile em uma entity ProfileResponse")
+    void profileToProfileResponse() {
+        ProfileFactory profileFactory = new ProfileFactory();
 
-        Profile profile = ProfileMapper.INSTANCE.profileRequestCreatToProfile(profileRequestCreat);
+        ProfileResponse profileResponse = ProfileMapper.INSTANCE.profileToProfileResponse(profileFactory.getProfile());
 
-        //then
-        assertThat( profile ).isNotNull();
-        assertThat( profile.getNome()).isEqualTo( "ROLE_ADMIN" );
+        assertThat(profileResponse).isNotNull();
+        assertThat( profileResponse.usuario().id()).isEqualTo( 1L );
+        assertThat( profileResponse.role().id()).isEqualTo( 1L );
     }
 }

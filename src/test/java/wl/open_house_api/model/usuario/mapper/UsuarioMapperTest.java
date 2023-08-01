@@ -1,35 +1,70 @@
 package wl.open_house_api.model.usuario.mapper;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import wl.open_house_api.model.profile.entity.Profile;
-import wl.open_house_api.model.profile.request.ProfileRequest;
 import wl.open_house_api.model.usuario.entity.Usuario;
-import wl.open_house_api.model.usuario.request.UsuarioRequestCreatMaster;
+import wl.open_house_api.model.usuario.factory.UsuarioFactory;
+import wl.open_house_api.model.usuario.response.UsuarioResponse;
+import wl.open_house_api.model.usuario.response.UsuarioResponseCrud;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class UsuarioMapperTest {
+    private UsuarioFactory usuarioFactory;
+
+    @BeforeEach
+    public void beforeEach(){
+        this.usuarioFactory = new UsuarioFactory();
+    }
 
     @Test
-    @DisplayName("Deveria converter um UsuarioRequestCreatMaster em uma entity Usuario")
-    void usuarioResquestCreatMasterToUsuarioCenario1() {
+    @DisplayName("Deveria converter um UsuarioResquestCreatUser em uma entity Usuario")
+    void usuarioResquestCreatUserToUsuario() {
+        Usuario usuario = UsuarioMapper.INSTANCE.usuarioResquestCreatUserToUsuario(usuarioFactory.getUsuarioRequestCreatUser());
 
-        ProfileRequest profileEsperado = new ProfileRequest(1L, "ROLE_MASTER");
+        assertThat(usuario).isNotNull();
+        assertThat(usuario.getNome()).isEqualTo("Usuario");
+        assertThat(usuario.getLogin()).isEqualTo("usuario@email.com");
+        assertThat(usuario.getSenha()).isEqualTo("123456");
+    }
 
-        UsuarioRequestCreatMaster master = new UsuarioRequestCreatMaster(
-              "Wesley", "admin@email.com", "123456",profileEsperado
-        );
+    @Test
+    @DisplayName("Deveria converter um UsuarioResquestCreatMaster em uma entity Usuario")
+    void usuarioResquestCreatMasterToUsuario() {
+        Usuario usuario = UsuarioMapper.INSTANCE.usuarioResquestCreatMasterToUsuario(usuarioFactory.getUsuarioRequestCreatMaster());
 
+        assertThat(usuario).isNotNull();
+        assertThat(usuario.getNome()).isEqualTo("Usuario");
+        assertThat(usuario.getLogin()).isEqualTo("usuario@email.com");
+        assertThat(usuario.getSenha()).isEqualTo("123456");
+        assertThat(usuario.getStatus()).isTrue();
+    }
 
-        Usuario usuario =  UsuarioMapper.INSTANCE.usuarioResquestCreatMasterToUsuario(master);
+    @Test
+    @DisplayName("Deveria converter um usuario em uma entity UsuarioResponseCrud")
+    void usuarioToUsuarioResponseCrud() {
+        UsuarioResponseCrud usuarioResponseCrud =
+                UsuarioMapper.INSTANCE.usuarioToUsuarioResponseCrud(usuarioFactory.getUsuario());
 
-        assertThat( usuario ).isNotNull();
-        assertThat( usuario.getNome()).isEqualTo( "Wesley" );
-        assertThat( usuario.getLogin()).isEqualTo( "admin@email.com" );
-        assertThat( usuario.getSenha()).isEqualTo( "123456" );
-        assertThat( usuario.getProfile().getNome()).isEqualTo( profileEsperado.nome() );
-        assertThat( usuario.getProfile().getId()).isEqualTo( profileEsperado.id() );
+        assertThat(usuarioResponseCrud.nome()).isEqualTo("Usuario");
+        assertThat(usuarioResponseCrud.login()).isEqualTo("usuario@email.com");
+        assertThat(usuarioResponseCrud.status()).isTrue();
+
+    }
+
+    @Test
+    @DisplayName("Deveria converter um usuario em uma entity UsuarioResponse")
+    void usuarioToUsuarioResponse() {
+
+        UsuarioResponse usuarioResponse =
+                UsuarioMapper.INSTANCE.usuarioToUsuarioResponse(usuarioFactory.getUsuarioRoles());
+
+        assertThat(usuarioResponse.nome()).isEqualTo("Usuario");
+        assertThat(usuarioResponse.login()).isEqualTo("usuario@email.com");
+        assertThat(usuarioResponse.status()).isTrue();
+        assertThat(usuarioResponse.role().get(0).nome()).isEqualTo("ROLE_USER");
     }
 }
+
+

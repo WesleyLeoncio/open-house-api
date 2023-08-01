@@ -4,9 +4,11 @@ import jakarta.persistence.*;
 import wl.open_house_api.model.filme.entity.Filme;
 import wl.open_house_api.model.usuario.entity.Usuario;
 
+import java.io.Serializable;
+
 @Table(name = "avaliacoes")
 @Entity(name="AvaliacaoDeFilmes")
-public class AvaliacaoDeFilmes {
+public class AvaliacaoDeFilmes implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,9 +22,7 @@ public class AvaliacaoDeFilmes {
 
     private int nota;
 
-
-    public AvaliacaoDeFilmes() {
-    }
+    public AvaliacaoDeFilmes() {}
 
     public AvaliacaoDeFilmes(Long id, Filme filme, Usuario usuario, int nota) {
         this.id = id;

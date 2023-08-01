@@ -1,23 +1,21 @@
 package wl.open_house_api.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 import wl.open_house_api.model.profile.request.ProfileRequest;
-import wl.open_house_api.model.profile.request.ProfileRequestCreat;
 import wl.open_house_api.model.profile.response.ProfileResponse;
 import wl.open_house_api.service.ProfileService;
 
-import java.net.URI;
-
 @RestController
 @RequestMapping("profiles")
+@SecurityRequirement(name = "bearer-key")
 public class ProfileController {
-    //TODO TRATAR AS EXCEPTIONS
+
     final ProfileService service;
 
     public ProfileController(ProfileService service) {
@@ -25,32 +23,18 @@ public class ProfileController {
     }
 
     @PostMapping
-    public ResponseEntity<ProfileResponse> cadatrar(@RequestBody @Valid ProfileRequestCreat profileRequestCreat, UriComponentsBuilder uriBuilder){
-        ProfileResponse response = service.insert(profileRequestCreat);
-        URI uri = uriBuilder.path("profiles/{id}").buildAndExpand(response.id()).toUri();
-        return ResponseEntity.created(uri).body(response);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<ProfileResponse> editar(@RequestBody @Valid ProfileRequest profileRequestEdit){
-        ProfileResponse response = service.update(profileRequestEdit);
+    @PreAuthorize("hasAnyRole('MASTER')")
+    @Operation( summary = "Adiciona um profile para um usuario", description = "É necessário ter usuários e roles previamente cadastrados.", tags = { "Endpoints De Profiles" } )
+    public ResponseEntity<ProfileResponse> adicionarProfile(@RequestBody @Valid ProfileRequest profileRequest){
+        ProfileResponse response = service.adicionarProfile(profileRequest);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping
-    public ResponseEntity<Page<ProfileResponse>> listarProfiles(Pageable pageable){
-        return ResponseEntity.ok(service.findProfiles(pageable));
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<ProfileResponse> detalharProfile(Long id){
-        return ResponseEntity.ok(service.findProfile(id));
-    }
-
     @DeleteMapping
-    public ResponseEntity<HttpStatus> excluirProfile(Long id){
-        service.deleteProfile(id);
+    @PreAuthorize("hasAnyRole('MASTER')")
+    @Operation( summary = "Remove um profile de um usuario", description = "É necessário ter usuários e roles previamente cadastrados.", tags = { "Endpoints De Profiles" } )
+    public ResponseEntity<HttpStatus> removerProfile(@RequestBody @Valid ProfileRequest profileRequest){
+        service.removerProfile(profileRequest);
         return ResponseEntity.noContent().build();
     }
-
 }

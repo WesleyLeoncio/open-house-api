@@ -1,69 +1,78 @@
 package wl.open_house_api.service;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wl.open_house_api.infra.exeptions.ValidacaoException;
 import wl.open_house_api.model.profile.entity.Profile;
+import wl.open_house_api.model.profile.entity.ProfileId;
 import wl.open_house_api.model.profile.mapper.ProfileMapper;
 import wl.open_house_api.model.profile.request.ProfileRequest;
-import wl.open_house_api.model.profile.request.ProfileRequestCreat;
+import wl.open_house_api.model.profile.request.ProfileRequestUser;
 import wl.open_house_api.model.profile.response.ProfileResponse;
+import wl.open_house_api.model.role.entity.Role;
+import wl.open_house_api.model.usuario.entity.Usuario;
 import wl.open_house_api.repository.ProfileRepository;
-import wl.open_house_api.service.interfaces.ProfileServiceCrud;
+import wl.open_house_api.repository.UsuarioRepository;
+import wl.open_house_api.service.interfaces.ProfileServiceMetodos;
 
 import java.util.Optional;
 
 @Service
-public class ProfileService implements ProfileServiceCrud {
+public class ProfileService implements ProfileServiceMetodos {
 
     final ProfileRepository repository;
 
-    public ProfileService(ProfileRepository repository) {
+    final UsuarioRepository usuarioRepository;
+
+    final RoleService serviceRole;
+
+    public ProfileService(ProfileRepository repository, UsuarioRepository usuarioRepository, RoleService serviceRole) {
         this.repository = repository;
-    }
-
-
-    @Override
-    @Transactional
-    public ProfileResponse insert(ProfileRequestCreat profileRequestCreat) {
-        Profile profile = repository.save(ProfileMapper.INSTANCE.profileRequestCreatToProfile(profileRequestCreat));
-        return ProfileMapper.INSTANCE.profileToProfileResponse(profile);
+        this.usuarioRepository = usuarioRepository;
+        this.serviceRole = serviceRole;
     }
 
     @Override
     @Transactional
-    public ProfileResponse update(ProfileRequest profileRequestEdit) {
-        verificiarProfile(profileRequestEdit.id());
-        Profile profile = repository.save(ProfileMapper.INSTANCE.profileRequestEditToProfile(profileRequestEdit));
-        return ProfileMapper.INSTANCE.profileToProfileResponse(profile);
+    public ProfileResponse adicionarProfile(ProfileRequest profileRequest) {
+        Profile profile = profileFactory(profileRequest);
+        return ProfileMapper.INSTANCE.profileToProfileResponse(repository.save(profile));
     }
 
     @Override
     @Transactional
-    public ProfileResponse findProfile(Long id) {
-        Profile profile = repository.getReferenceById(id);
-        return ProfileMapper.INSTANCE.profileToProfileResponse(profile);
-    }
-
-    @Override
-    public Page<ProfileResponse> findProfiles(Pageable pageable) {
-        return repository.findAll(pageable).map(ProfileMapper.INSTANCE::profileToProfileResponse);
+    public ProfileResponse adicionarProfileUser(ProfileRequestUser profileRequestUser) {
+        Profile profile = profileFactoryUser(profileRequestUser);
+        return ProfileMapper.INSTANCE.profileToProfileResponse(repository.save(profile));
     }
 
     @Override
     @Transactional
-    public void deleteProfile(Long id) {
-        repository.delete(verificiarProfile(id));
+    public void removerProfile(ProfileRequest profileRequest) {
+        repository.delete(profileFactory(profileRequest));
     }
 
 
-    public Profile verificiarProfile(Long id){
-        Optional<Profile> profile = repository.findById(id);
-        if(profile.isEmpty()){
-            throw new ValidacaoException("Profile não existe, verifique e tente e novamente!");
+    public Profile profileFactory(ProfileRequest profileRequest) {
+        Usuario usuario = verificiarUsuario(profileRequest.usuarioId());
+        Role role = serviceRole.verificiarRole(profileRequest.roleId());
+        ProfileId profileId = new ProfileId(usuario.getId(),role.getId());
+        return new Profile(profileId, usuario,role);
+    }
+
+    public Profile profileFactoryUser(ProfileRequestUser profileRequestUser) {
+        Usuario usuario = verificiarUsuario(profileRequestUser.usuarioId());
+        Role role = serviceRole.verificiarRole(3L);
+        ProfileId profileId = new ProfileId(usuario.getId(),role.getId());
+        return new Profile(profileId,usuario,role);
+    }
+
+    public Usuario verificiarUsuario(Long id){
+        Optional<Usuario> usuario = usuarioRepository.findById(id);
+        if(usuario.isEmpty()){
+            throw new ValidacaoException("Usuario não existe, verifique e tente e novamente!");
         }
-        return profile.get();
+        return usuario.get();
     }
+
 }

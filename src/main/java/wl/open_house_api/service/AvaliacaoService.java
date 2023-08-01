@@ -1,9 +1,13 @@
 package wl.open_house_api.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wl.open_house_api.model.avaliacao.entity.AvaliacaoDeFilmes;
+import wl.open_house_api.model.avaliacao.mapper.AvaliacaoMapper;
 import wl.open_house_api.model.avaliacao.request.AvaliarFilmeRequest;
+import wl.open_house_api.model.avaliacao.response.AvaliacaoDeFilmesResponse;
 import wl.open_house_api.model.filme.entity.Filme;
 import wl.open_house_api.model.usuario.entity.Usuario;
 import wl.open_house_api.repository.AvaliacaoRepository;
@@ -31,24 +35,35 @@ public class AvaliacaoService implements AvaliacaoMetodos {
     }
 
     @Transactional
-    public void avaliarFilme(AvaliarFilmeRequest avaliarFilme){
+    public void avaliarFilme(AvaliarFilmeRequest avaliarFilme) {
 
         validarAvaliacao.forEach(v -> v.validar(avaliarFilme));
 
         realizarAvaliacao(avaliarFilme);
     }
 
-    public void realizarAvaliacao(AvaliarFilmeRequest avaliarFilme){
+    private void realizarAvaliacao(AvaliarFilmeRequest avaliarFilme) {
         Filme filme = filmeService.verfificarFilme(avaliarFilme.idFilme());
         Usuario usuario = usuarioService.verificarUser(avaliarFilme.idUsuario());
 
         AvaliacaoDeFilmes avaliacao = repository.findByFilmeIdAndUsuarioId(filme.getId(), usuario.getId());
-        if(avaliacao != null){
+        if (avaliacao != null) {
             avaliacao.setNota(avaliarFilme.nota());
             repository.save(avaliacao);
-        }else{
-            AvaliacaoDeFilmes newAvaliacao = new AvaliacaoDeFilmes(null, filme,usuario,avaliarFilme.nota());
+        } else {
+            AvaliacaoDeFilmes newAvaliacao = new AvaliacaoDeFilmes(null, filme, usuario, avaliarFilme.nota());
             repository.save(newAvaliacao);
         }
     }
+
+
+    public Page<AvaliacaoDeFilmesResponse> listarFilmesAvaliados(Pageable pageable) {
+        return repository.findAll(pageable).map(AvaliacaoMapper.INSTANCE::avaliacaoFilmeToAavaliacaoFilmeResponse);
+    }
+
+    public Page<AvaliacaoDeFilmesResponse> listarFilmesAvaliadosPorUser(Pageable pageable, Long id) {
+        return repository.findAllByUsuarioId(pageable,id).map(AvaliacaoMapper.INSTANCE::avaliacaoFilmeToAavaliacaoFilmeResponse);
+    }
+
+
 }

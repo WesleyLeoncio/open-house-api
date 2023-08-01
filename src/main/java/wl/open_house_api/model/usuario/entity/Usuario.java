@@ -1,12 +1,16 @@
 package wl.open_house_api.model.usuario.entity;
-
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import wl.open_house_api.model.role.entity.Role;
+import wl.open_house_api.model.usuario.request.UsuarioRequestEditMaster;
 
-import wl.open_house_api.model.profile.entity.Profile;
+import java.util.Collection;
+import java.util.List;
 
 @Table(name = "usuarios")
 @Entity(name = "Usuario")
-public class Usuario {
+public class Usuario implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,9 +19,11 @@ public class Usuario {
     private String login;
     private String senha;
 
-    @ManyToOne
-    @JoinColumn(name = "profile_id")
-    private Profile profile;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "profiles",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> role;
 
     private Boolean status;
 
@@ -25,13 +31,41 @@ public class Usuario {
         this.status = true;
     }
 
-    public Usuario(Long id, String nome, String login, String senha, Profile profile) {
+    public Usuario(Long id, String nome, String login, String senha) {
         this.id = id;
         this.nome = nome;
         this.login = login;
         this.senha = senha;
-        this.profile = profile;
         this.status = true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRole();
+    }
+    @Override
+    public String getPassword() {
+        return getSenha();
+    }
+    @Override
+    public String getUsername() {
+        return getLogin();
+    }
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public Boolean getStatus() {
@@ -74,11 +108,31 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public Profile getProfile() {
-        return profile;
+    public List<Role> getRole() {
+        return role;
     }
 
-    public void setProfile(Profile profile) {
-        this.profile = profile;
+    public void setRole(List<Role> role) {
+        this.role = role;
     }
+
+    public void atualizarDados(UsuarioRequestEditMaster user){
+        setNome(user.nome());
+        setLogin(user.login());
+        setSenha(user.senha());
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+               "id=" + id +
+               ", nome='" + nome + '\'' +
+               ", login='" + login + '\'' +
+               ", senha='" + senha + '\'' +
+               ", role=" + role +
+               ", status=" + status +
+               '}';
+    }
+
+
 }
