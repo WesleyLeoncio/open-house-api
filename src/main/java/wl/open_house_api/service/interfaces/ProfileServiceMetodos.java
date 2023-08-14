@@ -6,9 +6,9 @@ import wl.open_house_api.model.profile.response.ProfileResponse;
 
 public interface ProfileServiceMetodos {
 
-    public ProfileResponse adicionarProfile(ProfileRequest profileRequest);
+    ProfileResponse adicionarProfile(ProfileRequest profileRequest);
 
-    public ProfileResponse adicionarProfileUser(ProfileRequestUser profileRequestUser);
+    ProfileResponse adicionarProfileUser(ProfileRequestUser profileRequestUser);
 
-    public void removerProfile(ProfileRequest profileRequest);
+    void removerProfile(ProfileRequest profileRequest);
 }

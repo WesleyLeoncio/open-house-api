@@ -8,14 +8,14 @@ import wl.open_house_api.model.filme.response.FilmeListResponse;
 import wl.open_house_api.model.filme.response.FilmeResponse;
 
 public interface FilmeServiceCrud {
-    public FilmeResponse insert(FilmeRequestCreat filmeRequestCreat);
+    FilmeResponse insert(FilmeRequestCreat filmeRequestCreat);
 
-    public FilmeResponse update(FilmeRequestEdit filmeRequestEdit);
+    FilmeResponse update(FilmeRequestEdit filmeRequestEdit);
 
-    public Page<FilmeListResponse> findMovies(Pageable pageable);
+    Page<FilmeListResponse> findMovies(Pageable pageable);
 
-    public FilmeResponse findMovie(Long id);
+    FilmeResponse findMovie(Long id);
 
-    public void deleteMovie(Long id);
+    void deleteMovie(Long id);
 
 }
