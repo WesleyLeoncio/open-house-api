@@ -5,10 +5,10 @@ import org.springframework.stereotype.Service;
 import wl.open_house_api.infra.exeptions.ValidacaoException;
 import wl.open_house_api.model.avaliacao.request.AvaliarFilmeRequest;
 import wl.open_house_api.service.UsuarioService;
-import wl.open_house_api.service.interfaces.ValidadorAvaliacaoDeFilme;
+import wl.open_house_api.service.interfaces.IValidadorAvaliacaoDeFilme;
 
 @Service
-public class ValidadorUsuariosDesativados implements ValidadorAvaliacaoDeFilme {
+public class ValidadorUsuariosDesativados implements IValidadorAvaliacaoDeFilme {
 
     private final UsuarioService service;
 

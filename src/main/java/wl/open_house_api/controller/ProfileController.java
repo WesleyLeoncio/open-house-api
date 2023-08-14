@@ -9,16 +9,16 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import wl.open_house_api.model.profile.request.ProfileRequest;
 import wl.open_house_api.model.profile.response.ProfileResponse;
-import wl.open_house_api.service.ProfileService;
+import wl.open_house_api.service.interfaces.IProfileService;
 
 @RestController
 @RequestMapping("profiles")
 @SecurityRequirement(name = "bearer-key")
 public class ProfileController {
 
-    final ProfileService service;
+    final IProfileService service;
 
-    public ProfileController(ProfileService service) {
+    public ProfileController(IProfileService service) {
         this.service = service;
     }
 

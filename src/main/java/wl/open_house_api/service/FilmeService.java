@@ -12,12 +12,12 @@ import wl.open_house_api.model.filme.request.FilmeRequestEdit;
 import wl.open_house_api.model.filme.response.FilmeListResponse;
 import wl.open_house_api.model.filme.response.FilmeResponse;
 import wl.open_house_api.repository.FilmeRepository;
-import wl.open_house_api.service.interfaces.FilmeServiceCrud;
+import wl.open_house_api.service.interfaces.IFilmeService;
 
 import java.util.Optional;
 
 @Service
-public class FilmeService implements FilmeServiceCrud {
+public class FilmeService implements IFilmeService {
 
     private final FilmeRepository repository;
 

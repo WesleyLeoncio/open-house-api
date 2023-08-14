@@ -13,23 +13,25 @@ import wl.open_house_api.model.role.entity.Role;
 import wl.open_house_api.model.usuario.entity.Usuario;
 import wl.open_house_api.repository.ProfileRepository;
 import wl.open_house_api.repository.UsuarioRepository;
-import wl.open_house_api.service.interfaces.ProfileServiceMetodos;
+import wl.open_house_api.service.interfaces.IProfileService;
+import wl.open_house_api.service.interfaces.IRoleService;
 
 import java.util.Optional;
 
+
 @Service
-public class ProfileService implements ProfileServiceMetodos {
+public class ProfileService implements IProfileService {
 
     final ProfileRepository repository;
 
     final UsuarioRepository usuarioRepository;
 
-    final RoleService serviceRole;
+    final IRoleService roleService;
 
-    public ProfileService(ProfileRepository repository, UsuarioRepository usuarioRepository, RoleService serviceRole) {
+    public ProfileService(ProfileRepository repository, UsuarioRepository usuarioRepository, IRoleService roleService) {
         this.repository = repository;
         this.usuarioRepository = usuarioRepository;
-        this.serviceRole = serviceRole;
+        this.roleService = roleService;
     }
 
     @Override
@@ -55,14 +57,14 @@ public class ProfileService implements ProfileServiceMetodos {
 
     public Profile profileFactory(ProfileRequest profileRequest) {
         Usuario usuario = verificiarUsuario(profileRequest.usuarioId());
-        Role role = serviceRole.verificiarRole(profileRequest.roleId());
+        Role role = roleService.verificiarRole(profileRequest.roleId());
         ProfileId profileId = new ProfileId(usuario.getId(),role.getId());
         return new Profile(profileId, usuario,role);
     }
 
     public Profile profileFactoryUser(ProfileRequestUser profileRequestUser) {
         Usuario usuario = verificiarUsuario(profileRequestUser.usuarioId());
-        Role role = serviceRole.verificiarRole(3L);
+        Role role = roleService.verificiarRole(3L);
         ProfileId profileId = new ProfileId(usuario.getId(),role.getId());
         return new Profile(profileId,usuario,role);
     }
@@ -74,5 +76,4 @@ public class ProfileService implements ProfileServiceMetodos {
         }
         return usuario.get();
     }
-
 }

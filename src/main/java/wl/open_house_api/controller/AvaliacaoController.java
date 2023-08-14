@@ -11,8 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import wl.open_house_api.model.avaliacao.request.AvaliarFilmeRequest;
 import wl.open_house_api.model.avaliacao.response.AvaliacaoDeFilmesResponse;
-import wl.open_house_api.service.AvaliacaoService;
-
+import wl.open_house_api.service.interfaces.IAvaliacaoService;
 
 
 @RestController
@@ -20,10 +19,10 @@ import wl.open_house_api.service.AvaliacaoService;
 @SecurityRequirement(name = "bearer-key")
 public class AvaliacaoController {
 
-    final AvaliacaoService service;
+    final IAvaliacaoService service;
 
 
-    public AvaliacaoController(AvaliacaoService service) {
+    public AvaliacaoController(IAvaliacaoService service) {
         this.service = service;
     }
 
