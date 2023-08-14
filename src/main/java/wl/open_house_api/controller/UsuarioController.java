@@ -16,16 +16,17 @@ import wl.open_house_api.model.usuario.request.UsuarioRequestEditMaster;
 import wl.open_house_api.model.usuario.request.UsuarioRequestModifyStatus;
 import wl.open_house_api.model.usuario.response.UsuarioResponse;
 import wl.open_house_api.model.usuario.response.UsuarioResponseCrud;
-import wl.open_house_api.service.UsuarioService;
+import wl.open_house_api.service.interfaces.IUsuarioService;
+
 import java.net.URI;
 
 @RestController
 @RequestMapping("usuarios")
 public class UsuarioController {
 
-    final UsuarioService service;
+    final IUsuarioService service;
 
-    public UsuarioController(UsuarioService service) {
+    public UsuarioController(IUsuarioService service) {
         this.service = service;
     }
 

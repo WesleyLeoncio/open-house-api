@@ -16,7 +16,7 @@ import wl.open_house_api.model.filme.request.FilmeRequestCreat;
 import wl.open_house_api.model.filme.request.FilmeRequestEdit;
 import wl.open_house_api.model.filme.response.FilmeListResponse;
 import wl.open_house_api.model.filme.response.FilmeResponse;
-import wl.open_house_api.service.FilmeService;
+import wl.open_house_api.service.interfaces.IFilmeService;
 
 import java.net.URI;
 
@@ -25,9 +25,9 @@ import java.net.URI;
 @SecurityRequirement(name = "bearer-key")
 public class FilmeController {
 
-    private final FilmeService service;
+    private final IFilmeService service;
 
-    public FilmeController(FilmeService service) {
+    public FilmeController(IFilmeService service) {
         this.service = service;
     }
 

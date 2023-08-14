@@ -11,29 +11,31 @@ import wl.open_house_api.model.avaliacao.response.AvaliacaoDeFilmesResponse;
 import wl.open_house_api.model.filme.entity.Filme;
 import wl.open_house_api.model.usuario.entity.Usuario;
 import wl.open_house_api.repository.AvaliacaoRepository;
-import wl.open_house_api.service.interfaces.AvaliacaoMetodos;
-import wl.open_house_api.service.interfaces.ValidadorAvaliacaoDeFilme;
+import wl.open_house_api.service.interfaces.IAvaliacaoService;
+import wl.open_house_api.service.interfaces.IFilmeService;
+import wl.open_house_api.service.interfaces.IUsuarioService;
+import wl.open_house_api.service.interfaces.IValidadorAvaliacaoDeFilme;
 
 import java.util.List;
 
 @Service
-public class AvaliacaoService implements AvaliacaoMetodos {
+public class AvaliacaoService implements IAvaliacaoService {
 
     final AvaliacaoRepository repository;
 
-    final FilmeService filmeService;
+    final IFilmeService filmeService;
 
-    final UsuarioService usuarioService;
+    final IUsuarioService usuarioService;
 
-    final List<ValidadorAvaliacaoDeFilme> validarAvaliacao;
+    final List<IValidadorAvaliacaoDeFilme> validarAvaliacao;
 
-    public AvaliacaoService(AvaliacaoRepository repository, FilmeService filmeService, UsuarioService usuarioService, List<ValidadorAvaliacaoDeFilme> validarAvaliacao) {
+    public AvaliacaoService(AvaliacaoRepository repository, IFilmeService filmeService, IUsuarioService usuarioService, List<IValidadorAvaliacaoDeFilme> validarAvaliacao) {
         this.repository = repository;
         this.filmeService = filmeService;
         this.usuarioService = usuarioService;
         this.validarAvaliacao = validarAvaliacao;
     }
-
+    @Override
     @Transactional
     public void avaliarFilme(AvaliarFilmeRequest avaliarFilme) {
 
@@ -56,11 +58,12 @@ public class AvaliacaoService implements AvaliacaoMetodos {
         }
     }
 
-
+    @Override
     public Page<AvaliacaoDeFilmesResponse> listarFilmesAvaliados(Pageable pageable) {
         return repository.findAll(pageable).map(AvaliacaoMapper.INSTANCE::avaliacaoFilmeToAavaliacaoFilmeResponse);
     }
 
+    @Override
     public Page<AvaliacaoDeFilmesResponse> listarFilmesAvaliadosPorUser(Pageable pageable, Long id) {
         return repository.findAllByUsuarioId(pageable,id).map(AvaliacaoMapper.INSTANCE::avaliacaoFilmeToAavaliacaoFilmeResponse);
     }

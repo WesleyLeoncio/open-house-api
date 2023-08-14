@@ -13,7 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import wl.open_house_api.model.role.request.RoleRequest;
 import wl.open_house_api.model.role.request.RoleRequestCreat;
 import wl.open_house_api.model.role.response.RoleResponse;
-import wl.open_house_api.service.RoleService;
+import wl.open_house_api.service.interfaces.IRoleService;
 
 import java.net.URI;
 
@@ -22,9 +22,9 @@ import java.net.URI;
 @SecurityRequirement(name = "bearer-key")
 public class RoleController {
 
-    final RoleService service;
+    final IRoleService service;
 
-    public RoleController(RoleService service) {
+    public RoleController(IRoleService service) {
         this.service = service;
     }
 

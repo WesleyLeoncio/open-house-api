@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import wl.open_house_api.model.autenticacao.request.UsuarioAtenticaoRequest;
 import wl.open_house_api.model.autenticacao.response.TokenJwtResponse;
 import wl.open_house_api.model.usuario.entity.Usuario;
-import wl.open_house_api.service.TokenService;
+import wl.open_house_api.service.interfaces.ITokenService;
 
 @RestController
 @RequestMapping("/login")
@@ -21,9 +21,9 @@ public class AutenticacaoController {
 
     final AuthenticationManager manager;
 
-    final TokenService tokenService;
+    final ITokenService tokenService;
 
-    public AutenticacaoController(AuthenticationManager manager, TokenService tokenService) {
+    public AutenticacaoController(AuthenticationManager manager, ITokenService tokenService) {
         this.manager = manager;
         this.tokenService = tokenService;
     }

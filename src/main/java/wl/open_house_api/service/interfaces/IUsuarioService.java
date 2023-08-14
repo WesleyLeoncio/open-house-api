@@ -2,6 +2,7 @@ package wl.open_house_api.service.interfaces;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import wl.open_house_api.model.usuario.entity.Usuario;
 import wl.open_house_api.model.usuario.request.UsuarioRequestCreatMaster;
 import wl.open_house_api.model.usuario.request.UsuarioRequestCreatUser;
 import wl.open_house_api.model.usuario.request.UsuarioRequestEditMaster;
@@ -9,7 +10,7 @@ import wl.open_house_api.model.usuario.response.UsuarioResponse;
 import wl.open_house_api.model.usuario.response.UsuarioResponseCrud;
 
 
-public interface UsuarioServiceMetodos {
+public interface IUsuarioService {
 
     UsuarioResponseCrud insert(UsuarioRequestCreatMaster user);
 
@@ -26,6 +27,8 @@ public interface UsuarioServiceMetodos {
     void deleteUser(Long id);
 
     void modifyStatus(Long id);
+
+    Usuario verificarUser(Long id);
 
 
 }

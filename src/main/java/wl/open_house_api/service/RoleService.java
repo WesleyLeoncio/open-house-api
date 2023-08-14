@@ -11,10 +11,12 @@ import wl.open_house_api.model.role.request.RoleRequest;
 import wl.open_house_api.model.role.request.RoleRequestCreat;
 import wl.open_house_api.model.role.response.RoleResponse;
 import wl.open_house_api.repository.RoleRepository;
+import wl.open_house_api.service.interfaces.IRoleService;
+
 import java.util.Optional;
 
 @Service
-public class RoleService {
+public class RoleService implements IRoleService {
 
     final RoleRepository repository;
 
@@ -22,13 +24,14 @@ public class RoleService {
         this.repository = repository;
     }
 
-
+    @Override
     @Transactional
     public RoleResponse insert(RoleRequestCreat roleRequestCreat) {
         Role role = repository.save(RoleMapper.INSTANCE.roleRequestCreatToRole(roleRequestCreat));
         return RoleMapper.INSTANCE.roleToRoleResponse(role);
     }
 
+    @Override
     @Transactional
     public RoleResponse update(RoleRequest roleRequest) {
         verificiarRole(roleRequest.id());
@@ -36,19 +39,19 @@ public class RoleService {
         return RoleMapper.INSTANCE.roleToRoleResponse(role);
     }
 
-
+    @Override
     @Transactional
     public RoleResponse findRole(Long id) {
         Role role = repository.getReferenceById(id);
         return RoleMapper.INSTANCE.roleToRoleResponse(role);
     }
 
-
+    @Override
     public Page<RoleResponse> findRoles(Pageable pageable) {
         return repository.findAll(pageable).map(RoleMapper.INSTANCE::roleToRoleResponse);
     }
 
-
+    @Override
     @Transactional
     public void deleteRole(Long id) {
         repository.delete(verificiarRole(id));

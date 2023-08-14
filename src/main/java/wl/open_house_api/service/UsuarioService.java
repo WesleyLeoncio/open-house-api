@@ -15,20 +15,21 @@ import wl.open_house_api.model.usuario.request.UsuarioRequestEditMaster;
 import wl.open_house_api.model.usuario.response.UsuarioResponse;
 import wl.open_house_api.model.usuario.response.UsuarioResponseCrud;
 import wl.open_house_api.repository.UsuarioRepository;
-import wl.open_house_api.service.interfaces.UsuarioServiceMetodos;
+import wl.open_house_api.service.interfaces.IProfileService;
+import wl.open_house_api.service.interfaces.IUsuarioService;
 
 import java.util.List;
 
 @Service
-public class UsuarioService implements UsuarioServiceMetodos {
+public class UsuarioService implements IUsuarioService {
 
     final UsuarioRepository repository;
 
-    final ProfileService profileService;
+    final IProfileService profileService;
 
     final PasswordEncoder passwordEncoder;
 
-    public UsuarioService(UsuarioRepository repository, ProfileService profileService, PasswordEncoder passwordEncoder) {
+    public UsuarioService(UsuarioRepository repository, IProfileService profileService, PasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.profileService = profileService;
         this.passwordEncoder = passwordEncoder;

@@ -5,12 +5,12 @@ import wl.open_house_api.infra.exeptions.ValidacaoException;
 import wl.open_house_api.model.avaliacao.request.AvaliarFilmeRequest;
 import wl.open_house_api.model.filme.response.FilmeResponse;
 import wl.open_house_api.service.FilmeService;
-import wl.open_house_api.service.interfaces.ValidadorAvaliacaoDeFilme;
+import wl.open_house_api.service.interfaces.IValidadorAvaliacaoDeFilme;
 
 import java.time.LocalDate;
 
 @Service
-public class ValidadorFilmesQueNaoForamLancados implements ValidadorAvaliacaoDeFilme {
+public class ValidadorFilmesQueNaoForamLancados implements IValidadorAvaliacaoDeFilme {
 
     final FilmeService service;
 

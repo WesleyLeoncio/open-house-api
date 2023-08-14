@@ -19,7 +19,7 @@ class UsuarioRepositoryTest {
 
 
     @Test
-    @DisplayName("Deveria retornar o status d usuario")
+    @DisplayName("Deveria retornar o status do usuario")
     void findStatusById() {
         cadastroUser();
 
