@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import wl.open_house_api.model.autenticacao.request.UsuarioAtenticaoRequest;
-import wl.open_house_api.model.autenticacao.response.TokenJwtResponse;
+import wl.open_house_api.model.autenticacao.response.UsuarioTokenResponse;
 import wl.open_house_api.model.usuario.entity.Usuario;
 import wl.open_house_api.service.interfaces.ITokenService;
 
@@ -30,12 +30,12 @@ public class AutenticacaoController {
 
     @PostMapping()
     @Operation( summary = "Realiza o login", description = "É necessário ter usuários previamente cadastrados.", tags = { "Endpoint De Login" } )
-    public ResponseEntity<TokenJwtResponse> efetuarLogin(@RequestBody @Valid UsuarioAtenticaoRequest userLogin) {
+    public ResponseEntity<UsuarioTokenResponse> efetuarLogin(@RequestBody @Valid UsuarioAtenticaoRequest userLogin) {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userLogin.login(), userLogin.senha());
         Authentication authentication = manager.authenticate(token);
         String tokenJWT = tokenService.gerarToken((Usuario) authentication.getPrincipal());
 
-        return ResponseEntity.ok(new TokenJwtResponse(tokenJWT));
+        return ResponseEntity.ok(new UsuarioTokenResponse(userLogin.login(),tokenJWT));
     }
 
 }
