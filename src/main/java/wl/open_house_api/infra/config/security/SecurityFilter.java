@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import wl.open_house_api.infra.exeptions.JWTException;
@@ -34,8 +35,8 @@ public class SecurityFilter extends OncePerRequestFilter {
             var tokenJWT = recuperarToken(request);
 
             if (tokenJWT != null) {
-                var subject = tokenService.getSubject(tokenJWT);
-                var usuario = repository.findByLogin(subject);
+                String subject = tokenService.getSubject(tokenJWT);
+                UserDetails usuario = repository.findByLogin(subject);
 
                 var authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
