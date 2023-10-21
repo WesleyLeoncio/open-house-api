@@ -4,6 +4,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jdk.swing.interop.SwingInterOpUtils;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import wl.open_house_api.infra.exeptions.JWTException;
-import wl.open_house_api.repository.UsuarioRepository;
+import wl.open_house_api.service.AutenticacaoService;
 import wl.open_house_api.service.TokenService;
 
 import java.io.IOException;
@@ -22,11 +23,11 @@ public class SecurityFilter extends OncePerRequestFilter {
 
     final TokenService tokenService;
 
-    final UsuarioRepository repository;
+    final AutenticacaoService autenticacaoService;
 
-    public SecurityFilter(TokenService tokenService, UsuarioRepository repository) {
+    public SecurityFilter(TokenService tokenService, AutenticacaoService autenticacaoService) {
         this.tokenService = tokenService;
-        this.repository = repository;
+        this.autenticacaoService = autenticacaoService;
     }
 
     @Override
@@ -36,12 +37,11 @@ public class SecurityFilter extends OncePerRequestFilter {
 
             if (tokenJWT != null) {
                 String subject = tokenService.getSubject(tokenJWT);
-                UserDetails usuario = repository.findByLogin(subject);
+                UserDetails usuario = autenticacaoService.loadUserByUsername(subject);
 
                 var authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
-
             filterChain.doFilter(request, response);
         } catch (JWTException ex) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

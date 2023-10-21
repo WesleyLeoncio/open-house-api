@@ -57,7 +57,7 @@ public class Usuario implements UserDetails {
     }
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return getStatus();
     }
     @Override
     public boolean isCredentialsNonExpired() {

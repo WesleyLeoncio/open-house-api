@@ -9,6 +9,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -54,6 +55,11 @@ public class TratadorDeErros {
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<String> tratarErroAuthentication() {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Falha na autenticação");
+    }
+
+    @ExceptionHandler(LockedException.class)
+    public ResponseEntity<String> tratarErroAuthenticationLocked() {
+        return ResponseEntity.status(HttpStatus.LOCKED).body("Usuário está bloqueado!");
     }
 
     @ExceptionHandler(AccessDeniedException.class)
