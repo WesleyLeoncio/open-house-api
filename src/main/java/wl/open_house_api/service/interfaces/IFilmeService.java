@@ -5,15 +5,16 @@ import org.springframework.data.domain.Pageable;
 import wl.open_house_api.model.filme.entity.Filme;
 import wl.open_house_api.model.filme.request.FilmeRequestCreat;
 import wl.open_house_api.model.filme.request.FilmeRequestEdit;
-import wl.open_house_api.model.filme.response.FilmeListResponse;
 import wl.open_house_api.model.filme.response.FilmeResponse;
+import wl.open_house_api.model.filme.response.FilmeResponseCreat;
+import wl.open_house_api.model.filme.response.FilmeResponseUpdate;
 
 public interface IFilmeService {
-    FilmeResponse insert(FilmeRequestCreat filmeRequestCreat);
+    FilmeResponseCreat insert(FilmeRequestCreat filmeRequestCreat);
 
-    FilmeResponse update(FilmeRequestEdit filmeRequestEdit);
+    FilmeResponseUpdate update(FilmeRequestEdit filmeRequestEdit);
 
-    Page<FilmeListResponse> findMovies(Pageable pageable);
+    Page<FilmeResponse> findMovies(Pageable pageable);
 
     FilmeResponse findMovie(Long id);
 

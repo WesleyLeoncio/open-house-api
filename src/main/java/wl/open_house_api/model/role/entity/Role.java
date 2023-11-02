@@ -12,6 +12,7 @@ public class Role implements GrantedAuthority,Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    //TODO MODIFICAR PARA ENUM
     private String nome;
 
     public Role(){}

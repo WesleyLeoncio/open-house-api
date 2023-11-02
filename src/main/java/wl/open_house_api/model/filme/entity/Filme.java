@@ -1,11 +1,11 @@
 package wl.open_house_api.model.filme.entity;
 
-
 import jakarta.persistence.*;
-import wl.open_house_api.model.filme.enuns.Categoria;
+import wl.open_house_api.model.categoria.entiy.Categoria;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @Table(name = "filmes")
 @Entity(name = "Filme")
@@ -20,19 +20,21 @@ public class Filme implements Serializable {
     private String duracao;
     private String imagem;
 
-    @Enumerated(EnumType.STRING)
-    private Categoria categoria;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "categoria_filme",
+            joinColumns = @JoinColumn(name = "filme_id"),
+            inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+    private List<Categoria> categorias;
 
     public Filme() {}
 
-    public Filme(Long id, String nome, String descricao, LocalDate dataLancamento, String duracao, String imagem, Categoria categoria) {
+    public Filme(Long id, String nome, String descricao, LocalDate dataLancamento, String duracao, String imagem) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.dataLancamento = dataLancamento;
         this.duracao = duracao;
         this.imagem = imagem;
-        this.categoria = categoria;
     }
 
     public Long getId() {
@@ -83,12 +85,11 @@ public class Filme implements Serializable {
         this.imagem = imagem;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
+    public List<Categoria> getCategorias() {
+        return categorias;
     }
 
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+    public void setCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
     }
-
 }

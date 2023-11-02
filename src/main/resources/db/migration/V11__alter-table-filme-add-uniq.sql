@@ -1,0 +1,1 @@
+ALTER TABLE filmes ADD UNIQUE(nome);

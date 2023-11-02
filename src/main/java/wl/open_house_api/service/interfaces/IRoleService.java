@@ -19,5 +19,5 @@ public interface IRoleService {
 
     void deleteRole(Long id);
 
-    Role verificiarRole(Long id);
+    Role verificarRole(Long id);
 }

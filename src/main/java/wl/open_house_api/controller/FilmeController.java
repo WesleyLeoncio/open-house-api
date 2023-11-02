@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import wl.open_house_api.model.filme.request.FilmeRequestCreat;
 import wl.open_house_api.model.filme.request.FilmeRequestEdit;
-import wl.open_house_api.model.filme.response.FilmeListResponse;
 import wl.open_house_api.model.filme.response.FilmeResponse;
+import wl.open_house_api.model.filme.response.FilmeResponseCreat;
+import wl.open_house_api.model.filme.response.FilmeResponseUpdate;
 import wl.open_house_api.service.interfaces.IFilmeService;
 
 import java.net.URI;
@@ -34,8 +35,8 @@ public class FilmeController {
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN')")
     @Operation( summary = "Cadastra um filme", tags = { "Endpoints De Filmes" } )
-    public ResponseEntity<FilmeResponse> cadastrar(@RequestBody @Valid FilmeRequestCreat filme, UriComponentsBuilder uriBuilder) {
-        FilmeResponse response = service.insert(filme);
+    public ResponseEntity<FilmeResponseCreat> cadastrar(@RequestBody @Valid FilmeRequestCreat filme, UriComponentsBuilder uriBuilder) {
+        FilmeResponseCreat response = service.insert(filme);
         URI uri = uriBuilder.path("filmes/{id}").buildAndExpand(response.id()).toUri();
         return ResponseEntity.created(uri).body(response);
     }
@@ -43,15 +44,15 @@ public class FilmeController {
     @PutMapping
     @PreAuthorize("hasAnyRole('ADMIN')")
     @Operation( summary = "Edita um filme", tags = { "Endpoints De Filmes" } )
-    public ResponseEntity<FilmeResponse> editar(@RequestBody @Valid FilmeRequestEdit filme) {
-        FilmeResponse response = service.update(filme);
+    public ResponseEntity<FilmeResponseUpdate> editar(@RequestBody @Valid FilmeRequestEdit filme) {
+        FilmeResponseUpdate response = service.update(filme);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping
     @PreAuthorize("hasAnyRole('USER')")
     @Operation( summary = "Lista todos os filmes cadastrados", tags = { "Endpoints De Filmes" } )
-    public ResponseEntity<Page<FilmeListResponse>> listarFilmes(@PageableDefault(sort = {"dataLancamento"},
+    public ResponseEntity<Page<FilmeResponse>> listarFilmes(@PageableDefault(sort = {"dataLancamento"},
             direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok(service.findMovies(pageable));
     }

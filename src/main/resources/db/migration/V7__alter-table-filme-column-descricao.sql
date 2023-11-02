@@ -1,0 +1,1 @@
+ALTER TABLE filmes ALTER COLUMN descricao TYPE TEXT;

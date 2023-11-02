@@ -1,6 +1,7 @@
 package wl.open_house_api.model.profile.entity;
 
-import jakarta.persistence.Column;
+//TODO TESTE E REMOVER SE TUDO CONTINUAR BEM
+/*import jakarta.persistence.Column;*/
 import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;

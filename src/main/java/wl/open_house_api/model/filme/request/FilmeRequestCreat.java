@@ -1,11 +1,11 @@
 package wl.open_house_api.model.filme.request;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import wl.open_house_api.model.filme.enuns.Categoria;
+import wl.open_house_api.model.categoria_filme.request.CategoriaFilmeRequestCategoria;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public record FilmeRequestCreat(
         @NotBlank
@@ -23,8 +23,8 @@ public record FilmeRequestCreat(
         @NotBlank
         String imagem,
 
-        @NotNull @Valid()
-        Categoria categoria
+        @NotNull
+        List<CategoriaFilmeRequestCategoria> categoriaList
 ) {
 
 

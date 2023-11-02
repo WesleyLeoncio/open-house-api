@@ -1,6 +1,6 @@
-package wl.open_house_api.model.filme.enuns;
+package wl.open_house_api.model.categoria.enuns;
 
-public enum Categoria {
+public enum Category {
     ACAO,
     AVENTURA,
     ANIMACAO,
@@ -15,5 +15,7 @@ public enum Categoria {
     ROMANCE,
     SUSPENSE,
     GUERRA,
-    WESTERN
+    WESTERN,
+    TESTE,
+    NEW_TESTE
 }

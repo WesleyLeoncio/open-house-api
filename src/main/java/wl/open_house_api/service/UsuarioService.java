@@ -108,11 +108,11 @@ public class UsuarioService implements IUsuarioService {
         return repository.findStatusById(id);
     }
 
-    public void adicionarProfiles(Usuario usuario, List<ProfileRequestRole> roles) {
+    private void adicionarProfiles(Usuario usuario, List<ProfileRequestRole> roles) {
         roles.forEach(r -> profileService.adicionarProfile(new ProfileRequest(usuario.getId(), r.roleId())));
     }
 
-    public void adicionarProfileUser(Usuario usuario) {
+    private void adicionarProfileUser(Usuario usuario) {
         profileService.adicionarProfileUser(new ProfileRequestUser(usuario.getId()));
     }
 

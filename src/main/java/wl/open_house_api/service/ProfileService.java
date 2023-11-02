@@ -24,6 +24,7 @@ public class ProfileService implements IProfileService {
 
     final ProfileRepository repository;
 
+    //TODO TESTER COM ITERFACE
     final UsuarioRepository usuarioRepository;
 
     final IRoleService roleService;
@@ -55,21 +56,21 @@ public class ProfileService implements IProfileService {
     }
 
 
-    public Profile profileFactory(ProfileRequest profileRequest) {
-        Usuario usuario = verificiarUsuario(profileRequest.usuarioId());
-        Role role = roleService.verificiarRole(profileRequest.roleId());
+    private Profile profileFactory(ProfileRequest profileRequest) {
+        Usuario usuario = verificarUsuario(profileRequest.usuarioId());
+        Role role = roleService.verificarRole(profileRequest.roleId());
         ProfileId profileId = new ProfileId(usuario.getId(),role.getId());
         return new Profile(profileId, usuario,role);
     }
 
-    public Profile profileFactoryUser(ProfileRequestUser profileRequestUser) {
-        Usuario usuario = verificiarUsuario(profileRequestUser.usuarioId());
-        Role role = roleService.verificiarRole(3L);
+    private Profile profileFactoryUser(ProfileRequestUser profileRequestUser) {
+        Usuario usuario = verificarUsuario(profileRequestUser.usuarioId());
+        Role role = roleService.verificarRole(3L);
         ProfileId profileId = new ProfileId(usuario.getId(),role.getId());
         return new Profile(profileId,usuario,role);
     }
 
-    public Usuario verificiarUsuario(Long id){
+    private Usuario verificarUsuario(Long id){
         Optional<Usuario> usuario = usuarioRepository.findById(id);
         if(usuario.isEmpty()){
             throw new ValidacaoException("Usuario não existe, verifique e tente e novamente!");

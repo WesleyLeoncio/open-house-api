@@ -12,6 +12,7 @@ import java.io.Serializable;
 public class Profile implements Serializable {
     @EmbeddedId
     ProfileId profileId;
+
     @ManyToOne
     @MapsId("usuarioId")
     @JoinColumn(name = "usuario_id")

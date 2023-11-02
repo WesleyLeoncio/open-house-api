@@ -34,7 +34,7 @@ public class RoleService implements IRoleService {
     @Override
     @Transactional
     public RoleResponse update(RoleRequest roleRequest) {
-        verificiarRole(roleRequest.id());
+        verificarRole(roleRequest.id());
         Role role = repository.save(RoleMapper.INSTANCE.roleRequestToRole(roleRequest));
         return RoleMapper.INSTANCE.roleToRoleResponse(role);
     }
@@ -54,14 +54,14 @@ public class RoleService implements IRoleService {
     @Override
     @Transactional
     public void deleteRole(Long id) {
-        repository.delete(verificiarRole(id));
+        repository.delete(verificarRole(id));
     }
 
 
-    public Role verificiarRole(Long id){
+    public Role verificarRole(Long id){
         Optional<Role> role = repository.findById(id);
         if(role.isEmpty()){
-            throw new ValidacaoException("Profile não existe, verifique e tente e novamente!");
+            throw new ValidacaoException("A Role não existe, verifique e tente e novamente!");
         }
         return role.get();
     }

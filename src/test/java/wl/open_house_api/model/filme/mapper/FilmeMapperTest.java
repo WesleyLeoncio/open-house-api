@@ -7,7 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import wl.open_house_api.model.filme.entity.Filme;
 import wl.open_house_api.model.filme.enuns.Categoria;
 import wl.open_house_api.model.filme.factory.FilmeFactory;
-import wl.open_house_api.model.filme.response.FilmeListResponse;
 import wl.open_house_api.model.filme.response.FilmeResponse;
 
 import java.time.LocalDate;

@@ -39,7 +39,7 @@ public class TratadorDeErros {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<String> tratarErro422(DataIntegrityViolationException ex) {
-        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Esse usuário já existe na base de dados!");
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Esses registro já está cadastrado na nossa base de dados");
     }
 
     @ExceptionHandler(BadCredentialsException.class)
