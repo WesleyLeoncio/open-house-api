@@ -1,5 +1,6 @@
 package wl.open_house_api.infra.config.security;
 
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
