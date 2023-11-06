@@ -1,4 +1,4 @@
-package wl.open_house_api.controller;
+package wl.open_house_api.modules.usuario.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,6 +19,7 @@ import wl.open_house_api.modules.usuario.model.request.UsuarioRequestCreatMaster
 import wl.open_house_api.modules.usuario.model.request.UsuarioRequestCreatUser;
 import wl.open_house_api.modules.usuario.model.response.UsuarioResponseCrud;
 import wl.open_house_api.modules.usuario.service.UsuarioService;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -28,6 +29,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
 class UsuarioControllerTest {
+
     @Autowired
     private MockMvc mvc;
 
@@ -84,7 +86,7 @@ class UsuarioControllerTest {
     }
 
 
-   @Test
+    @Test
     @DisplayName("Deveria devolver codigo http 400 quando informacoes estao invalidas")
     void cadastrarUserProfileUser() throws Exception {
         MockHttpServletResponse response = mvc.perform(post("/usuarios/comum"))

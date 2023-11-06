@@ -1,15 +1,15 @@
-package wl.open_house_api.modules.usuario.mapper;
+package wl.open_house_api.modules.usuario.model.mapper;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import wl.open_house_api.modules.usuario.model.entity.Usuario;
 import wl.open_house_api.modules.usuario.factory.UsuarioFactory;
-import wl.open_house_api.modules.usuario.model.mapper.UsuarioMapper;
+import wl.open_house_api.modules.usuario.model.entity.Usuario;
 import wl.open_house_api.modules.usuario.model.response.UsuarioResponse;
 import wl.open_house_api.modules.usuario.model.response.UsuarioResponseCrud;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 
 class UsuarioMapperTest {
     private UsuarioFactory usuarioFactory;
@@ -67,5 +67,3 @@ class UsuarioMapperTest {
         assertThat(usuarioResponse.role().get(0).nome()).isEqualTo("ROLE_USER");
     }
 }
-
-

@@ -1,12 +1,12 @@
-package wl.open_house_api.modules.avaliacao.mapper;
+package wl.open_house_api.modules.avaliacao.model.mapper;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import wl.open_house_api.modules.avaliacao.factory.AvaliacaoFilmeFactory;
-import wl.open_house_api.modules.avaliacao.model.mapper.AvaliacaoMapper;
 import wl.open_house_api.modules.avaliacao.model.response.AvaliacaoDeFilmesResponse;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 
 class AvaliacaoMapperTest {
 
@@ -24,4 +24,5 @@ class AvaliacaoMapperTest {
         assertThat(avaliacaoDeFilmesResponse.nota()).isEqualTo(5);
 
     }
+
 }

@@ -1,4 +1,4 @@
-package wl.open_house_api.controller;
+package wl.open_house_api.modules.filme.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -14,10 +14,11 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import wl.open_house_api.modules.profile.factory.ProfileFactory;
-import wl.open_house_api.modules.profile.model.request.ProfileRequest;
-import wl.open_house_api.modules.profile.model.response.ProfileResponse;
-import wl.open_house_api.modules.profile.service.ProfileService;
+import wl.open_house_api.modules.filme.factory.FilmeFactory;
+import wl.open_house_api.modules.filme.model.request.FilmeRequestCreat;
+import wl.open_house_api.modules.filme.model.response.FilmeResponseCreat;
+import wl.open_house_api.modules.filme.service.FilmeService;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -26,56 +27,57 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
-class ProfileControllerTest {
+class FilmeControllerTest {
 
     @Autowired
-    private MockMvc mvc;
+    MockMvc mvc;
 
     @Autowired
-    private JacksonTester<ProfileRequest> profileRequestJson;
+    private JacksonTester<FilmeRequestCreat> filmeRequestCreatJson;
 
     @Autowired
-    private JacksonTester<ProfileResponse> profileResponseJson;
+    private JacksonTester<FilmeResponseCreat> filmeResponseCreatJson;
 
     @MockBean
-    private ProfileService profileService;
+    private FilmeService filmeService;
 
-    private ProfileFactory profileFactory;
+    private FilmeFactory filmeFactory;
 
     @BeforeEach
     public void beforeEach(){
-        this.profileFactory = new ProfileFactory();
+        this.filmeFactory = new FilmeFactory();
     }
 
     @Test
     @DisplayName("Deveria devolver codigo http 400 quando informacoes estao invalidas")
-    @WithMockUser(authorities = "ROLE_MASTER")
-    void adicionarProfileCenario1() throws Exception {
-        MockHttpServletResponse response = mvc.perform(post("/profiles"))
+    @WithMockUser(authorities = "ROLE_ADMIN")
+    void cadastrarCenario1() throws Exception {
+        MockHttpServletResponse response = mvc.perform(post("/filmes"))
                 .andReturn().getResponse();
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
     }
 
     @Test
-    @DisplayName("Deveria devolver codigo http 200 quando informacoes estao corretas")
-    @WithMockUser(authorities = "ROLE_MASTER")
-    void adicionarProfileCenario2() throws Exception {
+    @DisplayName("Deveria devolver codigo http 201 quando informacoes estao corretas")
+    @WithMockUser(authorities = "ROLE_ADMIN")
+    void cadastrarCenario2() throws Exception {
 
-        ProfileResponse profileResponse = profileFactory.getProfileResponse();
+        FilmeResponseCreat filmeResponseCreat = filmeFactory.getFilmeResponseCreat();
 
-        when(profileService.adicionarProfile(any())).thenReturn(profileResponse);
+        when(filmeService.insert(any())).thenReturn(filmeResponseCreat);
 
         MockHttpServletResponse response = mvc.perform(
-                post("/profiles")
+                post("/filmes")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(profileRequestJson.write(
-                                profileFactory.getProfileRequest()
+                        .content(filmeRequestCreatJson.write(
+                                filmeFactory.getFilmeRequestCreat()
                         ).getJson())
         ).andReturn().getResponse();
 
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        String jsonEsperado = profileResponseJson.write(profileResponse).getJson();
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
+        String jsonEsperado = filmeResponseCreatJson.write(filmeResponseCreat).getJson();
         assertThat(response.getContentAsString()).isEqualTo(jsonEsperado);
     }
+
 }

@@ -1,4 +1,5 @@
-package wl.open_house_api.repository;
+package wl.open_house_api.modules.usuario.repository;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,10 +7,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import wl.open_house_api.modules.usuario.factory.UsuarioFactory;
-import wl.open_house_api.modules.usuario.repository.UsuarioRepository;
-
 import static org.assertj.core.api.Assertions.assertThat;
-
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -34,5 +32,4 @@ class UsuarioRepositoryTest {
         UsuarioFactory usuarioFactory = new UsuarioFactory();
         usuarioRepository.save(usuarioFactory.getUsuario());
     }
-
 }

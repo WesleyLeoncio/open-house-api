@@ -1,12 +1,13 @@
-package wl.open_house_api.modules.role.mapper;
+package wl.open_house_api.modules.role.model.mapper;
+
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import wl.open_house_api.modules.role.model.entity.Role;
 import wl.open_house_api.modules.role.factory.RoleFactory;
-import wl.open_house_api.modules.role.model.mapper.RoleMapper;
+import wl.open_house_api.modules.role.model.entity.Role;
 import wl.open_house_api.modules.role.model.response.RoleResponse;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class RoleMapperTest {

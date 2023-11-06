@@ -1,4 +1,4 @@
-package wl.open_house_api.modules.filme.mapper;
+package wl.open_house_api.modules.filme.model.mapper;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -6,13 +6,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import wl.open_house_api.modules.filme.factory.FilmeFactory;
 import wl.open_house_api.modules.filme.model.entity.Filme;
-import wl.open_house_api.modules.filme.model.mapper.FilmeMapper;
 import wl.open_house_api.modules.filme.model.response.FilmeResponse;
 import wl.open_house_api.modules.filme.model.response.FilmeResponseCategoriaFilme;
 
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 
 @SpringBootTest
 class FilmeMapperTest {
@@ -37,7 +37,7 @@ class FilmeMapperTest {
         assertThat( filme.getImagem()).isEqualTo( "imagem.png" );
     }
 
-  @Test
+    @Test
     @DisplayName("Deveria converter um FilmeRequestEdit em uma entity Filme")
     void filmeRequestEditToFilme() {
 
@@ -70,11 +70,11 @@ class FilmeMapperTest {
         assertThat( filmeResponse.imagem()).isEqualTo( "imagem.png" );
     }
 
-   @Test
+    @Test
     @DisplayName("Deveria converter um Filme em uma entity FilmeResponseCategoriaFilme")
     void filmeToFilmeListResponse() {
 
-       FilmeResponseCategoriaFilme filmeListResponse = FilmeMapper.INSTANCE.filmeToFilmeResponseCategoriaFilme(filmeFactory.getFilme());
+        FilmeResponseCategoriaFilme filmeListResponse = FilmeMapper.INSTANCE.filmeToFilmeResponseCategoriaFilme(filmeFactory.getFilme());
 
         //then
         assertThat( filmeListResponse ).isNotNull();
@@ -82,4 +82,5 @@ class FilmeMapperTest {
         assertThat( filmeListResponse.nome()).isEqualTo( "FILME 1" );
 
     }
+
 }

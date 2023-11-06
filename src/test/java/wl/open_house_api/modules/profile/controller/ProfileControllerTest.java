@@ -1,4 +1,4 @@
-package wl.open_house_api.controller;
+package wl.open_house_api.modules.profile.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -14,10 +14,10 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import wl.open_house_api.modules.role.factory.RoleFactory;
-import wl.open_house_api.modules.role.model.request.RoleRequestCreat;
-import wl.open_house_api.modules.role.model.response.RoleResponse;
-import wl.open_house_api.modules.role.service.RoleService;
+import wl.open_house_api.modules.profile.factory.ProfileFactory;
+import wl.open_house_api.modules.profile.model.request.ProfileRequest;
+import wl.open_house_api.modules.profile.model.response.ProfileResponse;
+import wl.open_house_api.modules.profile.service.ProfileService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -27,55 +27,56 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
-class RoleControllerTest {
+class ProfileControllerTest {
+
     @Autowired
     private MockMvc mvc;
 
     @Autowired
-    JacksonTester<RoleRequestCreat> roleRequestCreatJson;
+    private JacksonTester<ProfileRequest> profileRequestJson;
 
     @Autowired
-    JacksonTester<RoleResponse> roleResponseJson;
+    private JacksonTester<ProfileResponse> profileResponseJson;
 
     @MockBean
-    private RoleService roleService;
+    private ProfileService profileService;
 
-    private RoleFactory roleFactory;
+    private ProfileFactory profileFactory;
 
     @BeforeEach
-    public void beforeEach(){
-        this.roleFactory = new RoleFactory();
+    public void beforeEach() {
+        this.profileFactory = new ProfileFactory();
     }
 
     @Test
     @DisplayName("Deveria devolver codigo http 400 quando informacoes estao invalidas")
     @WithMockUser(authorities = "ROLE_MASTER")
-    void cadatrarCenario1() throws Exception {
-        MockHttpServletResponse response = mvc.perform(post("/roles"))
+    void adicionarProfileCenario1() throws Exception {
+        MockHttpServletResponse response = mvc.perform(post("/profiles"))
                 .andReturn().getResponse();
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
     }
 
     @Test
-    @DisplayName("Deveria devolver codigo http 201 quando informacoes estao corretas")
+    @DisplayName("Deveria devolver codigo http 200 quando informacoes estao corretas")
     @WithMockUser(authorities = "ROLE_MASTER")
-    void cadastrarCenario2() throws Exception {
+    void adicionarProfileCenario2() throws Exception {
 
-        RoleResponse roleResponse = roleFactory.getRoleResponse();
+        ProfileResponse profileResponse = profileFactory.getProfileResponse();
 
-        when(roleService.insert(any())).thenReturn(roleResponse);
+        when(profileService.adicionarProfile(any())).thenReturn(profileResponse);
 
         MockHttpServletResponse response = mvc.perform(
-                post("/roles")
+                post("/profiles")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(roleRequestCreatJson.write(
-                                roleFactory.getRoleRequestCreat()
+                        .content(profileRequestJson.write(
+                                profileFactory.getProfileRequest()
                         ).getJson())
         ).andReturn().getResponse();
 
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
-        String jsonEsperado = roleResponseJson.write(roleResponse).getJson();
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+        String jsonEsperado = profileResponseJson.write(profileResponse).getJson();
         assertThat(response.getContentAsString()).isEqualTo(jsonEsperado);
     }
 }
