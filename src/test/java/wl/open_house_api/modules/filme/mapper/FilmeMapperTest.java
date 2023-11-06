@@ -1,13 +1,21 @@
 package wl.open_house_api.modules.filme.mapper;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import wl.open_house_api.modules.filme.factory.FilmeFactory;
+import wl.open_house_api.modules.filme.model.entity.Filme;
+import wl.open_house_api.modules.filme.model.mapper.FilmeMapper;
+import wl.open_house_api.modules.filme.model.response.FilmeResponse;
+import wl.open_house_api.modules.filme.model.response.FilmeResponseCategoriaFilme;
+
+import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-class FilmeMapperTest { //TODO AJEITAR TESTE
+class FilmeMapperTest {
 
     private FilmeFactory filmeFactory;
     @BeforeEach
@@ -15,10 +23,9 @@ class FilmeMapperTest { //TODO AJEITAR TESTE
         this.filmeFactory = new FilmeFactory();
     }
 
-  /*  @Test
+    @Test
     @DisplayName("Deveria converter um FilmeRequestCreat em uma entity Filme")
-    void filmeRequestCreatToFilmeCenario() {
-
+    void filmeRequestCreatToFilme() {
         Filme filme = FilmeMapper.INSTANCE.filmeRequestCreatToFilme(filmeFactory.getFilmeRequestCreat());
 
         //then
@@ -28,10 +35,9 @@ class FilmeMapperTest { //TODO AJEITAR TESTE
         assertThat( filme.getDataLancamento()).isEqualTo(LocalDate.now());
         assertThat( filme.getDuracao()).isEqualTo( "120 m" );
         assertThat( filme.getImagem()).isEqualTo( "imagem.png" );
-        assertThat( filme.getCategoria()).isEqualTo( Categoria.ACAO );
-    }*/
+    }
 
-   /* @Test
+  @Test
     @DisplayName("Deveria converter um FilmeRequestEdit em uma entity Filme")
     void filmeRequestEditToFilme() {
 
@@ -45,8 +51,8 @@ class FilmeMapperTest { //TODO AJEITAR TESTE
         assertThat( filme.getDataLancamento()).isEqualTo(LocalDate.now());
         assertThat( filme.getDuracao()).isEqualTo( "120 m" );
         assertThat( filme.getImagem()).isEqualTo( "imagem.png" );
-        //assertThat( filme.getCategoria()).isEqualTo( Categoria.ACAO );
     }
+
 
     @Test
     @DisplayName("Deveria converter um Filme em uma entity FilmeResponse")
@@ -62,22 +68,18 @@ class FilmeMapperTest { //TODO AJEITAR TESTE
         assertThat( filmeResponse.dataLancamento()).isEqualTo(LocalDate.now());
         assertThat( filmeResponse.duracao()).isEqualTo( "120 m" );
         assertThat( filmeResponse.imagem()).isEqualTo( "imagem.png" );
-        //assertThat( filmeResponse.categoria()).isEqualTo( Categoria.ACAO );
-    }*/
+    }
 
-/*    @Test
-    @DisplayName("Deveria converter um Filme em uma entity FilmeListResponse")
+   @Test
+    @DisplayName("Deveria converter um Filme em uma entity FilmeResponseCategoriaFilme")
     void filmeToFilmeListResponse() {
 
-        FilmeListResponse filmeListResponse = FilmeMapper.INSTANCE.filmeToFilmeListResponse(filmeFactory.getFilme());
+       FilmeResponseCategoriaFilme filmeListResponse = FilmeMapper.INSTANCE.filmeToFilmeResponseCategoriaFilme(filmeFactory.getFilme());
 
         //then
         assertThat( filmeListResponse ).isNotNull();
         assertThat( filmeListResponse.id()).isEqualTo( 1L );
         assertThat( filmeListResponse.nome()).isEqualTo( "FILME 1" );
-        assertThat( filmeListResponse.dataLancamento()).isEqualTo(LocalDate.now());
-        assertThat( filmeListResponse.duracao()).isEqualTo( "120 m" );
-        assertThat( filmeListResponse.imagem()).isEqualTo( "imagem.png" );
-        assertThat( filmeListResponse.categoria()).isEqualTo( Categoria.ACAO );
-    }*/
+
+    }
 }
