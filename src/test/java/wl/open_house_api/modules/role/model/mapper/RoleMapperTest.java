@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import wl.open_house_api.modules.role.factory.RoleFactory;
 import wl.open_house_api.modules.role.model.entity.Role;
+import wl.open_house_api.modules.role.model.enuns.Roles;
 import wl.open_house_api.modules.role.model.response.RoleResponse;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,7 +26,7 @@ class RoleMapperTest {
         Role role = RoleMapper.INSTANCE.roleRequestCreatToRole(roleFactory.getRoleRequestCreat());
 
         assertThat( role ).isNotNull();
-        assertThat( role.getNome()).isEqualTo( "ROLE_USER" );
+        assertThat( role.getNome()).isEqualTo( Roles.ROLE_USER );
     }
 
     @Test
@@ -35,7 +36,7 @@ class RoleMapperTest {
 
         assertThat( role ).isNotNull();
         assertThat( role.getId()).isEqualTo( 1L );
-        assertThat( role.getNome()).isEqualTo( "ROLE_USER" );
+        assertThat( role.getNome()).isEqualTo( Roles.ROLE_USER );
     }
 
     @Test

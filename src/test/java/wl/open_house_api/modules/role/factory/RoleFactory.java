@@ -1,6 +1,7 @@
 package wl.open_house_api.modules.role.factory;
 
 import wl.open_house_api.modules.role.model.entity.Role;
+import wl.open_house_api.modules.role.model.enuns.Roles;
 import wl.open_house_api.modules.role.model.request.RoleRequest;
 import wl.open_house_api.modules.role.model.request.RoleRequestCreat;
 import wl.open_house_api.modules.role.model.response.RoleResponse;
@@ -12,12 +13,12 @@ import java.util.List;
 public class RoleFactory {
 
     private final Long id;
-    private final String nome;
+    private final Roles nome;
 
 
     public RoleFactory() {
         this.id = 1L;
-        this.nome = "ROLE_USER";
+        this.nome = Roles.ROLE_USER;
     }
 
     public Role getRole(){
@@ -39,11 +40,11 @@ public class RoleFactory {
     }
 
     public RoleResponseUser getRoleResponseUser(){
-        return new RoleResponseUser(this.nome);
+        return new RoleResponseUser(this.nome.toString());
     }
 
     public RoleResponse getRoleResponse(){
-        return new RoleResponse(this.id,this.nome);
+        return new RoleResponse(this.id,this.nome.toString());
     }
 
     public List<RoleResponseUser> getListRoleResponseUser(){

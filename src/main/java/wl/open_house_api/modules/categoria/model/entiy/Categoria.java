@@ -3,9 +3,11 @@ package wl.open_house_api.modules.categoria.model.entiy;
 import jakarta.persistence.*;
 import wl.open_house_api.modules.categoria.model.enuns.Category;
 
+import java.io.Serializable;
+
 @Table(name = "categorias")
 @Entity(name = "Categoria")
-public class Categoria {
+public class Categoria implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,6 +1,8 @@
 package wl.open_house_api.modules.role.model.request;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import wl.open_house_api.modules.role.model.enuns.Roles;
 
-public record RoleRequestCreat(@NotBlank String nome) {
+public record RoleRequestCreat(@NotNull @Valid() Roles nome) {
 }
