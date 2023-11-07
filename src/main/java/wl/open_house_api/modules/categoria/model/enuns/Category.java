@@ -16,6 +16,4 @@ public enum Category {
     SUSPENSE,
     GUERRA,
     WESTERN,
-    TESTE,
-    NEW_TESTE
 }
