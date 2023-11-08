@@ -34,6 +34,7 @@ public class AvaliacaoService implements IAvaliacaoService {
         this.usuarioService = usuarioService;
         this.validarAvaliacao = validarAvaliacao;
     }
+
     @Override
     @Transactional
     public void avaliarFilme(AvaliarFilmeRequest avaliarFilme) {
@@ -64,7 +65,18 @@ public class AvaliacaoService implements IAvaliacaoService {
 
     @Override
     public Page<AvaliacaoDeFilmesResponse> listarFilmesAvaliadosPorUser(Pageable pageable, Long id) {
-        return repository.findAllByUsuarioId(pageable,id).map(AvaliacaoMapper.INSTANCE::avaliacaoFilmeToAavaliacaoFilmeResponse);
+        return repository.findAllByUsuarioId(pageable, id).map(AvaliacaoMapper.INSTANCE::avaliacaoFilmeToAavaliacaoFilmeResponse);
+    }
+
+    @Override
+    public AvaliacaoDeFilmesResponse listaAvaliacaoPorFilmeIdUserId(Long filmeId, Long usuarioId) {
+        AvaliacaoDeFilmes avaliacao = repository.findByFilmeIdAndUsuarioId(filmeId, usuarioId);
+        return AvaliacaoMapper.INSTANCE.avaliacaoFilmeToAavaliacaoFilmeResponse(avaliacao);
+    }
+
+    @Override
+    public Integer notaFilme(Long filmeId, Long usuarioId) {
+        return repository.findNotaByFilmeIdAndUsuarioId(filmeId, usuarioId);
     }
 
 

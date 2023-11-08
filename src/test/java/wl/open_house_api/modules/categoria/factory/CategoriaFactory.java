@@ -4,6 +4,7 @@ import wl.open_house_api.modules.categoria.model.entiy.Categoria;
 import wl.open_house_api.modules.categoria.model.enuns.Category;
 import wl.open_house_api.modules.categoria.model.request.CategoriaRequest;
 import wl.open_house_api.modules.categoria.model.request.CategoriaRequestCreat;
+import wl.open_house_api.modules.categoria.model.response.CategoriaResponse;
 import wl.open_house_api.modules.categoria.model.response.CategoriaResponseId;
 
 
@@ -31,5 +32,9 @@ public class CategoriaFactory {
 
     public CategoriaResponseId getCategoriaResponseId() {
         return new CategoriaResponseId(1L, nome.toString());
+    }
+
+    public CategoriaResponse getCategoriaResponse() {
+        return new CategoriaResponse(nome.toString());
     }
 }

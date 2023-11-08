@@ -28,25 +28,38 @@ public class AvaliacaoController {
 
     @PostMapping
     @PreAuthorize("hasAnyRole('USER')")
-    @Operation( summary = "Avalia um filme", description = "É necessário ter filme e um usuario previamente cadastrados", tags = { "Endpoints De Avaliar Filmes" } )
-    public ResponseEntity<HttpStatus> avaliarFilmes(@RequestBody @Valid AvaliarFilmeRequest avaliarFilme){
+    @Operation(summary = "Avalia um filme", description = "É necessário ter filme e um usuario previamente cadastrados", tags = {"Endpoints De Avaliar Filmes"})
+    public ResponseEntity<HttpStatus> avaliarFilmes(@RequestBody @Valid AvaliarFilmeRequest avaliarFilme) {
         service.avaliarFilme(avaliarFilme);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
     @PreAuthorize("hasAnyRole('USER')")
-    @Operation( summary = "Lista todas as avaliações de filmes cadastrados", tags = { "Endpoints De Avaliar Filmes" } )
-    public ResponseEntity<Page<AvaliacaoDeFilmesResponse>> listarFilmesAvaliados(Pageable pageable){
+    @Operation(summary = "Lista todas as avaliações de filmes cadastrados", tags = {"Endpoints De Avaliar Filmes"})
+    public ResponseEntity<Page<AvaliacaoDeFilmesResponse>> listarFilmesAvaliados(Pageable pageable) {
         return ResponseEntity.ok(service.listarFilmesAvaliados(pageable));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/user/{userId}")
     @PreAuthorize("hasAnyRole('USER')")
-    @Operation( summary = "Lista todas as avaliações de filmes cadastrados do usuário", tags = { "Endpoints De Avaliar Filmes" } )
-    public ResponseEntity<Page<AvaliacaoDeFilmesResponse>> listarFilmesAvaliadosUser(Pageable pageable, @PathVariable Long id){
-        return ResponseEntity.ok(service.listarFilmesAvaliadosPorUser(pageable,id));
+    @Operation(summary = "Lista todas as avaliações de filmes cadastrados do usuário", tags = {"Endpoints De Avaliar Filmes"})
+    public ResponseEntity<Page<AvaliacaoDeFilmesResponse>> listarFilmesAvaliadosUser(Pageable pageable, @PathVariable Long userId) {
+        return ResponseEntity.ok(service.listarFilmesAvaliadosPorUser(pageable, userId));
     }
 
 
+    @GetMapping("/avaliacao/{filmeId}/{usuarioId}")
+    @PreAuthorize("hasAnyRole('USER')")
+    @Operation(summary = "Lista a avaiação do filme com base no usuario e no filme", tags = {"Endpoints De Avaliar Filmes"})
+    public ResponseEntity<AvaliacaoDeFilmesResponse> listarAvaliacaoPorFilmeIdUserId(@PathVariable Long filmeId, @PathVariable Long usuarioId) {
+        return ResponseEntity.ok(service.listaAvaliacaoPorFilmeIdUserId(filmeId, usuarioId));
+    }
+
+    @GetMapping("/nota/{filmeId}/{usuarioId}")
+    @PreAuthorize("hasAnyRole('USER')")
+    @Operation(summary = "Lista a nota do filme com base no usuario e no filme", tags = {"Endpoints De Avaliar Filmes"})
+    public ResponseEntity<Integer> notaAvaliacaoFilme(@PathVariable Long filmeId, @PathVariable Long usuarioId) {
+        return ResponseEntity.ok(service.notaFilme(filmeId, usuarioId));
+    }
 }

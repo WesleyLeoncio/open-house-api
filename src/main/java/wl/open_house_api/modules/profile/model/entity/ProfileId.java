@@ -1,7 +1,5 @@
 package wl.open_house_api.modules.profile.model.entity;
 
-//TODO TESTE E REMOVER SE TUDO CONTINUAR BEM
-/*import jakarta.persistence.Column;*/
 import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
@@ -21,21 +19,6 @@ public class ProfileId implements Serializable {
         this.roleId = roleId;
     }
 
-    public Long getUsuarioId() {
-        return usuarioId;
-    }
-
-    public void setUsuarioId(Long usuarioId) {
-        this.usuarioId = usuarioId;
-    }
-
-    public Long getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
-    }
 
     @Override
     public boolean equals(Object o) {

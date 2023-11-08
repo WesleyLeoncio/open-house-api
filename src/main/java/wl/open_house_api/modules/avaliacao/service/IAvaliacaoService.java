@@ -12,4 +12,8 @@ public interface IAvaliacaoService {
     Page<AvaliacaoDeFilmesResponse> listarFilmesAvaliados(Pageable pageable);
 
     Page<AvaliacaoDeFilmesResponse> listarFilmesAvaliadosPorUser(Pageable pageable, Long id);
+
+    AvaliacaoDeFilmesResponse listaAvaliacaoPorFilmeIdUserId(Long filmeId, Long usuarioId);
+
+    Integer notaFilme(Long filmeId, Long usuarioId);
 }

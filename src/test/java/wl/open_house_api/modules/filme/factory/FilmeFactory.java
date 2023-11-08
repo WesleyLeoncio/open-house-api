@@ -1,18 +1,17 @@
 package wl.open_house_api.modules.filme.factory;
 
-import wl.open_house_api.modules.categoria.model.response.CategoriaResponse;
 import wl.open_house_api.modules.categoria_filme.model.request.CategoriaFilmeRequestCategoria;
 import wl.open_house_api.modules.filme.model.entity.Filme;
 import wl.open_house_api.modules.filme.model.request.FilmeRequestCreat;
 import wl.open_house_api.modules.filme.model.request.FilmeRequestEdit;
-import wl.open_house_api.modules.filme.model.response.FilmeResponse;
+import wl.open_house_api.modules.filme.model.response.FilmeResponseCategoriaFilme;
 import wl.open_house_api.modules.filme.model.response.FilmeResponseCreat;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FilmeFactory { //TODO ARRUMAR TESTES
+public class FilmeFactory {
 
     private final Long id;
     private final String nome;
@@ -36,6 +35,9 @@ public class FilmeFactory { //TODO ARRUMAR TESTES
         return new Filme(this.id, this.nome, this.descricao, this.data, this.duracao,
                 this.imagem);
     }
+    public FilmeResponseCategoriaFilme getFilmeResponseCategoriaFilme(){
+        return new FilmeResponseCategoriaFilme(this.id, this.nome);
+    }
 
     public FilmeRequestCreat getFilmeRequestCreat(){
         return new FilmeRequestCreat(
@@ -47,19 +49,11 @@ public class FilmeFactory { //TODO ARRUMAR TESTES
                 this.id, this.nome, this.descricao, this.data, this.duracao, this.imagem);
     }
 
-    public FilmeResponse getFilmeResponse(){
-        return new FilmeResponse(this.id, this.nome, this.descricao, this.data, this.duracao, this.imagem,this.getListCategoriaResponse());
-    }
 
     public FilmeResponseCreat getFilmeResponseCreat(){
         return new FilmeResponseCreat(this.id, this.nome, this.descricao, this.data, this.duracao, this.imagem);
     }
 
 
-    public  List<CategoriaResponse> getListCategoriaResponse(){
-        List<CategoriaResponse> listCategoriaResponse = new ArrayList<>();
-        listCategoriaResponse.add(new CategoriaResponse("AÇÃO"));
-        return listCategoriaResponse;
-    }
 
 }
