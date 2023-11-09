@@ -16,4 +16,5 @@ public enum Category {
     SUSPENSE,
     GUERRA,
     WESTERN,
+    BIOGRAFIA
 }
