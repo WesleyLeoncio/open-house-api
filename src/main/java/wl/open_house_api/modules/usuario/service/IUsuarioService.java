@@ -9,7 +9,6 @@ import wl.open_house_api.modules.usuario.model.request.UsuarioRequestEditMaster;
 import wl.open_house_api.modules.usuario.model.response.UsuarioResponse;
 import wl.open_house_api.modules.usuario.model.response.UsuarioResponseCrud;
 
-
 public interface IUsuarioService {
 
     UsuarioResponseCrud insert(UsuarioRequestCreatMaster user);

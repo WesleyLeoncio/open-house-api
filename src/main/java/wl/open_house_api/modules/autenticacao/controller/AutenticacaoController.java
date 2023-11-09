@@ -35,7 +35,7 @@ public class AutenticacaoController {
         Authentication authentication = manager.authenticate(token);
         String tokenJWT = tokenService.gerarToken((Usuario) authentication.getPrincipal());
 
-        return ResponseEntity.ok(new UsuarioTokenResponse(userLogin.login(),tokenJWT));
+        return ResponseEntity.ok(new UsuarioTokenResponse(tokenJWT));
     }
 
 }

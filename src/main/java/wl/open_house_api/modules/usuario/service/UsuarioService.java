@@ -99,6 +99,7 @@ public class UsuarioService implements IUsuarioService {
         repository.save(usuario);
     }
 
+
     public Usuario verificarUser(Long id) {
         return repository.getReferenceById(id);
     }

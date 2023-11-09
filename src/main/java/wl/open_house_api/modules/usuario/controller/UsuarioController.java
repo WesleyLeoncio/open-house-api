@@ -91,6 +91,8 @@ public class UsuarioController {
         return ResponseEntity.ok(service.findUser(id));
     }
 
+
+
     @DeleteMapping("/{id}")
     @SecurityRequirement(name = "bearer-key")
     @PreAuthorize("hasAnyRole('MASTER')")

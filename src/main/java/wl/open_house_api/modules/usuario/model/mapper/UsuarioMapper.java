@@ -9,6 +9,7 @@ import wl.open_house_api.modules.usuario.model.request.UsuarioRequestCreatUser;
 import wl.open_house_api.modules.usuario.model.response.UsuarioResponse;
 
 
+
 @Mapper
 public interface UsuarioMapper {
     UsuarioMapper INSTANCE = Mappers.getMapper( UsuarioMapper.class );
@@ -18,6 +19,7 @@ public interface UsuarioMapper {
     Usuario usuarioResquestCreatUserToUsuario(UsuarioRequestCreatUser usuarioRequestCreatUser);
 
     UsuarioResponseCrud usuarioToUsuarioResponseCrud(Usuario usuario);
+
 
     UsuarioResponse usuarioToUsuarioResponse(Usuario usuario);
 

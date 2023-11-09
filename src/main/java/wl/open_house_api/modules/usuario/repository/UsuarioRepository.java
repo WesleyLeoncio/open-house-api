@@ -17,4 +17,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
           WHERE u.id = :id
     """)
     Boolean findStatusById(Long id);
+
 }

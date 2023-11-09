@@ -23,6 +23,8 @@ public class TokenService implements ITokenService {
             Algorithm algoritmo = Algorithm.HMAC256(secret);
             return JWT.create()
                     .withIssuer("API Open House")
+                    .withClaim("id", usuario.getId())
+                    .withClaim("nome", usuario.getNome())
                     .withSubject(usuario.getLogin())
                     .withExpiresAt(dataExpiracao())
                     .sign(algoritmo);
