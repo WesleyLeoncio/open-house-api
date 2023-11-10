@@ -16,5 +16,8 @@ public enum Category {
     SUSPENSE,
     GUERRA,
     WESTERN,
-    BIOGRAFIA
+    BIOGRAFIA,
+    MISTERIO,
+    POLICIAL,
+    ESPORTE
 }
