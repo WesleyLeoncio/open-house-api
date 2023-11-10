@@ -4,6 +4,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import wl.open_house_api.infra.exeptions.ValidacaoException;
 import wl.open_house_api.modules.profile.service.IProfileService;
 import wl.open_house_api.modules.profile.model.request.ProfileRequest;
 import wl.open_house_api.modules.profile.model.request.ProfileRequestRole;
@@ -18,6 +19,7 @@ import wl.open_house_api.modules.usuario.model.response.UsuarioResponseCrud;
 import wl.open_house_api.modules.usuario.repository.UsuarioRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuarioService implements IUsuarioService {
@@ -100,8 +102,12 @@ public class UsuarioService implements IUsuarioService {
     }
 
 
-    public Usuario verificarUser(Long id) {
-        return repository.getReferenceById(id);
+    public Usuario verificarUser(Long id){
+        Optional<Usuario> usuario = repository.findById(id);
+        if(usuario.isEmpty()){
+            throw new ValidacaoException("Usuario não existe, verifique e tente e novamente!");
+        }
+        return usuario.get();
     }
 
     public Boolean usuarioAtivo(Long id) {

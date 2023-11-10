@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import wl.open_house_api.modules.avaliacao.model.request.AvaliarFilmeRequest;
+import wl.open_house_api.modules.avaliacao.model.response.AvaliacaoDeFilmesNotaResponse;
 import wl.open_house_api.modules.avaliacao.model.response.AvaliacaoDeFilmesResponse;
 import wl.open_house_api.modules.avaliacao.service.IAvaliacaoService;
 
@@ -59,7 +60,7 @@ public class AvaliacaoController {
     @GetMapping("/nota/{filmeId}/{usuarioId}")
     @PreAuthorize("hasAnyRole('USER')")
     @Operation(summary = "Lista a nota do filme com base no usuario e no filme", tags = {"Endpoints De Avaliar Filmes"})
-    public ResponseEntity<Integer> notaAvaliacaoFilme(@PathVariable Long filmeId, @PathVariable Long usuarioId) {
+    public ResponseEntity<AvaliacaoDeFilmesNotaResponse> notaAvaliacaoFilme(@PathVariable Long filmeId, @PathVariable Long usuarioId) {
         return ResponseEntity.ok(service.notaFilme(filmeId, usuarioId));
     }
 }

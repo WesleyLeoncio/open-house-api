@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import wl.open_house_api.modules.avaliacao.model.response.AvaliacaoDeFilmesNotaResponse;
 import wl.open_house_api.modules.filme.service.IFilmeService;
 import wl.open_house_api.modules.avaliacao.model.entity.AvaliacaoDeFilmes;
 import wl.open_house_api.modules.avaliacao.model.mapper.AvaliacaoMapper;
@@ -60,23 +61,24 @@ public class AvaliacaoService implements IAvaliacaoService {
 
     @Override
     public Page<AvaliacaoDeFilmesResponse> listarFilmesAvaliados(Pageable pageable) {
-        return repository.findAll(pageable).map(AvaliacaoMapper.INSTANCE::avaliacaoFilmeToAavaliacaoFilmeResponse);
+        return repository.findAll(pageable).map(AvaliacaoMapper.INSTANCE::avaliacaoFilmeToAvaliacaoFilmeResponse);
     }
 
     @Override
     public Page<AvaliacaoDeFilmesResponse> listarFilmesAvaliadosPorUser(Pageable pageable, Long id) {
-        return repository.findAllByUsuarioId(pageable, id).map(AvaliacaoMapper.INSTANCE::avaliacaoFilmeToAavaliacaoFilmeResponse);
+        return repository.findAllByUsuarioId(pageable, id).map(AvaliacaoMapper.INSTANCE::avaliacaoFilmeToAvaliacaoFilmeResponse);
     }
 
     @Override
     public AvaliacaoDeFilmesResponse listaAvaliacaoPorFilmeIdUserId(Long filmeId, Long usuarioId) {
         AvaliacaoDeFilmes avaliacao = repository.findByFilmeIdAndUsuarioId(filmeId, usuarioId);
-        return AvaliacaoMapper.INSTANCE.avaliacaoFilmeToAavaliacaoFilmeResponse(avaliacao);
+        return AvaliacaoMapper.INSTANCE.avaliacaoFilmeToAvaliacaoFilmeResponse(avaliacao);
     }
 
     @Override
-    public Integer notaFilme(Long filmeId, Long usuarioId) {
-        return repository.findNotaByFilmeIdAndUsuarioId(filmeId, usuarioId);
+    public AvaliacaoDeFilmesNotaResponse notaFilme(Long filmeId, Long usuarioId) {
+        Integer nota = repository.findNotaByFilmeIdAndUsuarioId(filmeId, usuarioId);
+        return AvaliacaoMapper.INSTANCE.integerNotaToAvaliacaoDeFilmesNotaResponse(nota);
     }
 
 

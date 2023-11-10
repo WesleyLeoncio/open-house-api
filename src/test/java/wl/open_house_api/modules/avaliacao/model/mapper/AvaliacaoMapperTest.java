@@ -16,7 +16,7 @@ class AvaliacaoMapperTest {
         AvaliacaoFilmeFactory avaliacaoFilmeFactory = new AvaliacaoFilmeFactory();
 
         AvaliacaoDeFilmesResponse avaliacaoDeFilmesResponse =
-                AvaliacaoMapper.INSTANCE.avaliacaoFilmeToAavaliacaoFilmeResponse(avaliacaoFilmeFactory.getAvaliacaoFilmes());
+                AvaliacaoMapper.INSTANCE.avaliacaoFilmeToAvaliacaoFilmeResponse(avaliacaoFilmeFactory.getAvaliacaoFilmes());
 
         assertThat(avaliacaoDeFilmesResponse).isNotNull();
         assertThat(avaliacaoDeFilmesResponse.id()).isEqualTo(1L);
