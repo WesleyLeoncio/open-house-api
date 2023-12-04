@@ -23,6 +23,9 @@ O desenvolvimento dessa API tem como objetivo criar uma aplicação que seja cap
 - AUTORIZAÇÃO
 - TESTES
 
+### BASE DE DADOS DE TESTES
+- Link do repositório: `https://github.com/WesleyLeoncio/open-house-data-base-docker`
+
 ### DOCUMENTAÇÃO SWAGGER
 - `http://localhost:8080/swagger-ui/index.html#/`
 - `http://localhost:8080/v3/api-docs`
