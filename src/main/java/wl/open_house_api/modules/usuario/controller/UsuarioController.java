@@ -50,7 +50,7 @@ public class UsuarioController {
 
     @PutMapping
     @SecurityRequirement(name = "bearer-key")
-    @PreAuthorize("hasAnyRole('MASTER')")
+    @PreAuthorize("hasAnyRole('MASTER', 'ADMIN', 'USER')")
     @Operation( summary = "Edita um usuário", description = "Altera somente as infomações basicas do usuários", tags = { "Endpoints De Usuários" } )
     public ResponseEntity<UsuarioResponseCrud> editar(@RequestBody @Valid UsuarioRequestEditMaster user) {
         UsuarioResponseCrud response = service.update(user);

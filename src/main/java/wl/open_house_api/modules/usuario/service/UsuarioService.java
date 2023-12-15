@@ -1,4 +1,5 @@
 package wl.open_house_api.modules.usuario.service;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -65,9 +66,15 @@ public class UsuarioService implements IUsuarioService {
     @Override
     @Transactional
     public UsuarioResponseCrud update(UsuarioRequestEditMaster user) {
+        return UsuarioMapper.INSTANCE.usuarioToUsuarioResponseCrud(this.atualizarDados(user));
+    }
+
+    public Usuario atualizarDados(UsuarioRequestEditMaster user) {
         Usuario usuario = verificarUser(user.id());
-        usuario.atualizarDados(user);
-        return UsuarioMapper.INSTANCE.usuarioToUsuarioResponseCrud(usuario);
+        usuario.setNome(user.nome());
+        usuario.setLogin(user.login());
+        usuario.setSenha(passwordEncoder.encode(user.senha()));
+        return usuario;
     }
 
     @Override
@@ -102,9 +109,9 @@ public class UsuarioService implements IUsuarioService {
     }
 
 
-    public Usuario verificarUser(Long id){
+    public Usuario verificarUser(Long id) {
         Optional<Usuario> usuario = repository.findById(id);
-        if(usuario.isEmpty()){
+        if (usuario.isEmpty()) {
             throw new ValidacaoException("Usuario não existe, verifique e tente e novamente!");
         }
         return usuario.get();

@@ -3,7 +3,6 @@ import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import wl.open_house_api.modules.role.model.entity.Role;
-import wl.open_house_api.modules.usuario.model.request.UsuarioRequestEditMaster;
 
 import java.util.Collection;
 import java.util.List;
@@ -116,11 +115,6 @@ public class Usuario implements UserDetails {
         this.role = role;
     }
 
-    public void atualizarDados(UsuarioRequestEditMaster user){
-        setNome(user.nome());
-        setLogin(user.login());
-        setSenha(user.senha());
-    }
 
     @Override
     public String toString() {
