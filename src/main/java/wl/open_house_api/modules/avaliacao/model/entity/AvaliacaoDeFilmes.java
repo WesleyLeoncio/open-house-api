@@ -17,6 +17,7 @@ public class AvaliacaoDeFilmes implements Serializable {
     @MapsId("filmeId")
     @JoinColumn(name = "filme_id")
     private Filme filme;
+
     @ManyToOne
     @MapsId("usuarioId")
     @JoinColumn(name = "usuario_id")
