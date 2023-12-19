@@ -60,19 +60,17 @@ public class AvaliacaoService implements IAvaliacaoService {
 
     @Override
     public Page<AvaliacaoDeFilmesResponse> listarFilmesAvaliados(Pageable pageable) {
-        return repository.findAll(pageable).map(AvaliacaoMapper.INSTANCE::avaliacaoFilmeToAvaliacaoFilmeResponse);
+        return repository.findAllAvalicoes(pageable).map(AvaliacaoMapper.INSTANCE::avaliacaoFilmeToAvaliacaoFilmeResponse);
     }
 
     @Override
     public Page<AvaliacaoDeFilmesResponse> listarFilmesAvaliadosPorUser(Pageable pageable, Long id) {
-        System.out.println("teste");
-        System.out.println(repository.findAllByUsuarioId(pageable,id));
         return repository.findAllByUsuarioId(pageable, id).map(AvaliacaoMapper.INSTANCE::avaliacaoFilmeToAvaliacaoFilmeResponse);
     }
 
     @Override
     public AvaliacaoDeFilmesResponse listaAvaliacaoPorFilmeIdUserId(Long filmeId, Long usuarioId) {
-        AvaliacaoDeFilmes avaliacao = repository.findByFilmeIdAndUsuarioId(filmeId, usuarioId);
+        AvaliacaoDeFilmes avaliacao = repository.getReferenceById(new AvaliacaoId(filmeId, usuarioId));
         return AvaliacaoMapper.INSTANCE.avaliacaoFilmeToAvaliacaoFilmeResponse(avaliacao);
     }
 

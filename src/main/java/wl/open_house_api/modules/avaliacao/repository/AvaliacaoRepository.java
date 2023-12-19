@@ -9,9 +9,19 @@ import wl.open_house_api.modules.avaliacao.model.entity.AvaliacaoId;
 
 public interface AvaliacaoRepository extends JpaRepository<AvaliacaoDeFilmes, AvaliacaoId> {
 
-    AvaliacaoDeFilmes findByFilmeIdAndUsuarioId(Long filmeId, Long usuarioId);
 
+    @Query("""
+        SELECT a FROM AvaliacaoDeFilmes a
+          WHERE a.usuario.id = :id
+    """)
     Page<AvaliacaoDeFilmes> findAllByUsuarioId(Pageable pageable, Long id);
+
+
+    @Query("""
+        SELECT a FROM AvaliacaoDeFilmes a
+    """)
+    Page<AvaliacaoDeFilmes> findAllAvalicoes(Pageable pageable);
+
 
     @Query("""
         SELECT a.nota FROM AvaliacaoDeFilmes a
