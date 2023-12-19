@@ -1,12 +1,11 @@
 CREATE TABLE avaliacoes
 (
-    id            SERIAL      NOT NULL,
     filme_id     INTEGER      NOT NULL,
     usuario_id   INTEGER      NOT NULL,
     nota         INTEGER      NOT NULL,
 
     CONSTRAINT pk_avaliacao
-      PRIMARY KEY (id),
+      PRIMARY KEY (filme_id, usuario_id),
     CONSTRAINT fk_avaliacao_filme_id
       FOREIGN KEY(filme_id)
         REFERENCES filmes(id),

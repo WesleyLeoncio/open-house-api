@@ -19,7 +19,7 @@ class AvaliacaoMapperTest {
                 AvaliacaoMapper.INSTANCE.avaliacaoFilmeToAvaliacaoFilmeResponse(avaliacaoFilmeFactory.getAvaliacaoFilmes());
 
         assertThat(avaliacaoDeFilmesResponse).isNotNull();
-        assertThat(avaliacaoDeFilmesResponse.id()).isEqualTo(1L);
+//        assertThat(avaliacaoDeFilmesResponse.id()).isEqualTo(1L);
         assertThat(avaliacaoDeFilmesResponse.filme().id()).isEqualTo(1L);
         assertThat(avaliacaoDeFilmesResponse.nota()).isEqualTo(5);
 

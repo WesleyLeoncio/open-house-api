@@ -9,14 +9,16 @@ import java.io.Serializable;
 @Table(name = "avaliacoes")
 @Entity(name="AvaliacaoDeFilmes")
 public class AvaliacaoDeFilmes implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
+    @EmbeddedId
+    AvaliacaoId avaliacaoId;
 
     @ManyToOne
+    @MapsId("filmeId")
     @JoinColumn(name = "filme_id")
     private Filme filme;
     @ManyToOne
+    @MapsId("usuarioId")
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
@@ -24,19 +26,19 @@ public class AvaliacaoDeFilmes implements Serializable {
 
     public AvaliacaoDeFilmes() {}
 
-    public AvaliacaoDeFilmes(Long id, Filme filme, Usuario usuario, int nota) {
-        this.id = id;
+    public AvaliacaoDeFilmes(AvaliacaoId avaliacaoId, Filme filme, Usuario usuario, int nota) {
+        this.avaliacaoId = avaliacaoId;
         this.filme = filme;
         this.usuario = usuario;
         this.nota = nota;
     }
 
-    public Long getId() {
-        return id;
+    public AvaliacaoId getAvaliacaoId() {
+        return avaliacaoId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setAvaliacaoId(AvaliacaoId avaliacaoId) {
+        this.avaliacaoId = avaliacaoId;
     }
 
     public Filme getFilme() {

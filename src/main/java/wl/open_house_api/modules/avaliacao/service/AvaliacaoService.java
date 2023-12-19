@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import wl.open_house_api.modules.avaliacao.model.entity.AvaliacaoId;
 import wl.open_house_api.modules.avaliacao.model.response.AvaliacaoDeFilmesNotaResponse;
 import wl.open_house_api.modules.filme.service.IFilmeService;
 import wl.open_house_api.modules.avaliacao.model.entity.AvaliacaoDeFilmes;
@@ -49,14 +50,12 @@ public class AvaliacaoService implements IAvaliacaoService {
         Filme filme = filmeService.verfificarFilme(avaliarFilme.idFilme());
         Usuario usuario = usuarioService.verificarUser(avaliarFilme.idUsuario());
 
-        AvaliacaoDeFilmes avaliacao = repository.findByFilmeIdAndUsuarioId(filme.getId(), usuario.getId());
-        if (avaliacao != null) {
-            avaliacao.setNota(avaliarFilme.nota());
-            repository.save(avaliacao);
-        } else {
-            AvaliacaoDeFilmes newAvaliacao = new AvaliacaoDeFilmes(null, filme, usuario, avaliarFilme.nota());
-            repository.save(newAvaliacao);
-        }
+        AvaliacaoId avaliacaoId = new AvaliacaoId(filme.getId(), usuario.getId());
+
+
+        AvaliacaoDeFilmes newAvaliacao = new AvaliacaoDeFilmes(avaliacaoId, filme, usuario, avaliarFilme.nota());
+        repository.save(newAvaliacao);
+
     }
 
     @Override
@@ -66,6 +65,8 @@ public class AvaliacaoService implements IAvaliacaoService {
 
     @Override
     public Page<AvaliacaoDeFilmesResponse> listarFilmesAvaliadosPorUser(Pageable pageable, Long id) {
+        System.out.println("teste");
+        System.out.println(repository.findAllByUsuarioId(pageable,id));
         return repository.findAllByUsuarioId(pageable, id).map(AvaliacaoMapper.INSTANCE::avaliacaoFilmeToAvaliacaoFilmeResponse);
     }
 

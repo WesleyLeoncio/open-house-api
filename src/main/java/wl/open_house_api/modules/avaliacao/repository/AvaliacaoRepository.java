@@ -5,8 +5,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import wl.open_house_api.modules.avaliacao.model.entity.AvaliacaoDeFilmes;
+import wl.open_house_api.modules.avaliacao.model.entity.AvaliacaoId;
 
-public interface AvaliacaoRepository extends JpaRepository<AvaliacaoDeFilmes, Long> {
+public interface AvaliacaoRepository extends JpaRepository<AvaliacaoDeFilmes, AvaliacaoId> {
 
     AvaliacaoDeFilmes findByFilmeIdAndUsuarioId(Long filmeId, Long usuarioId);
 
