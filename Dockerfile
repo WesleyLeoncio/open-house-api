@@ -1,6 +1,4 @@
 FROM openjdk:20
-RUN mkdir /app
-WORKDIR /app
 COPY . .
 
 COPY --from=build  target/*.jar /app/app.jar
