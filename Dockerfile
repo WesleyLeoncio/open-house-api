@@ -7,6 +7,6 @@ RUN mvn package
 FROM eclipse-temurin:17-jdk
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-COPY --FROM=build /usr/src/app/target/*.jar app.jar
+COPY --from=build /target/*.jar app.jar
 
 ENTRYPOINT [ "java", "-jar", "-Dspring.profiles.active=prod", "app.jar" ]
