@@ -1,13 +1,17 @@
-FROM maven:3.9-amazoncorretto-8-al2023 as build
-WORKDIR /app
+FROM ubuntu:latest AS build
+
+RUN apt-get update
+RUN apt-get install openjdk-17-jdk -y
 COPY . .
-RUN mvn clean package
+
+RUN apt-get install maven -y
+RUN mvn clean install
 
 FROM openjdk:20-ea-jdk-slim
-WORKDIR /app
-COPY --from=build ./app/target/*.jar ./app.jar
+
+EXPOSE 8080
+
+COPY --from=build /target/deploy_render-1.0.0.jar app.jar
+
 ENTRYPOINT [ "java", "-Dspring.profiles.active=prod", "-jar", "app.jar" ]
-
-
-
 
