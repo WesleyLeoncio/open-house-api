@@ -4,7 +4,7 @@ RUN apt-get update
 COPY . .
 
 RUN apt-get install maven -y
-RUN mvn clean install
+RUN #mvn clean install
 
 FROM openjdk:20
 
