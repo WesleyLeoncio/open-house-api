@@ -1,16 +1,15 @@
-FROM ubuntu:latest AS build
+FROM openjdk:20
+RUN mkdir /app
+WORKDIR /app
 
-RUN apt-get update
-RUN apt-get install openjdk-20-jdk -y
-COPY . .
-
-RUN apt-get install maven -y
-RUN mvn clean install
-
-FROM openjdk:20-jdk-slim
+COPY target/*.jar /app/app.jar
 
 EXPOSE 8080
 
-COPY --from=build /target/*.jar app.jar
+ENTRYPOINT [ "java", "-Dspring.profiles.active=prod", "-jar", "app.jar" ]
 
-ENTRYPOINT [ "java", "-jar", "app.jar" ]
+LABEL authors="Wesley"
+
+
+
+
