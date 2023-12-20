@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 ADD . /usr/src/app
 RUN mvn package
 
-FROM eclipse-temurin:17-jdk
+FROM eclipse-temurin:20-jdk
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 COPY --from=build /target/*.jar app.jar
