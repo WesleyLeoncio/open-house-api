@@ -1,19 +1,13 @@
-FROM ubuntu:latest AS build
+FROM phenompeople/openjdk20:vulnerablescan AS build
+RUN mkdir /app
+WORKDIR /app
+ADD . /app
+RUN mvn package
 
-RUN apt-get update
-RUN apt-get install openjdk20:20.0.2_p9-r0 -y
-COPY . .
-
-RUN apt-get install maven -y
-RUN mvn clean install
-
-FROM openjdk20:20.0.2_p9-r0
-
-EXPOSE 8080
-
-COPY --from=build /target/deploy_render-1.0.0.jar app.jar
-
-
+FROM eclipse-temurin:20-jdk
+RUN mkdir /app
+WORKDIR /app
+COPY --from=build /target/*.jar app.jar
 
 ENTRYPOINT [ "java", "-jar", "-Dspring.profiles.active=prod", "app.jar" ]
 
