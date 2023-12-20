@@ -1,18 +1,13 @@
-FROM ubuntu:latest AS build
-
-RUN apt-get update
-RUN apt-get install openjdk-17-jdk -y
+FROM maven:3.9-amazoncorretto-8-al2023 as build
+WORKDIR /app
 COPY . .
+RUN mvn clean package -X -DskipTests
 
-RUN apt-get install maven -y
-RUN mvn clean install
-
-FROM openjdk:17-jdk
-
-EXPOSE 8080
-
-COPY --from=build  target/*.jar /app/app.jar
-
+FROM openjdk:20-ea-jdk-slim
+WORKDIR /app
+COPY --from=build ./app/target/*.jar ./app.jar
 ENTRYPOINT [ "java", "-jar", "-Dspring.profiles.active=prod", "app.jar" ]
+
+
 
 
