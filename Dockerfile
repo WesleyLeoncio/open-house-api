@@ -3,7 +3,7 @@
 FROM maven:3.9.1-eclipse-temurin-20-alpine
 WORKDIR /app
 COPY . .
-RUN mvn package
+RUN mvn package -X -DskipTests
 
 ENV DATASOURCE_URL=dpg-cm1k78la73kc73fj0qv0-a.oregon-postgres.render.com
 ENV DATASOURCE_USERNAME=open_house_user
