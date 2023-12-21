@@ -3,9 +3,7 @@
 FROM maven:3.9.1-eclipse-temurin-20-alpine AS build
 WORKDIR /app
 COPY . .
-RUN mvn package -X -DskipTests
-
-
+RUN mvn package
 
 EXPOSE 8080
 
