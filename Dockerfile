@@ -1,11 +1,13 @@
-FROM openjdk:20
-RUN mkdir /app
-WORKDIR /app
+FROM maven:3.9.2-eclipse-temurin-20-alpine AS build
+COPY . .
 
-COPY target/*.jar /app/app.jar
+RUN mvn clean package -DskipTests
 
+FROM openjdk:20-ea-1-jdk-slim
+
+COPY  --from=build /target/*.jar app.jar
 EXPOSE 8080
 
-CMD ["java", "-Dspring.profiles.active=prod", "-DDATASOURCE_URL=jdbc:postgresql://172.18.0.2:5432/open_house", "-DDATASOURCE_USERNAME=postgres", "-DDATASOURCE_PASSWORD=postgres", "-jar", "/app/app.jar"]
 
-LABEL authors="Wesley"
+ENTRYPOINT [ "java", "-Dspring.profiles.active=prod", "-jar", "app.jar"]
+
