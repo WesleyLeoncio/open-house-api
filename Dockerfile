@@ -1,13 +1,20 @@
-FROM phenompeople/openjdk20:vulnerablescan AS build
-RUN mkdir /app
+
+#FROM maven:3.8.7-eclipse-temurin-19-alpine
+FROM maven:3.9.1-eclipse-temurin-20-alpine
+
+# Set the working directory to /app
 WORKDIR /app
-ADD . /app
+
+# Copy the source code to the container
+COPY . .
+
+# Build the application with Maven
 RUN mvn package
 
-FROM eclipse-temurin:20-jdk
-RUN mkdir /app
-WORKDIR /app
-COPY --from=build /target/*.jar app.jar
+
+# Expose default Spring Boot port
+EXPOSE 8080
+
 
 ENTRYPOINT [ "java", "-jar", "-Dspring.profiles.active=prod", "app.jar" ]
 
