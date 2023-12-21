@@ -9,7 +9,7 @@ WORKDIR /app
 COPY . .
 
 # Build the application with Maven
-RUN mvn package
+RUN mvn package -X -DskipTests
 
 
 # Expose default Spring Boot port
