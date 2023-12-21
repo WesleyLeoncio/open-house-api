@@ -7,7 +7,6 @@ RUN mvn package
 
 EXPOSE 8080
 
-COPY target/*.jar /app/app.jar
 
-ENTRYPOINT [ "java", "-jar", "app.jar"]
+ENTRYPOINT [ "java", "-jar", "target/open-house-api-0.0.1-SNAPSHOT.jar"]
 
