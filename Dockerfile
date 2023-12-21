@@ -1,5 +1,3 @@
-
-#FROM maven:3.8.7-eclipse-temurin-19-alpine
 FROM maven:3.9.2-eclipse-temurin-20-alpine AS build
 COPY . .
 
