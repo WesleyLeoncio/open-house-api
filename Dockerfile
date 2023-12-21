@@ -16,5 +16,5 @@ RUN mvn package
 EXPOSE 8080
 
 
-ENTRYPOINT [ "java", "-jar", "app.jar", "--spring.profiles.active=prod"]
+ENTRYPOINT [ "java", "-jar", "open-house-api-0.0.1-SNAPSHOT.jar", "-Dspring.profiles.active=prod"]
 
