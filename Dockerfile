@@ -10,5 +10,5 @@ COPY  --from=build /target/open-house-api-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8080
 
 
-ENTRYPOINT [ "java", "-jar", "app.jar"]
+ENTRYPOINT [ "java","-Dspring.profiles.active=prod", "-DDATASOURCE_URL=dpg-cm1k78la73kc73fj0qv0-a.oregon-postgres.render.com", "-DDATASOURCE_USERNAME=open_house_user", "-DDATASOURCE_PASSWORD=DnWawWXK83nQAyJd4TyXynQkH2CJphfF","-jar","app.jar"]
 
