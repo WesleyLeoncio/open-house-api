@@ -5,17 +5,17 @@ import org.springframework.data.domain.Pageable;
 import wl.open_house_api.modules.categoria.model.entiy.Categoria;
 import wl.open_house_api.modules.categoria.model.request.CategoriaRequest;
 import wl.open_house_api.modules.categoria.model.request.CategoriaRequestCreat;
-import wl.open_house_api.modules.categoria.model.response.CategoriaResponseId;
+import wl.open_house_api.modules.categoria.model.response.CategoriaResponse;
 
 public interface ICategoriaService {
 
-    CategoriaResponseId insert(CategoriaRequestCreat categoriaRequestCreat);
+    CategoriaResponse insert(CategoriaRequestCreat categoriaRequestCreat);
 
-    CategoriaResponseId update(CategoriaRequest categoriaRequest);
+    CategoriaResponse update(CategoriaRequest categoriaRequest);
 
-    CategoriaResponseId findCategoria(Long id);
+    CategoriaResponse findCategoria(Long id);
 
-    Page<CategoriaResponseId> findCategorias(Pageable pageable);
+    Page<CategoriaResponse> findCategorias(Pageable pageable);
 
     void deleteCategoria(Long id);
 

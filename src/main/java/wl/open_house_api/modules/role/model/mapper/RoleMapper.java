@@ -8,6 +8,7 @@ import wl.open_house_api.modules.role.model.request.RoleRequestCreat;
 import wl.open_house_api.modules.role.model.response.RoleResponse;
 
 
+
 @Mapper
 public interface RoleMapper {
     RoleMapper INSTANCE = Mappers.getMapper(RoleMapper.class);
@@ -15,6 +16,7 @@ public interface RoleMapper {
     Role roleRequestCreatToRole(RoleRequestCreat roleRequestCreat);
 
     Role roleRequestToRole(RoleRequest roleRequest);
+
 
     RoleResponse roleToRoleResponse(Role role);
 

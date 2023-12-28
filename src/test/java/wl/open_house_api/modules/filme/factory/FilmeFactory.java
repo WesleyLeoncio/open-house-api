@@ -1,15 +1,18 @@
 package wl.open_house_api.modules.filme.factory;
 
-import wl.open_house_api.modules.categoria_filme.model.request.CategoriaFilmeRequestCategoria;
+import wl.open_house_api.modules.categoria.factory.CategoriaFactory;
+import wl.open_house_api.modules.categoria.model.enuns.Category;
+import wl.open_house_api.modules.categoria.model.request.CategoriaRequest;
+import wl.open_house_api.modules.categoria.model.response.CategoriaResponse;
 import wl.open_house_api.modules.filme.model.entity.Filme;
 import wl.open_house_api.modules.filme.model.request.FilmeRequestCreat;
 import wl.open_house_api.modules.filme.model.request.FilmeRequestEdit;
-import wl.open_house_api.modules.filme.model.response.FilmeResponseCategoriaFilme;
-import wl.open_house_api.modules.filme.model.response.FilmeResponseCreat;
+import wl.open_house_api.modules.filme.model.response.FilmeResponse;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class FilmeFactory {
 
@@ -19,7 +22,6 @@ public class FilmeFactory {
     private final LocalDate data;
     private final String duracao;
     private final String imagem;
-    List<CategoriaFilmeRequestCategoria> categoriaList = new ArrayList<>();
 
     public FilmeFactory() {
         this.id = 1L;
@@ -28,32 +30,42 @@ public class FilmeFactory {
         this.data = LocalDate.now();
         this.duracao = "120 m";
         this.imagem = "imagem.png";
-        this.categoriaList.add(new CategoriaFilmeRequestCategoria(1L));
     }
 
     public Filme getFilme(){
         return new Filme(this.id, this.nome, this.descricao, this.data, this.duracao,
                 this.imagem);
     }
-    public FilmeResponseCategoriaFilme getFilmeResponseCategoriaFilme(){
-        return new FilmeResponseCategoriaFilme(this.id, this.nome);
-    }
 
     public FilmeRequestCreat getFilmeRequestCreat(){
         return new FilmeRequestCreat(
-                this.nome, this.descricao, this.data, this.duracao, this.imagem, this.categoriaList);
+                this.nome, this.descricao, this.data, this.duracao, this.imagem, this.categoriaList());
     }
 
     public FilmeRequestEdit getFilmeRequestEdit(){
         return new FilmeRequestEdit(
-                this.id, this.nome, this.descricao, this.data, this.duracao, this.imagem);
+                this.id, this.nome, this.descricao, this.data, this.duracao, this.imagem,this.categoriaList());
     }
 
 
-    public FilmeResponseCreat getFilmeResponseCreat(){
-        return new FilmeResponseCreat(this.id, this.nome, this.descricao, this.data, this.duracao, this.imagem);
+    public FilmeResponse getFilmeResponse(){
+        CategoriaFactory categoriaFactory = new CategoriaFactory();
+        return new FilmeResponse(this.id, this.nome, this.descricao, this.data, this.duracao, this.imagem,this.categoriaResponseList());
+    }
+
+    private List<CategoriaRequest> categoriaList(){
+        CategoriaRequest categoriaRequest = new CategoriaRequest(1L, Category.ACAO);
+        List<CategoriaRequest> listCategoria = new ArrayList<>();
+        listCategoria.add(categoriaRequest);
+        return  listCategoria;
     }
 
 
+    private List<CategoriaResponse> categoriaResponseList (){
+        CategoriaFactory categoriaFactory = new CategoriaFactory();
+        List<CategoriaResponse> listCategoriasResponse = new ArrayList<>();
+        listCategoriasResponse.add(categoriaFactory.getCategoriaResponse());
+        return listCategoriasResponse;
+    }
 
 }

@@ -15,7 +15,6 @@ import wl.open_house_api.modules.usuario.model.request.UsuarioRequestCreatUser;
 import wl.open_house_api.modules.usuario.model.request.UsuarioRequestEditMaster;
 import wl.open_house_api.modules.usuario.model.request.UsuarioRequestModifyStatus;
 import wl.open_house_api.modules.usuario.model.response.UsuarioResponse;
-import wl.open_house_api.modules.usuario.model.response.UsuarioResponseCrud;
 import wl.open_house_api.modules.usuario.service.IUsuarioService;
 
 import java.net.URI;
@@ -34,16 +33,16 @@ public class UsuarioController {
     @SecurityRequirement(name = "bearer-key")
     @PreAuthorize("hasAnyRole('MASTER')")
     @Operation( summary = "Cadastra um usuário", description = "É necessário ter roles previamente cadastradas.", tags = { "Endpoints De Usuários" } )
-    public ResponseEntity<UsuarioResponseCrud> cadastrar(@RequestBody @Valid UsuarioRequestCreatMaster user, UriComponentsBuilder uriBuilder) {
-        UsuarioResponseCrud response = service.insert(user);
+    public ResponseEntity<UsuarioResponse> cadastrar(@RequestBody @Valid UsuarioRequestCreatMaster user, UriComponentsBuilder uriBuilder) {
+        UsuarioResponse response = service.insert(user);
         URI uri = uriBuilder.path("usuarios/{id}").buildAndExpand(response.id()).toUri();
         return ResponseEntity.created(uri).body(response);
     }
 
     @PostMapping("/comum")
     @Operation( summary = "Cadastra um usuário comum", description = "Nesse cadastro é adicionado automaticamente o profile de ROLE_USER, a role deve está presente na base de dados", tags = { "Endpoints De Usuários" } )
-    public ResponseEntity<UsuarioResponseCrud> cadastrarUserProfileUser(@RequestBody @Valid UsuarioRequestCreatUser user, UriComponentsBuilder uriBuilder) {
-        UsuarioResponseCrud response = service.insertUserProfileUser(user);
+    public ResponseEntity<UsuarioResponse> cadastrarUserProfileUser(@RequestBody @Valid UsuarioRequestCreatUser user, UriComponentsBuilder uriBuilder) {
+        UsuarioResponse response = service.insertUserProfileUser(user);
         URI uri = uriBuilder.path("usuarios/{id}").buildAndExpand(response.id()).toUri();
         return ResponseEntity.created(uri).body(response);
     }
@@ -52,8 +51,8 @@ public class UsuarioController {
     @SecurityRequirement(name = "bearer-key")
     @PreAuthorize("hasAnyRole('MASTER', 'ADMIN', 'USER')")
     @Operation( summary = "Edita um usuário", description = "Altera somente as infomações basicas do usuários", tags = { "Endpoints De Usuários" } )
-    public ResponseEntity<UsuarioResponseCrud> editar(@RequestBody @Valid UsuarioRequestEditMaster user) {
-        UsuarioResponseCrud response = service.update(user);
+    public ResponseEntity<UsuarioResponse> editar(@RequestBody @Valid UsuarioRequestEditMaster user) {
+        UsuarioResponse response = service.update(user);
         return ResponseEntity.ok(response);
     }
 

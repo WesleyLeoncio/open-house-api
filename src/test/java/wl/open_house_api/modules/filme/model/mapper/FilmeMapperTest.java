@@ -7,7 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import wl.open_house_api.modules.filme.factory.FilmeFactory;
 import wl.open_house_api.modules.filme.model.entity.Filme;
 import wl.open_house_api.modules.filme.model.response.FilmeResponse;
-import wl.open_house_api.modules.filme.model.response.FilmeResponseCategoriaFilme;
 
 import java.time.LocalDate;
 
@@ -70,17 +69,5 @@ class FilmeMapperTest {
         assertThat( filmeResponse.imagem()).isEqualTo( "imagem.png" );
     }
 
-    @Test
-    @DisplayName("Deveria converter um Filme em uma entity FilmeResponseCategoriaFilme")
-    void filmeToFilmeListResponse() {
-
-        FilmeResponseCategoriaFilme filmeListResponse = FilmeMapper.INSTANCE.filmeToFilmeResponseCategoriaFilme(filmeFactory.getFilme());
-
-        //then
-        assertThat( filmeListResponse ).isNotNull();
-        assertThat( filmeListResponse.id()).isEqualTo( 1L );
-        assertThat( filmeListResponse.nome()).isEqualTo( "FILME 1" );
-
-    }
 
 }

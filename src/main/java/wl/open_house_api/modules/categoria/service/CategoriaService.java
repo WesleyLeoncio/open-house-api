@@ -9,7 +9,7 @@ import wl.open_house_api.modules.categoria.model.entiy.Categoria;
 import wl.open_house_api.modules.categoria.model.mapper.CategoriaMapper;
 import wl.open_house_api.modules.categoria.model.request.CategoriaRequest;
 import wl.open_house_api.modules.categoria.model.request.CategoriaRequestCreat;
-import wl.open_house_api.modules.categoria.model.response.CategoriaResponseId;
+import wl.open_house_api.modules.categoria.model.response.CategoriaResponse;
 import wl.open_house_api.modules.categoria.repository.CategoriaRepository;
 
 import java.util.Optional;
@@ -25,27 +25,27 @@ public class CategoriaService implements ICategoriaService {
 
     @Override
     @Transactional
-    public CategoriaResponseId insert(CategoriaRequestCreat categoriaRequestCreat) {
+    public CategoriaResponse insert(CategoriaRequestCreat categoriaRequestCreat) {
         Categoria categoria = repository.save(CategoriaMapper.INSTANCE.categoriaRequestCreatToCategoria(categoriaRequestCreat));
-        return CategoriaMapper.INSTANCE.categoriaToCategoriaResponseId(categoria);
+        return CategoriaMapper.INSTANCE.categoriaToCategoriaResponse(categoria);
     }
 
     @Override
-    public CategoriaResponseId update(CategoriaRequest categoriaRequest) {
+    public CategoriaResponse update(CategoriaRequest categoriaRequest) {
         verificarCategoria(categoriaRequest.id());
         Categoria categoria = repository.save(CategoriaMapper.INSTANCE.categoriaRequestToCategoria(categoriaRequest));
-        return CategoriaMapper.INSTANCE.categoriaToCategoriaResponseId(categoria);
+        return CategoriaMapper.INSTANCE.categoriaToCategoriaResponse(categoria);
     }
 
     @Override
-    public CategoriaResponseId findCategoria(Long id) {
+    public CategoriaResponse findCategoria(Long id) {
         Categoria categoria = verificarCategoria(id);
-        return CategoriaMapper.INSTANCE.categoriaToCategoriaResponseId(categoria);
+        return CategoriaMapper.INSTANCE.categoriaToCategoriaResponse(categoria);
     }
 
     @Override
-    public Page<CategoriaResponseId> findCategorias(Pageable pageable) {
-        return repository.findAll(pageable).map(CategoriaMapper.INSTANCE::categoriaToCategoriaResponseId);
+    public Page<CategoriaResponse> findCategorias(Pageable pageable) {
+        return repository.findAll(pageable).map(CategoriaMapper.INSTANCE::categoriaToCategoriaResponse);
     }
 
     @Override

@@ -15,8 +15,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import wl.open_house_api.modules.filme.model.request.FilmeRequestCreat;
 import wl.open_house_api.modules.filme.model.request.FilmeRequestEdit;
 import wl.open_house_api.modules.filme.model.response.FilmeResponse;
-import wl.open_house_api.modules.filme.model.response.FilmeResponseCreat;
-import wl.open_house_api.modules.filme.model.response.FilmeResponseUpdate;
 import wl.open_house_api.modules.filme.service.IFilmeService;
 
 import java.net.URI;
@@ -35,8 +33,8 @@ public class FilmeController {
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN')")
     @Operation( summary = "Cadastra um filme", tags = { "Endpoints De Filmes" } )
-    public ResponseEntity<FilmeResponseCreat> cadastrar(@RequestBody @Valid FilmeRequestCreat filme, UriComponentsBuilder uriBuilder) {
-        FilmeResponseCreat response = service.insert(filme);
+    public ResponseEntity<FilmeResponse> cadastrar(@RequestBody @Valid FilmeRequestCreat filme, UriComponentsBuilder uriBuilder) {
+        FilmeResponse response = service.insert(filme);
         URI uri = uriBuilder.path("filmes/{id}").buildAndExpand(response.id()).toUri();
         return ResponseEntity.created(uri).body(response);
     }
@@ -44,8 +42,8 @@ public class FilmeController {
     @PutMapping
     @PreAuthorize("hasAnyRole('ADMIN')")
     @Operation( summary = "Edita um filme", tags = { "Endpoints De Filmes" } )
-    public ResponseEntity<FilmeResponseUpdate> editar(@RequestBody @Valid FilmeRequestEdit filme) {
-        FilmeResponseUpdate response = service.update(filme);
+    public ResponseEntity<FilmeResponse> editar(@RequestBody @Valid FilmeRequestEdit filme) {
+        FilmeResponse response = service.update(filme);
         return ResponseEntity.ok(response);
     }
 

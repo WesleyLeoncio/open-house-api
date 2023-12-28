@@ -17,7 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import wl.open_house_api.modules.usuario.factory.UsuarioFactory;
 import wl.open_house_api.modules.usuario.model.request.UsuarioRequestCreatMaster;
 import wl.open_house_api.modules.usuario.model.request.UsuarioRequestCreatUser;
-import wl.open_house_api.modules.usuario.model.response.UsuarioResponseCrud;
+import wl.open_house_api.modules.usuario.model.response.UsuarioResponse;
 import wl.open_house_api.modules.usuario.service.UsuarioService;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -40,7 +40,7 @@ class UsuarioControllerTest {
     private JacksonTester<UsuarioRequestCreatUser> usuarioRequestCreatUserJson;
 
     @Autowired
-    private JacksonTester<UsuarioResponseCrud> usuarioResponseCrudJson;
+    private JacksonTester<UsuarioResponse> usuarioResponseJson;
 
     @MockBean
     private UsuarioService usuarioService;
@@ -68,9 +68,9 @@ class UsuarioControllerTest {
     @WithMockUser(authorities = "ROLE_MASTER")
     void cadastrarCenario2() throws Exception {
 
-        UsuarioResponseCrud usuarioResponseCrud = usuarioFactory.getUsuarioResponseCrud();
+        UsuarioResponse usuarioResponse = usuarioFactory.getUsuarioResponse();
 
-        when(usuarioService.insert(any())).thenReturn(usuarioResponseCrud);
+        when(usuarioService.insert(any())).thenReturn(usuarioResponse);
 
         MockHttpServletResponse response = mvc.perform(
                 post("/usuarios")
@@ -81,7 +81,7 @@ class UsuarioControllerTest {
         ).andReturn().getResponse();
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
-        String jsonEsperado = usuarioResponseCrudJson.write(usuarioResponseCrud).getJson();
+        String jsonEsperado = usuarioResponseJson.write(usuarioResponse).getJson();
         assertThat(response.getContentAsString()).isEqualTo(jsonEsperado);
     }
 
@@ -99,9 +99,9 @@ class UsuarioControllerTest {
     @DisplayName("Deveria devolver codigo http 201 quando informacoes estao corretas")
     void cadastrarUserProfileUserCenario2() throws Exception {
 
-        UsuarioResponseCrud usuarioResponseCrud = usuarioFactory.getUsuarioResponseCrud();
+        UsuarioResponse usuarioResponse = usuarioFactory.getUsuarioResponse();
 
-        when(usuarioService.insertUserProfileUser(any())).thenReturn(usuarioResponseCrud);
+        when(usuarioService.insertUserProfileUser(any())).thenReturn(usuarioResponse);
 
         MockHttpServletResponse response = mvc.perform(
                 post("/usuarios/comum")
@@ -112,7 +112,7 @@ class UsuarioControllerTest {
         ).andReturn().getResponse();
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
-        String jsonEsperado = usuarioResponseCrudJson.write(usuarioResponseCrud).getJson();
+        String jsonEsperado = usuarioResponseJson.write(usuarioResponse).getJson();
         assertThat(response.getContentAsString()).isEqualTo(jsonEsperado);
     }
 }

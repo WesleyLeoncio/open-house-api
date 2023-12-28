@@ -44,7 +44,7 @@ public class AvaliacaoController {
 
     @GetMapping("/user/{userId}")
     @PreAuthorize("hasAnyRole('USER')")
-    @Operation(summary = "Lista todas as avaliações de filmes cadastrados do usuário", tags = {"Endpoints De Avaliar Filmes"})
+    @Operation(summary = "Lista todas as avaliações de filmes do usuário", tags = {"Endpoints De Avaliar Filmes"})
     public ResponseEntity<Page<AvaliacaoDeFilmesResponse>> listarFilmesAvaliadosUser(Pageable pageable, @PathVariable Long userId) {
         return ResponseEntity.ok(service.listarFilmesAvaliadosPorUser(pageable, userId));
     }

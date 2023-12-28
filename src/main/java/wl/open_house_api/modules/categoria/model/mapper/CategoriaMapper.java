@@ -6,7 +6,6 @@ import wl.open_house_api.modules.categoria.model.entiy.Categoria;
 import wl.open_house_api.modules.categoria.model.request.CategoriaRequest;
 import wl.open_house_api.modules.categoria.model.request.CategoriaRequestCreat;
 import wl.open_house_api.modules.categoria.model.response.CategoriaResponse;
-import wl.open_house_api.modules.categoria.model.response.CategoriaResponseId;
 
 @Mapper
 public interface CategoriaMapper {
@@ -18,5 +17,5 @@ public interface CategoriaMapper {
 
     CategoriaResponse categoriaToCategoriaResponse(Categoria categoria);
 
-    CategoriaResponseId categoriaToCategoriaResponseId(Categoria categoria);
+
 }

@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import wl.open_house_api.modules.usuario.factory.UsuarioFactory;
 import wl.open_house_api.modules.usuario.model.entity.Usuario;
 import wl.open_house_api.modules.usuario.model.response.UsuarioResponse;
-import wl.open_house_api.modules.usuario.model.response.UsuarioResponseCrud;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -45,8 +44,8 @@ class UsuarioMapperTest {
     @Test
     @DisplayName("Deveria converter um usuario em uma entity UsuarioResponseCrud")
     void usuarioToUsuarioResponseCrud() {
-        UsuarioResponseCrud usuarioResponseCrud =
-                UsuarioMapper.INSTANCE.usuarioToUsuarioResponseCrud(usuarioFactory.getUsuario());
+        UsuarioResponse usuarioResponseCrud =
+                UsuarioMapper.INSTANCE.usuarioToUsuarioResponse(usuarioFactory.getUsuario());
 
         assertThat(usuarioResponseCrud.nome()).isEqualTo("Usuario");
         assertThat(usuarioResponseCrud.login()).isEqualTo("usuario@email.com");

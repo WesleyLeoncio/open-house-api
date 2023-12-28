@@ -7,15 +7,14 @@ import wl.open_house_api.modules.usuario.model.request.UsuarioRequestCreatMaster
 import wl.open_house_api.modules.usuario.model.request.UsuarioRequestCreatUser;
 import wl.open_house_api.modules.usuario.model.request.UsuarioRequestEditMaster;
 import wl.open_house_api.modules.usuario.model.response.UsuarioResponse;
-import wl.open_house_api.modules.usuario.model.response.UsuarioResponseCrud;
 
 public interface IUsuarioService {
 
-    UsuarioResponseCrud insert(UsuarioRequestCreatMaster user);
+    UsuarioResponse insert(UsuarioRequestCreatMaster user);
 
-    UsuarioResponseCrud insertUserProfileUser(UsuarioRequestCreatUser user);
+    UsuarioResponse insertUserProfileUser(UsuarioRequestCreatUser user);
 
-    UsuarioResponseCrud update(UsuarioRequestEditMaster user);
+    UsuarioResponse update(UsuarioRequestEditMaster user);
 
     UsuarioResponse findUser(Long id);
 
