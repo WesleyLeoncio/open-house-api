@@ -7,7 +7,6 @@ import wl.open_house_api.modules.categoria.factory.CategoriaFactory;
 import wl.open_house_api.modules.categoria.model.entiy.Categoria;
 import wl.open_house_api.modules.categoria.model.enuns.Category;
 import wl.open_house_api.modules.categoria.model.response.CategoriaResponse;
-import wl.open_house_api.modules.categoria.model.response.CategoriaResponseId;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -57,7 +56,7 @@ class CategoriaMapperTest {
     @Test
     @DisplayName("Deveria converter um entity Categoria em uma  CategoriaResponseId")
     void categoriaToCategoriaResponseId(){
-        CategoriaResponseId categoriaResponseId = CategoriaMapper.INSTANCE.categoriaToCategoriaResponseId
+        CategoriaResponse categoriaResponseId = CategoriaMapper.INSTANCE.categoriaToCategoriaResponse
                 (categoriaFactory.getCategoria());
 
         assertThat(categoriaResponseId).isNotNull();

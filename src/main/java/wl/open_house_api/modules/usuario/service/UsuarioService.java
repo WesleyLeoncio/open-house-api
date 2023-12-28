@@ -6,20 +6,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wl.open_house_api.infra.exeptions.ValidacaoException;
-import wl.open_house_api.modules.profile.service.IProfileService;
-import wl.open_house_api.modules.profile.model.request.ProfileRequest;
-import wl.open_house_api.modules.profile.model.request.ProfileRequestRole;
-import wl.open_house_api.modules.profile.model.request.ProfileRequestUser;
+import wl.open_house_api.modules.role.service.IRoleService;
 import wl.open_house_api.modules.usuario.model.entity.Usuario;
 import wl.open_house_api.modules.usuario.model.mapper.UsuarioMapper;
 import wl.open_house_api.modules.usuario.model.request.UsuarioRequestCreatMaster;
 import wl.open_house_api.modules.usuario.model.request.UsuarioRequestCreatUser;
 import wl.open_house_api.modules.usuario.model.request.UsuarioRequestEditMaster;
 import wl.open_house_api.modules.usuario.model.response.UsuarioResponse;
-import wl.open_house_api.modules.usuario.model.response.UsuarioResponseCrud;
 import wl.open_house_api.modules.usuario.repository.UsuarioRepository;
 
-import java.util.List;
+import java.util.Collections;
 import java.util.Optional;
 
 @Service
@@ -27,55 +23,43 @@ public class UsuarioService implements IUsuarioService {
 
     final UsuarioRepository repository;
 
-    final IProfileService profileService;
+    final IRoleService roleService;
 
     final PasswordEncoder passwordEncoder;
 
-    public UsuarioService(UsuarioRepository repository, IProfileService profileService, PasswordEncoder passwordEncoder) {
+    public UsuarioService(UsuarioRepository repository, IRoleService roleService, PasswordEncoder passwordEncoder) {
         this.repository = repository;
-        this.profileService = profileService;
+        this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     @Transactional
-    public UsuarioResponseCrud insert(UsuarioRequestCreatMaster user) {
+    public UsuarioResponse insert(UsuarioRequestCreatMaster user) {
         Usuario usuario = UsuarioMapper.INSTANCE.usuarioResquestCreatMasterToUsuario(user);
         usuario.setSenha(passwordEncoder.encode(usuario.getPassword()));
-
-        Usuario cadastro = repository.save(usuario);
-
-        adicionarProfiles(cadastro, user.rolesList());
-        return UsuarioMapper.INSTANCE.usuarioToUsuarioResponseCrud(cadastro);
+        return UsuarioMapper.INSTANCE.usuarioToUsuarioResponse(repository.save(usuario));
     }
 
     @Override
     @Transactional
-    public UsuarioResponseCrud insertUserProfileUser(UsuarioRequestCreatUser user) {
+    public UsuarioResponse insertUserProfileUser(UsuarioRequestCreatUser user) {
         Usuario usuario = UsuarioMapper.INSTANCE.usuarioResquestCreatUserToUsuario(user);
-
         usuario.setSenha(passwordEncoder.encode(usuario.getPassword()));
+        usuario.setRole(Collections.singletonList(roleService.verificarRole(3L)));
 
-        Usuario cadastro = repository.save(usuario);
-
-        adicionarProfileUser(cadastro);
-
-        return UsuarioMapper.INSTANCE.usuarioToUsuarioResponseCrud(cadastro);
+        return UsuarioMapper.INSTANCE.usuarioToUsuarioResponse(repository.save(usuario));
     }
 
     @Override
     @Transactional
-    public UsuarioResponseCrud update(UsuarioRequestEditMaster user) {
-        return UsuarioMapper.INSTANCE.usuarioToUsuarioResponseCrud(this.atualizarDados(user));
+    public UsuarioResponse update(UsuarioRequestEditMaster user) {
+        verificarUser(user.id());
+        Usuario usuario = UsuarioMapper.INSTANCE.usuarioRequestEditMasterToUsuario(user);
+        usuario.setSenha(passwordEncoder.encode(user.senha()));
+        return UsuarioMapper.INSTANCE.usuarioToUsuarioResponse(repository.save(usuario));
     }
 
-    public Usuario atualizarDados(UsuarioRequestEditMaster user) {
-        Usuario usuario = verificarUser(user.id());
-        usuario.setNome(user.nome());
-        usuario.setLogin(user.login());
-        usuario.setSenha(passwordEncoder.encode(user.senha()));
-        return usuario;
-    }
 
     @Override
     @Transactional
@@ -121,13 +105,6 @@ public class UsuarioService implements IUsuarioService {
         return repository.findStatusById(id);
     }
 
-    private void adicionarProfiles(Usuario usuario, List<ProfileRequestRole> roles) {
-        roles.forEach(r -> profileService.adicionarProfile(new ProfileRequest(usuario.getId(), r.roleId())));
-    }
-
-    private void adicionarProfileUser(Usuario usuario) {
-        profileService.adicionarProfileUser(new ProfileRequestUser(usuario.getId()));
-    }
 
 
 }

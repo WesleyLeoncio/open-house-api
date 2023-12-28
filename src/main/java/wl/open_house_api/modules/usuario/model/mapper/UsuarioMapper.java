@@ -3,11 +3,10 @@ package wl.open_house_api.modules.usuario.model.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import wl.open_house_api.modules.usuario.model.entity.Usuario;
-import wl.open_house_api.modules.usuario.model.response.UsuarioResponseCrud;
+import wl.open_house_api.modules.usuario.model.request.UsuarioRequestEditMaster;
 import wl.open_house_api.modules.usuario.model.request.UsuarioRequestCreatMaster;
 import wl.open_house_api.modules.usuario.model.request.UsuarioRequestCreatUser;
 import wl.open_house_api.modules.usuario.model.response.UsuarioResponse;
-
 
 
 @Mapper
@@ -18,8 +17,7 @@ public interface UsuarioMapper {
 
     Usuario usuarioResquestCreatUserToUsuario(UsuarioRequestCreatUser usuarioRequestCreatUser);
 
-    UsuarioResponseCrud usuarioToUsuarioResponseCrud(Usuario usuario);
-
+    Usuario usuarioRequestEditMasterToUsuario(UsuarioRequestEditMaster usuarioRequestEditMaster);
 
     UsuarioResponse usuarioToUsuarioResponse(Usuario usuario);
 

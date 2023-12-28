@@ -16,7 +16,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import wl.open_house_api.modules.filme.factory.FilmeFactory;
 import wl.open_house_api.modules.filme.model.request.FilmeRequestCreat;
-import wl.open_house_api.modules.filme.model.response.FilmeResponseCreat;
+import wl.open_house_api.modules.filme.model.response.FilmeResponse;
 import wl.open_house_api.modules.filme.service.FilmeService;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -36,7 +36,7 @@ class FilmeControllerTest {
     private JacksonTester<FilmeRequestCreat> filmeRequestCreatJson;
 
     @Autowired
-    private JacksonTester<FilmeResponseCreat> filmeResponseCreatJson;
+    private JacksonTester<FilmeResponse> filmeResponseJson;
 
     @MockBean
     private FilmeService filmeService;
@@ -63,9 +63,9 @@ class FilmeControllerTest {
     @WithMockUser(authorities = "ROLE_ADMIN")
     void cadastrarCenario2() throws Exception {
 
-        FilmeResponseCreat filmeResponseCreat = filmeFactory.getFilmeResponseCreat();
+        FilmeResponse filmeResponse = filmeFactory.getFilmeResponse();
 
-        when(filmeService.insert(any())).thenReturn(filmeResponseCreat);
+        when(filmeService.insert(any())).thenReturn(filmeResponse);
 
         MockHttpServletResponse response = mvc.perform(
                 post("/filmes")
@@ -76,7 +76,7 @@ class FilmeControllerTest {
         ).andReturn().getResponse();
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
-        String jsonEsperado = filmeResponseCreatJson.write(filmeResponseCreat).getJson();
+        String jsonEsperado = filmeResponseJson.write(filmeResponse).getJson();
         assertThat(response.getContentAsString()).isEqualTo(jsonEsperado);
     }
 

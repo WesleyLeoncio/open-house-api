@@ -16,9 +16,8 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import wl.open_house_api.modules.categoria.factory.CategoriaFactory;
 import wl.open_house_api.modules.categoria.model.request.CategoriaRequestCreat;
-import wl.open_house_api.modules.categoria.model.response.CategoriaResponseId;
+import wl.open_house_api.modules.categoria.model.response.CategoriaResponse;
 import wl.open_house_api.modules.categoria.service.CategoriaService;
-import wl.open_house_api.modules.role.model.response.RoleResponse;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -38,7 +37,7 @@ class CategoriaControllerTest {
     JacksonTester<CategoriaRequestCreat> categoriaRequestCreatJson;
 
     @Autowired
-    JacksonTester<CategoriaResponseId> categoriaResponseIdJson;
+    JacksonTester<CategoriaResponse> categoriaResponseJson;
 
     @MockBean
     private CategoriaService categoriaService;
@@ -65,9 +64,9 @@ class CategoriaControllerTest {
     @WithMockUser(authorities = "ROLE_ADMIN")
     void cadastrarCenario2() throws Exception {
 
-        CategoriaResponseId categoriaResponseId = categoriaFactory.getCategoriaResponseId();
+        CategoriaResponse categoriaResponse = categoriaFactory.getCategoriaResponse();
 
-        when(categoriaService.insert(any())).thenReturn(categoriaResponseId);
+        when(categoriaService.insert(any())).thenReturn(categoriaResponse);
 
         MockHttpServletResponse response = mvc.perform(
                 post("/categorias")
@@ -78,7 +77,7 @@ class CategoriaControllerTest {
         ).andReturn().getResponse();
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
-        String jsonEsperado = categoriaResponseIdJson.write(categoriaResponseId).getJson();
+        String jsonEsperado = categoriaResponseJson.write(categoriaResponse).getJson();
         assertThat(response.getContentAsString()).isEqualTo(jsonEsperado);
     }
 

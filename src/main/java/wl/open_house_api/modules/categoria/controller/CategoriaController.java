@@ -1,6 +1,4 @@
 package wl.open_house_api.modules.categoria.controller;
-
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
@@ -13,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import wl.open_house_api.modules.categoria.model.request.CategoriaRequest;
 import wl.open_house_api.modules.categoria.model.request.CategoriaRequestCreat;
-import wl.open_house_api.modules.categoria.model.response.CategoriaResponseId;
+import wl.open_house_api.modules.categoria.model.response.CategoriaResponse;
 import wl.open_house_api.modules.categoria.service.ICategoriaService;
 
 import java.net.URI;
@@ -32,8 +30,8 @@ public class CategoriaController {
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN')")
     @Operation( summary = "Adiciona uma nova categoria", description = "As Categorias devem ser em caixa alta", tags = { "Endpoints De Categorias" } )
-    public ResponseEntity<CategoriaResponseId> cadatrar(@RequestBody @Valid CategoriaRequestCreat categoriaRequestCreat, UriComponentsBuilder uriBuilder){
-        CategoriaResponseId response = service.insert(categoriaRequestCreat);
+    public ResponseEntity<CategoriaResponse> cadatrar(@RequestBody @Valid CategoriaRequestCreat categoriaRequestCreat, UriComponentsBuilder uriBuilder){
+        CategoriaResponse response = service.insert(categoriaRequestCreat);
         URI uri = uriBuilder.path("categorias/{id}").buildAndExpand(response.id()).toUri();
         return ResponseEntity.created(uri).body(response);
     }
@@ -41,22 +39,22 @@ public class CategoriaController {
     @PutMapping
     @PreAuthorize("hasAnyRole('ADMIN')")
     @Operation( summary = "Editar uma categoria", description = "As Categorias devem ser em caixa alta", tags = { "Endpoints De Categorias" } )
-    public ResponseEntity<CategoriaResponseId> editar(@RequestBody @Valid CategoriaRequest categoriaRequest){
-        CategoriaResponseId response = service.update(categoriaRequest);
+    public ResponseEntity<CategoriaResponse> editar(@RequestBody @Valid CategoriaRequest categoriaRequest){
+        CategoriaResponse response = service.update(categoriaRequest);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ADMIN')")
     @Operation( summary = "Lista todos as categorias cadastrados", tags = { "Endpoints De Categorias" } )
-    public ResponseEntity<Page<CategoriaResponseId>> listarFilmes(Pageable pageable) {
+    public ResponseEntity<Page<CategoriaResponse>> listarFilmes(Pageable pageable) {
         return ResponseEntity.ok(service.findCategorias(pageable));
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     @Operation( summary = "Detalhar uma categoria", tags = { "Endpoints De Categorias" } )
-    public ResponseEntity<CategoriaResponseId> detalharFilme(@PathVariable  Long id) {
+    public ResponseEntity<CategoriaResponse> detalharFilme(@PathVariable  Long id) {
         return ResponseEntity.ok(service.findCategoria(id));
     }
 

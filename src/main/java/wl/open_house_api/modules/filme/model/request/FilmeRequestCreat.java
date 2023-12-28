@@ -2,7 +2,7 @@ package wl.open_house_api.modules.filme.model.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import wl.open_house_api.modules.categoria_filme.model.request.CategoriaFilmeRequestCategoria;
+import wl.open_house_api.modules.categoria.model.request.CategoriaRequest;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,7 +24,7 @@ public record FilmeRequestCreat(
         String imagem,
 
         @NotNull
-        List<CategoriaFilmeRequestCategoria> categoriaList
+        List<CategoriaRequest> categorias
 ) {
 
 

@@ -5,7 +5,6 @@ import wl.open_house_api.modules.role.model.enuns.Roles;
 import wl.open_house_api.modules.role.model.request.RoleRequest;
 import wl.open_house_api.modules.role.model.request.RoleRequestCreat;
 import wl.open_house_api.modules.role.model.response.RoleResponse;
-import wl.open_house_api.modules.role.model.response.RoleResponseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,17 +38,20 @@ public class RoleFactory {
         return new RoleRequest(this.id,this.nome);
     }
 
-    public RoleResponseUser getRoleResponseUser(){
-        return new RoleResponseUser(this.nome.toString());
+    public List<RoleRequest> getRoleRequestList(){
+        List<RoleRequest> roleRequestList = new ArrayList<>();
+        roleRequestList.add(getRoleRequest());
+        return roleRequestList;
     }
 
     public RoleResponse getRoleResponse(){
-        return new RoleResponse(this.id,this.nome.toString());
+        return new RoleResponse(1L, this.nome.toString());
     }
 
-    public List<RoleResponseUser> getListRoleResponseUser(){
-        List<RoleResponseUser> listRoleUser = new ArrayList<>();
-        listRoleUser.add(getRoleResponseUser());
+
+    public List<RoleResponse> getListRoleResponseUser(){
+        List<RoleResponse> listRoleUser = new ArrayList<>();
+        listRoleUser.add(getRoleResponse());
         return listRoleUser;
     }
 }
