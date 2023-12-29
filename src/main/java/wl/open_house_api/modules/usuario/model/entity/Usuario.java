@@ -2,8 +2,8 @@ package wl.open_house_api.modules.usuario.model.entity;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import wl.open_house_api.modules.avaliacao.model.entity.AvaliacaoDeFilmes;
 import wl.open_house_api.modules.role.model.entity.Role;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -23,6 +23,9 @@ public class Usuario implements UserDetails {
             joinColumns = @JoinColumn(name = "usuario_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> role;
+
+    @OneToMany(mappedBy = "avaliacaoId.usuarioId", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AvaliacaoDeFilmes> avaliacoes;
 
     private Boolean status;
 
