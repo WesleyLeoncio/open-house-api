@@ -19,5 +19,6 @@ public enum Category {
     BIOGRAFIA,
     MISTERIO,
     POLICIAL,
-    ESPORTE
+    ESPORTE,
+    TESTE
 }
