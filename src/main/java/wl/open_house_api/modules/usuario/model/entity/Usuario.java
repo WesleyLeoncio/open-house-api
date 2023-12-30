@@ -24,7 +24,7 @@ public class Usuario implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> role;
 
-    @OneToMany(mappedBy = "avaliacaoId.usuarioId", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "avaliacaoId.usuarioId", cascade = CascadeType.ALL)
     private List<AvaliacaoDeFilmes> avaliacoes;
 
     private Boolean status;
