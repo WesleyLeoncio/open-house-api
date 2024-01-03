@@ -67,7 +67,7 @@ public class UsuarioController {
 
     @GetMapping
     @SecurityRequirement(name = "bearer-key")
-    @PreAuthorize("hasAnyRole('MASTER')")
+    @PreAuthorize("hasAnyRole('MASTER', 'ADMIN')")
     @Operation( summary = "Lista todos os usuários cadastrados", tags = { "Endpoints De Usuários" } )
     public ResponseEntity<Page<UsuarioResponse>> listarUsuarios(Pageable pageable){
         return ResponseEntity.ok(service.findUsers(pageable));
@@ -89,7 +89,6 @@ public class UsuarioController {
     public ResponseEntity<UsuarioResponse> detalharUsuario(@PathVariable Long id){
         return ResponseEntity.ok(service.findUser(id));
     }
-
 
 
     @DeleteMapping("/{id}")
