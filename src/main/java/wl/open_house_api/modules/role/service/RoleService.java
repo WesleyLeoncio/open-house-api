@@ -8,7 +8,6 @@ import wl.open_house_api.infra.exeptions.ObjectNotFoundExeption;
 import wl.open_house_api.modules.role.model.entity.Role;
 import wl.open_house_api.modules.role.model.mapper.RoleMapper;
 import wl.open_house_api.modules.role.model.request.RoleRequest;
-import wl.open_house_api.modules.role.model.request.RoleRequestCreat;
 import wl.open_house_api.modules.role.model.response.RoleResponse;
 import wl.open_house_api.modules.role.repository.RoleRepository;
 
@@ -24,8 +23,8 @@ public class RoleService implements IRoleService {
 
     @Override
     @Transactional
-    public RoleResponse insert(RoleRequestCreat roleRequestCreat) {
-        Role role = repository.save(RoleMapper.INSTANCE.roleRequestCreatToRole(roleRequestCreat));
+    public RoleResponse insert(RoleRequest roleRequest) {
+        Role role = repository.save(RoleMapper.INSTANCE.roleRequestToRole(roleRequest));
         return RoleMapper.INSTANCE.roleToRoleResponse(role);
     }
 

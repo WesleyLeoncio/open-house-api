@@ -23,8 +23,8 @@ class CategoriaMapperTest {
     @Test
     @DisplayName("Deveria converter um CategoriaRequestCreat em uma entity Categoria")
     void categoriaRequestCreatToCategoria(){
-        Categoria categoria = CategoriaMapper.INSTANCE.categoriaRequestCreatToCategoria
-                (categoriaFactory.getCategoriaRequestCreat());
+        Categoria categoria = CategoriaMapper.INSTANCE.categoriaRequestToCategoria
+                (categoriaFactory.getCategoriaRequest());
 
         assertThat(categoria).isNotNull();
         assertThat(categoria.getNome()).isEqualTo(Category.ACAO);

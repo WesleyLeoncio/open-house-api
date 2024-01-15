@@ -1,17 +1,12 @@
 package wl.open_house_api.modules.filme.factory;
 
 import wl.open_house_api.modules.categoria.factory.CategoriaFactory;
-import wl.open_house_api.modules.categoria.model.entiy.Categoria;
-import wl.open_house_api.modules.categoria.model.enuns.Category;
-import wl.open_house_api.modules.categoria.model.response.CategoriaResponse;
 import wl.open_house_api.modules.filme.model.entity.Filme;
 import wl.open_house_api.modules.filme.model.request.FilmeRequestCreat;
 import wl.open_house_api.modules.filme.model.request.FilmeRequestEdit;
 import wl.open_house_api.modules.filme.model.response.FilmeResponse;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class FilmeFactory {
@@ -22,6 +17,7 @@ public class FilmeFactory {
     private final LocalDate data;
     private final String duracao;
     private final String imagem;
+    CategoriaFactory categoriaFactory = new CategoriaFactory();
 
     public FilmeFactory() {
         this.id = 1L;
@@ -39,33 +35,19 @@ public class FilmeFactory {
 
     public FilmeRequestCreat getFilmeRequestCreat(){
         return new FilmeRequestCreat(
-                this.nome, this.descricao, this.data, this.duracao, this.imagem, this.categoriaList());
+                this.nome, this.descricao, this.data, this.duracao, this.imagem, this.categoriaFactory.getCategoriaFilme());
     }
 
     public FilmeRequestEdit getFilmeRequestEdit(){
         return new FilmeRequestEdit(
-                this.nome, this.descricao, this.data, this.duracao, this.imagem,this.categoriaList());
+                this.nome, this.descricao, this.data, this.duracao, this.imagem,this.categoriaFactory.getCategoriaFilme());
     }
 
 
     public FilmeResponse getFilmeResponse(){
-        CategoriaFactory categoriaFactory = new CategoriaFactory();
-        return new FilmeResponse(this.id, this.nome, this.descricao, this.data, this.duracao, this.imagem,this.categoriaResponseList());
-    }
-
-    private List<Categoria> categoriaList(){
-        Categoria categoria = new Categoria(1L,  Category.ACAO);
-        List<Categoria> listCategoria = new ArrayList<>();
-        listCategoria.add(categoria);
-        return  listCategoria;
+        return new FilmeResponse(this.id, this.nome, this.descricao, this.data, this.duracao, this.imagem,this.categoriaFactory.categoriaResponseList());
     }
 
 
-    private List<CategoriaResponse> categoriaResponseList (){
-        CategoriaFactory categoriaFactory = new CategoriaFactory();
-        List<CategoriaResponse> listCategoriasResponse = new ArrayList<>();
-        listCategoriasResponse.add(categoriaFactory.getCategoriaResponse());
-        return listCategoriasResponse;
-    }
 
 }

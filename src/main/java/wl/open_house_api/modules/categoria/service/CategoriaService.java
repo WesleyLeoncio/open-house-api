@@ -8,7 +8,6 @@ import wl.open_house_api.infra.exeptions.ObjectNotFoundExeption;
 import wl.open_house_api.modules.categoria.model.entiy.Categoria;
 import wl.open_house_api.modules.categoria.model.mapper.CategoriaMapper;
 import wl.open_house_api.modules.categoria.model.request.CategoriaRequest;
-import wl.open_house_api.modules.categoria.model.request.CategoriaRequestCreat;
 import wl.open_house_api.modules.categoria.model.response.CategoriaResponse;
 import wl.open_house_api.modules.categoria.repository.CategoriaRepository;
 
@@ -24,8 +23,8 @@ public class CategoriaService implements ICategoriaService {
 
     @Override
     @Transactional
-    public CategoriaResponse insert(CategoriaRequestCreat categoriaRequestCreat) {
-        Categoria categoria = repository.save(CategoriaMapper.INSTANCE.categoriaRequestCreatToCategoria(categoriaRequestCreat));
+    public CategoriaResponse insert(CategoriaRequest categoriaRequest) {
+        Categoria categoria = repository.save(CategoriaMapper.INSTANCE.categoriaRequestToCategoria(categoriaRequest));
         return CategoriaMapper.INSTANCE.categoriaToCategoriaResponse(categoria);
     }
 

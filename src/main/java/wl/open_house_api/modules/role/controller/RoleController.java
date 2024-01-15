@@ -11,7 +11,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import wl.open_house_api.modules.role.model.request.RoleRequest;
-import wl.open_house_api.modules.role.model.request.RoleRequestCreat;
 import wl.open_house_api.modules.role.model.response.RoleResponse;
 import wl.open_house_api.modules.role.service.IRoleService;
 
@@ -31,8 +30,8 @@ public class RoleController {
     @PostMapping
     @PreAuthorize("hasAnyRole('MASTER')")
     @Operation( summary = "Adiciona uma nova role", description = "O nome da role deve seguir o padrão ROLE_NOME_DA_ROLE", tags = { "Endpoints De Roles" } )
-    public ResponseEntity<RoleResponse> cadatrar(@RequestBody @Valid RoleRequestCreat roleRequestCreat, UriComponentsBuilder uriBuilder){
-        RoleResponse response = service.insert(roleRequestCreat);
+    public ResponseEntity<RoleResponse> cadatrar(@RequestBody @Valid RoleRequest roleRequest, UriComponentsBuilder uriBuilder){
+        RoleResponse response = service.insert(roleRequest);
         URI uri = uriBuilder.path("roles/{id}").buildAndExpand(response.id()).toUri();
         return ResponseEntity.created(uri).body(response);
     }
