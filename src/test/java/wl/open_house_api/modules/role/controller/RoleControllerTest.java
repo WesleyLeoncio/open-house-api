@@ -15,7 +15,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import wl.open_house_api.modules.role.factory.RoleFactory;
-import wl.open_house_api.modules.role.model.request.RoleRequestCreat;
+import wl.open_house_api.modules.role.model.request.RoleRequest;
 import wl.open_house_api.modules.role.model.response.RoleResponse;
 import wl.open_house_api.modules.role.service.RoleService;
 
@@ -33,7 +33,7 @@ class RoleControllerTest {
     private MockMvc mvc;
 
     @Autowired
-    JacksonTester<RoleRequestCreat> roleRequestCreatJson;
+    JacksonTester<RoleRequest> roleRequestJson;
 
     @Autowired
     JacksonTester<RoleResponse> roleResponseJson;
@@ -70,8 +70,8 @@ class RoleControllerTest {
         MockHttpServletResponse response = mvc.perform(
                 post("/roles")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(roleRequestCreatJson.write(
-                                roleFactory.getRoleRequestCreat()
+                        .content(roleRequestJson.write(
+                                roleFactory.getRoleRequest()
                         ).getJson())
         ).andReturn().getResponse();
 

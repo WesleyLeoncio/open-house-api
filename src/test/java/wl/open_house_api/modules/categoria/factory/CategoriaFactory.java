@@ -2,9 +2,14 @@ package wl.open_house_api.modules.categoria.factory;
 
 import wl.open_house_api.modules.categoria.model.entiy.Categoria;
 import wl.open_house_api.modules.categoria.model.enuns.Category;
+import wl.open_house_api.modules.categoria.model.mapper.CategoriaMapper;
+import wl.open_house_api.modules.categoria.model.request.CategoriaFilmeRequest;
 import wl.open_house_api.modules.categoria.model.request.CategoriaRequest;
 import wl.open_house_api.modules.categoria.model.request.CategoriaRequestCreat;
 import wl.open_house_api.modules.categoria.model.response.CategoriaResponse;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CategoriaFactory {
 
@@ -28,8 +33,27 @@ public class CategoriaFactory {
         return new CategoriaRequest(nome);
     }
 
-
     public CategoriaResponse getCategoriaResponse() {
         return new CategoriaResponse(1L, nome.toString());
     }
+
+    public List<CategoriaFilmeRequest> getCategoriaFilme(){
+        return CategoriaMapper.INSTANCE.categoriaToCategoriaFilmeRequest(this.categoriaList());
+    }
+
+    private List<Categoria> categoriaList(){
+        Categoria categoria = new Categoria(1L,  Category.ACAO);
+        List<Categoria> listCategoria = new ArrayList<>();
+        listCategoria.add(categoria);
+        return  listCategoria;
+    }
+
+    public List<CategoriaResponse> categoriaResponseList (){
+        CategoriaFactory categoriaFactory = new CategoriaFactory();
+        List<CategoriaResponse> listCategoriasResponse = new ArrayList<>();
+        listCategoriasResponse.add(categoriaFactory.getCategoriaResponse());
+        return listCategoriasResponse;
+    }
+
+
 }

@@ -10,7 +10,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import wl.open_house_api.modules.categoria.model.request.CategoriaRequest;
-import wl.open_house_api.modules.categoria.model.request.CategoriaRequestCreat;
 import wl.open_house_api.modules.categoria.model.response.CategoriaResponse;
 import wl.open_house_api.modules.categoria.service.ICategoriaService;
 
@@ -30,8 +29,8 @@ public class CategoriaController {
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN')")
     @Operation( summary = "Adiciona uma nova categoria", description = "As Categorias devem ser em caixa alta", tags = { "Endpoints De Categorias" } )
-    public ResponseEntity<CategoriaResponse> cadatrar(@RequestBody @Valid CategoriaRequestCreat categoriaRequestCreat, UriComponentsBuilder uriBuilder){
-        CategoriaResponse response = service.insert(categoriaRequestCreat);
+    public ResponseEntity<CategoriaResponse> cadatrar(@RequestBody @Valid CategoriaRequest categoriaRequest, UriComponentsBuilder uriBuilder){
+        CategoriaResponse response = service.insert(categoriaRequest);
         URI uri = uriBuilder.path("categorias/{id}").buildAndExpand(response.id()).toUri();
         return ResponseEntity.created(uri).body(response);
     }

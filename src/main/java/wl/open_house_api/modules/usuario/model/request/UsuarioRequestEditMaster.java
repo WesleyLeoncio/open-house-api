@@ -3,7 +3,7 @@ package wl.open_house_api.modules.usuario.model.request;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import wl.open_house_api.modules.role.model.entity.Role;
+import wl.open_house_api.modules.role.model.request.RoleUserRequest;
 
 import java.util.List;
 
@@ -19,6 +19,6 @@ public record UsuarioRequestEditMaster(
         String senha,
 
         @NotNull
-        List<Role> role
+        List<RoleUserRequest> role
 ) {
 }

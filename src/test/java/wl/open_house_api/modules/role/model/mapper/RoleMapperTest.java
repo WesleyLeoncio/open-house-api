@@ -21,9 +21,9 @@ class RoleMapperTest {
     }
 
     @Test
-    @DisplayName("Deveria converter um RoleRequestCreat em uma entity Role")
+    @DisplayName("Deveria converter um RoleRequest em uma entity Role")
     void roleRequestCreatToRole() {
-        Role role = RoleMapper.INSTANCE.roleRequestCreatToRole(roleFactory.getRoleRequestCreat());
+        Role role = RoleMapper.INSTANCE.roleRequestToRole(roleFactory.getRoleRequest());
 
         assertThat( role ).isNotNull();
         assertThat( role.getNome()).isEqualTo( Roles.ROLE_USER );
