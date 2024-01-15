@@ -77,5 +77,10 @@ public class TratadorDeErros {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
 
+    @ExceptionHandler(ObjectNotFoundExeption.class)
+    public ResponseEntity<String> tratarErroObjectNotFoundExeption(ObjectNotFoundExeption ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+
 
 }

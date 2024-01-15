@@ -11,7 +11,7 @@ public interface IRoleService {
 
     RoleResponse insert(RoleRequestCreat roleRequestCreat);
 
-    RoleResponse update(RoleRequest roleRequest);
+    RoleResponse update(Long id, RoleRequest roleRequest);
 
     RoleResponse findRole(Long id);
 

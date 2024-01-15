@@ -11,7 +11,7 @@ public interface ICategoriaService {
 
     CategoriaResponse insert(CategoriaRequestCreat categoriaRequestCreat);
 
-    CategoriaResponse update(CategoriaRequest categoriaRequest);
+    CategoriaResponse update(Long id, CategoriaRequest categoriaRequest);
 
     CategoriaResponse findCategoria(Long id);
 

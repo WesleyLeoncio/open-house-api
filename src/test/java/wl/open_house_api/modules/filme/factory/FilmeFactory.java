@@ -1,8 +1,8 @@
 package wl.open_house_api.modules.filme.factory;
 
 import wl.open_house_api.modules.categoria.factory.CategoriaFactory;
+import wl.open_house_api.modules.categoria.model.entiy.Categoria;
 import wl.open_house_api.modules.categoria.model.enuns.Category;
-import wl.open_house_api.modules.categoria.model.request.CategoriaRequest;
 import wl.open_house_api.modules.categoria.model.response.CategoriaResponse;
 import wl.open_house_api.modules.filme.model.entity.Filme;
 import wl.open_house_api.modules.filme.model.request.FilmeRequestCreat;
@@ -44,7 +44,7 @@ public class FilmeFactory {
 
     public FilmeRequestEdit getFilmeRequestEdit(){
         return new FilmeRequestEdit(
-                this.id, this.nome, this.descricao, this.data, this.duracao, this.imagem,this.categoriaList());
+                this.nome, this.descricao, this.data, this.duracao, this.imagem,this.categoriaList());
     }
 
 
@@ -53,10 +53,10 @@ public class FilmeFactory {
         return new FilmeResponse(this.id, this.nome, this.descricao, this.data, this.duracao, this.imagem,this.categoriaResponseList());
     }
 
-    private List<CategoriaRequest> categoriaList(){
-        CategoriaRequest categoriaRequest = new CategoriaRequest(1L, Category.ACAO);
-        List<CategoriaRequest> listCategoria = new ArrayList<>();
-        listCategoria.add(categoriaRequest);
+    private List<Categoria> categoriaList(){
+        Categoria categoria = new Categoria(1L,  Category.ACAO);
+        List<Categoria> listCategoria = new ArrayList<>();
+        listCategoria.add(categoria);
         return  listCategoria;
     }
 

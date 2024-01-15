@@ -25,7 +25,7 @@ public class CategoriaFactory {
     }
 
     public CategoriaRequest getCategoriaRequest() {
-        return new CategoriaRequest(1L, nome);
+        return new CategoriaRequest(nome);
     }
 
 

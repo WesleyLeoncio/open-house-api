@@ -1,10 +1,10 @@
 package wl.open_house_api.modules.filme.service;
 
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import wl.open_house_api.infra.exeptions.ObjectNotFoundExeption;
 import wl.open_house_api.modules.filme.model.entity.Filme;
 import wl.open_house_api.modules.filme.model.mapper.FilmeMapper;
 import wl.open_house_api.modules.filme.model.request.FilmeRequestCreat;
@@ -12,7 +12,6 @@ import wl.open_house_api.modules.filme.model.request.FilmeRequestEdit;
 import wl.open_house_api.modules.filme.model.response.FilmeResponse;
 import wl.open_house_api.modules.filme.repository.FilmeRepository;
 
-import java.util.Optional;
 
 @Service
 public class FilmeService implements IFilmeService {
@@ -33,10 +32,11 @@ public class FilmeService implements IFilmeService {
 
     @Override
     @Transactional
-    public FilmeResponse update(FilmeRequestEdit filmeRequestEdit) {
-        verfificarFilme(filmeRequestEdit.id());
-        Filme filme = repository.save(FilmeMapper.INSTANCE.filmeRequestEditToFilme(filmeRequestEdit));
-        return FilmeMapper.INSTANCE.filmeToFilmeResponse(filme);
+    public FilmeResponse update(Long id, FilmeRequestEdit filmeRequestEdit) {
+        verfificarFilme(id);
+        Filme filme = FilmeMapper.INSTANCE.filmeRequestEditToFilme(filmeRequestEdit);
+        filme.setId(id);
+        return FilmeMapper.INSTANCE.filmeToFilmeResponse(repository.save(filme));
     }
 
 
@@ -48,8 +48,7 @@ public class FilmeService implements IFilmeService {
     @Override
     @Transactional
     public FilmeResponse findMovie(Long id) {
-        Filme filme = repository.getReferenceById(id);
-        return FilmeMapper.INSTANCE.filmeToFilmeResponse(filme);
+        return FilmeMapper.INSTANCE.filmeToFilmeResponse(verfificarFilme(id));
     }
 
     @Override
@@ -59,13 +58,8 @@ public class FilmeService implements IFilmeService {
     }
 
 
-
     public Filme verfificarFilme(Long id) {
-        Optional<Filme> filme = repository.findById(id);
-        if (filme.isEmpty()) {
-            throw new EntityNotFoundException();
-        }
-        return filme.get();
+        return repository.findById(id).orElseThrow(ObjectNotFoundExeption::new);
     }
 
 

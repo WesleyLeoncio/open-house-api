@@ -39,11 +39,11 @@ public class FilmeController {
         return ResponseEntity.created(uri).body(response);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     @Operation( summary = "Edita um filme", tags = { "Endpoints De Filmes" } )
-    public ResponseEntity<FilmeResponse> editar(@RequestBody @Valid FilmeRequestEdit filme) {
-        FilmeResponse response = service.update(filme);
+    public ResponseEntity<FilmeResponse> editar(@PathVariable Long id, @RequestBody @Valid FilmeRequestEdit filme) {
+        FilmeResponse response = service.update(id, filme);
         return ResponseEntity.ok(response);
     }
 

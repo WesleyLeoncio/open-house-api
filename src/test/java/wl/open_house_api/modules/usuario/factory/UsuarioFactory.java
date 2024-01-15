@@ -28,7 +28,7 @@ public class UsuarioFactory {
     }
 
     public UsuarioRequestCreatMaster getUsuarioRequestCreatMaster(){
-        return new UsuarioRequestCreatMaster(this.nome, this.login,this.senha, roleFactory.getRoleRequestList());
+        return new UsuarioRequestCreatMaster(this.nome, this.login,this.senha, roleFactory.getRoleList());
     }
 
     public Usuario getUsuario(){

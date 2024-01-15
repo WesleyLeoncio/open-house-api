@@ -35,14 +35,10 @@ public class RoleFactory {
     }
 
     public RoleRequest getRoleRequest(){
-        return new RoleRequest(this.id,this.nome);
+        return new RoleRequest(this.nome);
     }
 
-    public List<RoleRequest> getRoleRequestList(){
-        List<RoleRequest> roleRequestList = new ArrayList<>();
-        roleRequestList.add(getRoleRequest());
-        return roleRequestList;
-    }
+
 
     public RoleResponse getRoleResponse(){
         return new RoleResponse(1L, this.nome.toString());

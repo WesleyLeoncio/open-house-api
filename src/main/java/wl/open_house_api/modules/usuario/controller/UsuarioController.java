@@ -13,7 +13,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import wl.open_house_api.modules.usuario.model.request.UsuarioRequestCreatMaster;
 import wl.open_house_api.modules.usuario.model.request.UsuarioRequestCreatUser;
 import wl.open_house_api.modules.usuario.model.request.UsuarioRequestEditMaster;
-import wl.open_house_api.modules.usuario.model.request.UsuarioRequestModifyStatus;
 import wl.open_house_api.modules.usuario.model.response.UsuarioResponse;
 import wl.open_house_api.modules.usuario.service.IUsuarioService;
 
@@ -47,27 +46,27 @@ public class UsuarioController {
         return ResponseEntity.created(uri).body(response);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     @SecurityRequirement(name = "bearer-key")
-    @PreAuthorize("hasAnyRole('MASTER', 'ADMIN', 'USER')")
+    @PreAuthorize("hasAnyRole('MASTER')")
     @Operation( summary = "Edita um usuário", description = "Altera somente as infomações basicas do usuários", tags = { "Endpoints De Usuários" } )
-    public ResponseEntity<UsuarioResponse> editar(@RequestBody @Valid UsuarioRequestEditMaster user) {
-        UsuarioResponse response = service.update(user);
+    public ResponseEntity<UsuarioResponse> editar(@PathVariable Long id, @RequestBody @Valid UsuarioRequestEditMaster request) {
+        UsuarioResponse response = service.update(id, request);
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/modificarStatus")
+    @PutMapping("/modificarStatus/{id}")
     @SecurityRequirement(name = "bearer-key")
     @PreAuthorize("hasAnyRole('MASTER')")
     @Operation( summary = "Edita o status usuário", description = "Altera o status do usuário, se o usuário estiver ativo é desativado caso contrario ele é ativado.", tags = { "Endpoints De Usuários" } )
-    public ResponseEntity<HttpStatus> modificarStatus(@RequestBody @Valid UsuarioRequestModifyStatus user){
-        service.modifyStatus(user.id());
+    public ResponseEntity<HttpStatus> modificarStatus(@PathVariable Long id){
+        service.modifyStatus(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
     @SecurityRequirement(name = "bearer-key")
-    @PreAuthorize("hasAnyRole('MASTER')")
+    @PreAuthorize("hasAnyRole('MASTER', 'ADMIN')")
     @Operation( summary = "Lista todos os usuários cadastrados", tags = { "Endpoints De Usuários" } )
     public ResponseEntity<Page<UsuarioResponse>> listarUsuarios(Pageable pageable){
         return ResponseEntity.ok(service.findUsers(pageable));
@@ -89,7 +88,6 @@ public class UsuarioController {
     public ResponseEntity<UsuarioResponse> detalharUsuario(@PathVariable Long id){
         return ResponseEntity.ok(service.findUser(id));
     }
-
 
 
     @DeleteMapping("/{id}")

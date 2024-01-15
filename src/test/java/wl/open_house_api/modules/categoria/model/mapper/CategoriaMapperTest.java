@@ -37,7 +37,6 @@ class CategoriaMapperTest {
                 (categoriaFactory.getCategoriaRequest());
 
         assertThat(categoria).isNotNull();
-        assertThat(categoria.getId()).isEqualTo(1L);
         assertThat(categoria.getNome()).isEqualTo(Category.ACAO);
     }
 
