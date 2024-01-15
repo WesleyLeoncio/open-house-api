@@ -44,7 +44,6 @@ class FilmeMapperTest {
 
         //then
         assertThat( filme ).isNotNull();
-        assertThat( filme.getId()).isEqualTo( 1L );
         assertThat( filme.getNome()).isEqualTo( "FILME 1" );
         assertThat( filme.getDescricao()).isEqualTo( "DESCRICAO" );
         assertThat( filme.getDataLancamento()).isEqualTo(LocalDate.now());

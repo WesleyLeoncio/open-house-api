@@ -4,4 +4,5 @@ public enum Roles {
     ROLE_MASTER,
     ROLE_ADMIN,
     ROLE_USER,
+    ROLE_TESTE
 }

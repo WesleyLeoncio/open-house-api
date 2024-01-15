@@ -37,11 +37,11 @@ public class RoleController {
         return ResponseEntity.created(uri).body(response);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('MASTER')")
     @Operation( summary = "Edita uma role", description = "O nome da role deve seguir o padrão ROLE_NOME_DA_ROLE", tags = { "Endpoints De Roles" } )
-    public ResponseEntity<RoleResponse> editar(@RequestBody @Valid RoleRequest roleRequest){
-        RoleResponse response = service.update(roleRequest);
+    public ResponseEntity<RoleResponse> editar(@PathVariable Long id, @RequestBody @Valid RoleRequest roleRequest){
+        RoleResponse response = service.update(id, roleRequest);
         return ResponseEntity.ok(response);
     }
 

@@ -36,11 +36,11 @@ public class CategoriaController {
         return ResponseEntity.created(uri).body(response);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     @Operation( summary = "Editar uma categoria", description = "As Categorias devem ser em caixa alta", tags = { "Endpoints De Categorias" } )
-    public ResponseEntity<CategoriaResponse> editar(@RequestBody @Valid CategoriaRequest categoriaRequest){
-        CategoriaResponse response = service.update(categoriaRequest);
+    public ResponseEntity<CategoriaResponse> editar(@PathVariable Long id, @RequestBody @Valid CategoriaRequest categoriaRequest){
+        CategoriaResponse response = service.update(id,categoriaRequest);
         return ResponseEntity.ok(response);
     }
 

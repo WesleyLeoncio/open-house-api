@@ -11,7 +11,7 @@ import wl.open_house_api.modules.filme.model.response.FilmeResponse;
 public interface IFilmeService {
     FilmeResponse insert(FilmeRequestCreat filmeRequestCreat);
 
-    FilmeResponse update(FilmeRequestEdit filmeRequestEdit);
+    FilmeResponse update(Long id, FilmeRequestEdit filmeRequestEdit);
 
     Page<FilmeResponse> findMovies(Pageable pageable);
 

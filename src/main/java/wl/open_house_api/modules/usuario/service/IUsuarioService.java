@@ -14,7 +14,7 @@ public interface IUsuarioService {
 
     UsuarioResponse insertUserProfileUser(UsuarioRequestCreatUser user);
 
-    UsuarioResponse update(UsuarioRequestEditMaster user);
+    UsuarioResponse update(Long id, UsuarioRequestEditMaster user);
 
     UsuarioResponse findUser(Long id);
 

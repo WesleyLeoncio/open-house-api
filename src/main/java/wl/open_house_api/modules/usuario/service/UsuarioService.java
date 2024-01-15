@@ -5,7 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import wl.open_house_api.infra.exeptions.ValidacaoException;
+import wl.open_house_api.infra.exeptions.ObjectNotFoundExeption;
 import wl.open_house_api.modules.role.service.IRoleService;
 import wl.open_house_api.modules.usuario.model.entity.Usuario;
 import wl.open_house_api.modules.usuario.model.mapper.UsuarioMapper;
@@ -16,7 +16,6 @@ import wl.open_house_api.modules.usuario.model.response.UsuarioResponse;
 import wl.open_house_api.modules.usuario.repository.UsuarioRepository;
 
 import java.util.Collections;
-import java.util.Optional;
 
 @Service
 public class UsuarioService implements IUsuarioService {
@@ -53,10 +52,11 @@ public class UsuarioService implements IUsuarioService {
 
     @Override
     @Transactional
-    public UsuarioResponse update(UsuarioRequestEditMaster user) {
-        verificarUser(user.id());
-        Usuario usuario = UsuarioMapper.INSTANCE.usuarioRequestEditMasterToUsuario(user);
-        usuario.setSenha(passwordEncoder.encode(user.senha()));
+    public UsuarioResponse update(Long id, UsuarioRequestEditMaster usuarioRequest) {
+        verificarUser(id);
+        Usuario usuario = UsuarioMapper.INSTANCE.usuarioRequestEditMasterToUsuario(usuarioRequest);
+        usuario.setId(id);
+        usuario.setSenha(passwordEncoder.encode(usuarioRequest.senha()));
         return UsuarioMapper.INSTANCE.usuarioToUsuarioResponse(repository.save(usuario));
     }
 
@@ -64,8 +64,7 @@ public class UsuarioService implements IUsuarioService {
     @Override
     @Transactional
     public UsuarioResponse findUser(Long id) {
-        Usuario usuario = repository.getReferenceById(id);
-        return UsuarioMapper.INSTANCE.usuarioToUsuarioResponse(usuario);
+        return UsuarioMapper.INSTANCE.usuarioToUsuarioResponse(verificarUser(id));
     }
 
     @Override
@@ -87,18 +86,14 @@ public class UsuarioService implements IUsuarioService {
     @Override
     @Transactional
     public void modifyStatus(Long id) {
-        Usuario usuario = repository.getReferenceById(id);
+        Usuario usuario = verificarUser(id);
         usuario.setStatus(!usuario.getStatus());
         repository.save(usuario);
     }
 
 
     public Usuario verificarUser(Long id) {
-        Optional<Usuario> usuario = repository.findById(id);
-        if (usuario.isEmpty()) {
-            throw new ValidacaoException("Usuario não existe, verifique e tente e novamente!");
-        }
-        return usuario.get();
+        return repository.findById(id).orElseThrow(ObjectNotFoundExeption::new);
     }
 
     public Boolean usuarioAtivo(Long id) {

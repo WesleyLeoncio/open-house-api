@@ -35,7 +35,6 @@ class RoleMapperTest {
         Role role = RoleMapper.INSTANCE.roleRequestToRole(roleFactory.getRoleRequest());
 
         assertThat( role ).isNotNull();
-        assertThat( role.getId()).isEqualTo( 1L );
         assertThat( role.getNome()).isEqualTo( Roles.ROLE_USER );
     }
 
