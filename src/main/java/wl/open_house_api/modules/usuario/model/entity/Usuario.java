@@ -22,7 +22,7 @@ public class Usuario implements UserDetails {
     @JoinTable(name = "profiles",
             joinColumns = @JoinColumn(name = "usuario_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> role;
+    private List<Role> roles;
 
     @OneToMany(mappedBy = "avaliacaoId.usuarioId", cascade = CascadeType.ALL)
     private List<AvaliacaoDeFilmes> avaliacoes;
@@ -43,7 +43,7 @@ public class Usuario implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRole();
+        return getRoles();
     }
     @Override
     public String getPassword() {
@@ -110,12 +110,12 @@ public class Usuario implements UserDetails {
         this.senha = senha;
     }
 
-    public List<Role> getRole() {
-        return role;
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(List<Role> role) {
-        this.role = role;
+    public void setRoles(List<Role> role) {
+        this.roles = role;
     }
 
 
@@ -126,7 +126,7 @@ public class Usuario implements UserDetails {
                ", nome='" + nome + '\'' +
                ", login='" + login + '\'' +
                ", senha='" + senha + '\'' +
-               ", role=" + role +
+               ", role=" + roles +
                ", status=" + status +
                '}';
     }
