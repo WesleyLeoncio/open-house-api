@@ -45,7 +45,7 @@ public class UsuarioService implements IUsuarioService {
     public UsuarioResponse insertUserProfileUser(UsuarioRequestCreatUser user) {
         Usuario usuario = UsuarioMapper.INSTANCE.usuarioResquestCreatUserToUsuario(user);
         usuario.setSenha(passwordEncoder.encode(usuario.getPassword()));
-        usuario.setRole(Collections.singletonList(roleService.verificarRole(3L)));
+        usuario.setRoles(Collections.singletonList(roleService.verificarRole(3L)));
 
         return UsuarioMapper.INSTANCE.usuarioToUsuarioResponse(repository.save(usuario));
     }

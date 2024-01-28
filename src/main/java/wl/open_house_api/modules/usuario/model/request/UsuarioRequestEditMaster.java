@@ -19,6 +19,6 @@ public record UsuarioRequestEditMaster(
         String senha,
 
         @NotNull
-        List<RoleUserRequest> role
+        List<RoleUserRequest> roles
 ) {
 }
