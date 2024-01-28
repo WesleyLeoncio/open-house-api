@@ -63,6 +63,6 @@ class UsuarioMapperTest {
         assertThat(usuarioResponse.nome()).isEqualTo("Usuario");
         assertThat(usuarioResponse.login()).isEqualTo("usuario@email.com");
         assertThat(usuarioResponse.status()).isTrue();
-        assertThat(usuarioResponse.role().get(0).nome()).isEqualTo("ROLE_USER");
+        assertThat(usuarioResponse.roles().get(0).nome()).isEqualTo("ROLE_USER");
     }
 }

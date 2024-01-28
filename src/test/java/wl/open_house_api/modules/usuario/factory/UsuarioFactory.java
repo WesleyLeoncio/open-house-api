@@ -43,7 +43,7 @@ public class UsuarioFactory {
     public Usuario getUsuarioRoles(){
         Usuario usuario = new Usuario(this.id, this.nome, this.login,this.senha);
         RoleFactory roleFactory = new RoleFactory();
-        usuario.setRole(roleFactory.getRoleList());
+        usuario.setRoles(roleFactory.getRoleList());
         return usuario;
     }
 

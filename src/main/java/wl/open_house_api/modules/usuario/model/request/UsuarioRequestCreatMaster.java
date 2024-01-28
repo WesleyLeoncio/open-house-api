@@ -19,7 +19,7 @@ public record UsuarioRequestCreatMaster(
         String senha,
 
         @NotNull
-        List<RoleUserRequest> role
+        List<RoleUserRequest> roles
 
 
 ) {
