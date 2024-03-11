@@ -14,6 +14,8 @@ import wl.open_house_api.modules.avaliacao.model.response.AvaliacaoDeFilmesNotaR
 import wl.open_house_api.modules.avaliacao.model.response.AvaliacaoDeFilmesResponse;
 import wl.open_house_api.modules.avaliacao.service.IAvaliacaoService;
 
+import java.util.UUID;
+
 
 @RestController
 @RequestMapping("avaliacoes")
@@ -45,7 +47,7 @@ public class AvaliacaoController {
     @GetMapping("/user/{userId}")
     @PreAuthorize("hasAnyRole('USER')")
     @Operation(summary = "Lista todas as avaliações de filmes do usuário", tags = {"Endpoints De Avaliar Filmes"})
-    public ResponseEntity<Page<AvaliacaoDeFilmesResponse>> listarFilmesAvaliadosUser(Pageable pageable, @PathVariable Long userId) {
+    public ResponseEntity<Page<AvaliacaoDeFilmesResponse>> listarFilmesAvaliadosUser(Pageable pageable, @PathVariable UUID userId) {
         return ResponseEntity.ok(service.listarFilmesAvaliadosPorUser(pageable, userId));
     }
 
@@ -53,14 +55,14 @@ public class AvaliacaoController {
     @GetMapping("/avaliacao/{filmeId}/{usuarioId}")
     @PreAuthorize("hasAnyRole('USER')")
     @Operation(summary = "Lista a avaiação do filme com base no usuario e no filme", tags = {"Endpoints De Avaliar Filmes"})
-    public ResponseEntity<AvaliacaoDeFilmesResponse> listarAvaliacaoPorFilmeIdUserId(@PathVariable Long filmeId, @PathVariable Long usuarioId) {
+    public ResponseEntity<AvaliacaoDeFilmesResponse> listarAvaliacaoPorFilmeIdUserId(@PathVariable Long filmeId, @PathVariable UUID usuarioId) {
         return ResponseEntity.ok(service.listaAvaliacaoPorFilmeIdUserId(filmeId, usuarioId));
     }
 
     @GetMapping("/nota/{filmeId}/{usuarioId}")
     @PreAuthorize("hasAnyRole('USER')")
     @Operation(summary = "Lista a nota do filme com base no usuario e no filme", tags = {"Endpoints De Avaliar Filmes"})
-    public ResponseEntity<AvaliacaoDeFilmesNotaResponse> notaAvaliacaoFilme(@PathVariable Long filmeId, @PathVariable Long usuarioId) {
+    public ResponseEntity<AvaliacaoDeFilmesNotaResponse> notaAvaliacaoFilme(@PathVariable Long filmeId, @PathVariable UUID usuarioId) {
         return ResponseEntity.ok(service.notaFilme(filmeId, usuarioId));
     }
 }

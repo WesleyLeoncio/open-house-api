@@ -6,17 +6,19 @@ import wl.open_house_api.modules.categoria.model.entiy.Categoria;
 import wl.open_house_api.modules.categoria.model.request.CategoriaRequest;
 import wl.open_house_api.modules.categoria.model.response.CategoriaResponse;
 
+import java.util.UUID;
+
 public interface ICategoriaService {
 
     CategoriaResponse insert(CategoriaRequest categoriaRequest);
 
-    CategoriaResponse update(Long id, CategoriaRequest categoriaRequest);
+    CategoriaResponse update(UUID id, CategoriaRequest categoriaRequest);
 
-    CategoriaResponse findCategoria(Long id);
+    CategoriaResponse findCategoria(UUID id);
 
     Page<CategoriaResponse> findCategorias(Pageable pageable);
 
-    void deleteCategoria(Long id);
+    void deleteCategoria(UUID id);
 
-    Categoria verificarCategoria(Long id);
+    Categoria verificarCategoria(UUID id);
 }

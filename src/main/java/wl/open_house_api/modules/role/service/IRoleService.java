@@ -6,17 +6,19 @@ import wl.open_house_api.modules.role.model.entity.Role;
 import wl.open_house_api.modules.role.model.request.RoleRequest;
 import wl.open_house_api.modules.role.model.response.RoleResponse;
 
+import java.util.UUID;
+
 public interface IRoleService {
 
     RoleResponse insert(RoleRequest request);
 
-    RoleResponse update(Long id, RoleRequest roleRequest);
+    RoleResponse update(UUID id, RoleRequest roleRequest);
 
-    RoleResponse findRole(Long id);
+    RoleResponse findRole(UUID id);
 
     Page<RoleResponse> findRoles(Pageable pageable);
 
-    void deleteRole(Long id);
+    void deleteRole(UUID id);
 
-    Role verificarRole(Long id);
+    Role verificarRole(UUID id);
 }

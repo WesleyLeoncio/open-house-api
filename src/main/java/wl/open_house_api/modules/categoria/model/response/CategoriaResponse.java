@@ -1,5 +1,7 @@
 package wl.open_house_api.modules.categoria.model.response;
 
 
-public record CategoriaResponse(Long id, String nome) {
+import java.util.UUID;
+
+public record CategoriaResponse(UUID id, String nome) {
 }

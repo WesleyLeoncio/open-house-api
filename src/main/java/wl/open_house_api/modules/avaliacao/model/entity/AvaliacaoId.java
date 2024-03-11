@@ -4,18 +4,19 @@ import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.UUID;
 
 @Embeddable
 public class AvaliacaoId implements Serializable {
 
     private Long filmeId;
 
-    private Long usuarioId;
+    private UUID usuarioId;
 
     public AvaliacaoId() {
     }
 
-    public AvaliacaoId(Long filmeId, Long usuarioId) {
+    public AvaliacaoId(Long filmeId, UUID usuarioId) {
         this.filmeId = filmeId;
         this.usuarioId = usuarioId;
     }

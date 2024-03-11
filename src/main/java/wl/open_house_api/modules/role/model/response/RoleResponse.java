@@ -1,3 +1,5 @@
 package wl.open_house_api.modules.role.model.response;
 
-public record RoleResponse(Long id, String nome) { }
+import java.util.UUID;
+
+public record RoleResponse(UUID id, String nome) { }

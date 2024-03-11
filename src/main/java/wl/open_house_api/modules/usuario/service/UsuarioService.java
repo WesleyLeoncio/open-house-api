@@ -16,6 +16,7 @@ import wl.open_house_api.modules.usuario.model.response.UsuarioResponse;
 import wl.open_house_api.modules.usuario.repository.UsuarioRepository;
 
 import java.util.Collections;
+import java.util.UUID;
 
 @Service
 public class UsuarioService implements IUsuarioService {
@@ -40,19 +41,19 @@ public class UsuarioService implements IUsuarioService {
         return UsuarioMapper.INSTANCE.usuarioToUsuarioResponse(repository.save(usuario));
     }
 
-    @Override
+    @Override //TODO REFATORAR
     @Transactional
     public UsuarioResponse insertUserProfileUser(UsuarioRequestCreatUser user) {
         Usuario usuario = UsuarioMapper.INSTANCE.usuarioResquestCreatUserToUsuario(user);
         usuario.setSenha(passwordEncoder.encode(usuario.getPassword()));
-        usuario.setRoles(Collections.singletonList(roleService.verificarRole(3L)));
+        usuario.setRoles(Collections.singletonList(roleService.verificarRole(UUID.fromString("c3c5358a-0d93-4132-8d33-cad1a453d440"))));
 
         return UsuarioMapper.INSTANCE.usuarioToUsuarioResponse(repository.save(usuario));
     }
 
     @Override
     @Transactional
-    public UsuarioResponse update(Long id, UsuarioRequestEditMaster usuarioRequest) {
+    public UsuarioResponse update(UUID id, UsuarioRequestEditMaster usuarioRequest) {
         verificarUser(id);
         Usuario usuario = UsuarioMapper.INSTANCE.usuarioRequestEditMasterToUsuario(usuarioRequest);
         usuario.setId(id);
@@ -63,7 +64,7 @@ public class UsuarioService implements IUsuarioService {
 
     @Override
     @Transactional
-    public UsuarioResponse findUser(Long id) {
+    public UsuarioResponse findUser(UUID id) {
         return UsuarioMapper.INSTANCE.usuarioToUsuarioResponse(verificarUser(id));
     }
 
@@ -79,24 +80,24 @@ public class UsuarioService implements IUsuarioService {
 
     @Override
     @Transactional
-    public void deleteUser(Long id) {
+    public void deleteUser(UUID id) {
         repository.delete(verificarUser(id));
     }
 
     @Override
     @Transactional
-    public void modifyStatus(Long id) {
+    public void modifyStatus(UUID id) {
         Usuario usuario = verificarUser(id);
         usuario.setStatus(!usuario.getStatus());
         repository.save(usuario);
     }
 
 
-    public Usuario verificarUser(Long id) {
+    public Usuario verificarUser(UUID id) {
         return repository.findById(id).orElseThrow(ObjectNotFoundExeption::new);
     }
 
-    public Boolean usuarioAtivo(Long id) {
+    public Boolean usuarioAtivo(UUID id) {
         return repository.findStatusById(id);
     }
 
