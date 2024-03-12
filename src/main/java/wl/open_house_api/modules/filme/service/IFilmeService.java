@@ -7,19 +7,21 @@ import wl.open_house_api.modules.filme.model.request.FilmeRequestCreat;
 import wl.open_house_api.modules.filme.model.request.FilmeRequestEdit;
 import wl.open_house_api.modules.filme.model.response.FilmeResponse;
 
+import java.util.UUID;
+
 
 public interface IFilmeService {
     FilmeResponse insert(FilmeRequestCreat filmeRequestCreat);
 
-    FilmeResponse update(Long id, FilmeRequestEdit filmeRequestEdit);
+    FilmeResponse update(UUID id, FilmeRequestEdit filmeRequestEdit);
 
     Page<FilmeResponse> findMovies(Pageable pageable);
 
-    FilmeResponse findMovie(Long id);
+    FilmeResponse findMovie(UUID id);
 
-    void deleteMovie(Long id);
+    void deleteMovie(UUID id);
 
-    Filme verfificarFilme(Long id);
+    Filme verfificarFilme(UUID id);
 
 
 }

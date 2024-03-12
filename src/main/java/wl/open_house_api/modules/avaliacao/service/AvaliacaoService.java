@@ -70,13 +70,13 @@ public class AvaliacaoService implements IAvaliacaoService {
     }
 
     @Override
-    public AvaliacaoDeFilmesResponse listaAvaliacaoPorFilmeIdUserId(Long filmeId, UUID usuarioId) {
+    public AvaliacaoDeFilmesResponse listaAvaliacaoPorFilmeIdUserId(UUID filmeId, UUID usuarioId) {
         AvaliacaoDeFilmes avaliacao = repository.getReferenceById(new AvaliacaoId(filmeId, usuarioId));
         return AvaliacaoMapper.INSTANCE.avaliacaoFilmeToAvaliacaoFilmeResponse(avaliacao);
     }
 
     @Override
-    public AvaliacaoDeFilmesNotaResponse notaFilme(Long filmeId, UUID usuarioId) {
+    public AvaliacaoDeFilmesNotaResponse notaFilme(UUID filmeId, UUID usuarioId) {
         Integer nota = repository.findNotaByFilmeIdAndUsuarioId(filmeId, usuarioId);
         return AvaliacaoMapper.INSTANCE.integerNotaToAvaliacaoDeFilmesNotaResponse(nota);
     }

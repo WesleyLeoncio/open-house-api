@@ -21,4 +21,6 @@ public interface IRoleService {
     void deleteRole(UUID id);
 
     Role verificarRole(UUID id);
+
+    Role buscarRoleUser();
 }

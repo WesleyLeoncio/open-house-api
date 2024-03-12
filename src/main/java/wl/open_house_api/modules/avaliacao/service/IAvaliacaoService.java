@@ -16,7 +16,7 @@ public interface IAvaliacaoService {
 
     Page<AvaliacaoDeFilmesResponse> listarFilmesAvaliadosPorUser(Pageable pageable, UUID id);
 
-    AvaliacaoDeFilmesResponse listaAvaliacaoPorFilmeIdUserId(Long filmeId, UUID usuarioId);
+    AvaliacaoDeFilmesResponse listaAvaliacaoPorFilmeIdUserId(UUID filmeId, UUID usuarioId);
 
-    AvaliacaoDeFilmesNotaResponse notaFilme(Long filmeId, UUID usuarioId);
+    AvaliacaoDeFilmesNotaResponse notaFilme(UUID filmeId, UUID usuarioId);
 }

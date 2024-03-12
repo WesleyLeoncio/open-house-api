@@ -9,14 +9,14 @@ import java.util.UUID;
 @Embeddable
 public class AvaliacaoId implements Serializable {
 
-    private Long filmeId;
+    private UUID filmeId;
 
     private UUID usuarioId;
 
     public AvaliacaoId() {
     }
 
-    public AvaliacaoId(Long filmeId, UUID usuarioId) {
+    public AvaliacaoId(UUID filmeId, UUID usuarioId) {
         this.filmeId = filmeId;
         this.usuarioId = usuarioId;
     }

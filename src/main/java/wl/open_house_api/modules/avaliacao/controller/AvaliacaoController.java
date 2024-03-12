@@ -55,14 +55,14 @@ public class AvaliacaoController {
     @GetMapping("/avaliacao/{filmeId}/{usuarioId}")
     @PreAuthorize("hasAnyRole('USER')")
     @Operation(summary = "Lista a avaiação do filme com base no usuario e no filme", tags = {"Endpoints De Avaliar Filmes"})
-    public ResponseEntity<AvaliacaoDeFilmesResponse> listarAvaliacaoPorFilmeIdUserId(@PathVariable Long filmeId, @PathVariable UUID usuarioId) {
+    public ResponseEntity<AvaliacaoDeFilmesResponse> listarAvaliacaoPorFilmeIdUserId(@PathVariable UUID filmeId, @PathVariable UUID usuarioId) {
         return ResponseEntity.ok(service.listaAvaliacaoPorFilmeIdUserId(filmeId, usuarioId));
     }
 
     @GetMapping("/nota/{filmeId}/{usuarioId}")
     @PreAuthorize("hasAnyRole('USER')")
     @Operation(summary = "Lista a nota do filme com base no usuario e no filme", tags = {"Endpoints De Avaliar Filmes"})
-    public ResponseEntity<AvaliacaoDeFilmesNotaResponse> notaAvaliacaoFilme(@PathVariable Long filmeId, @PathVariable UUID usuarioId) {
+    public ResponseEntity<AvaliacaoDeFilmesNotaResponse> notaAvaliacaoFilme(@PathVariable UUID filmeId, @PathVariable UUID usuarioId) {
         return ResponseEntity.ok(service.notaFilme(filmeId, usuarioId));
     }
 }

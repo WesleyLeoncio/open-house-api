@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public record AvaliarFilmeRequest(
         @NotNull
-        Long idFilme,
+        UUID idFilme,
 
         @NotNull
         UUID idUsuario,

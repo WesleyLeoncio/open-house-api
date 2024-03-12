@@ -4,9 +4,10 @@ import wl.open_house_api.modules.categoria.model.response.CategoriaResponse;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 public record FilmeResponse(
-        Long id,
+        UUID id,
         String nome,
         String descricao,
         LocalDate dataLancamento,

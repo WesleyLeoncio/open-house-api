@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wl.open_house_api.infra.exeptions.ObjectNotFoundExeption;
 import wl.open_house_api.modules.role.model.entity.Role;
+import wl.open_house_api.modules.role.model.enuns.Roles;
 import wl.open_house_api.modules.role.model.mapper.RoleMapper;
 import wl.open_house_api.modules.role.model.request.RoleRequest;
 import wl.open_house_api.modules.role.model.response.RoleResponse;
@@ -59,6 +60,10 @@ public class RoleService implements IRoleService {
 
     public Role verificarRole(UUID id){
         return repository.findById(id).orElseThrow(ObjectNotFoundExeption::new);
+    }
+
+    public Role buscarRoleUser(){
+        return repository.findByNome(Roles.ROLE_USER);
     }
 
 

@@ -29,5 +29,5 @@ public interface AvaliacaoRepository extends JpaRepository<AvaliacaoDeFilmes, Av
         SELECT a.nota FROM AvaliacaoDeFilmes a
           WHERE a.filme.id = :filmeId AND a.usuario.id = :usuarioId
     """)
-    Integer findNotaByFilmeIdAndUsuarioId(Long filmeId, UUID usuarioId);
+    Integer findNotaByFilmeIdAndUsuarioId(UUID filmeId, UUID usuarioId);
 }

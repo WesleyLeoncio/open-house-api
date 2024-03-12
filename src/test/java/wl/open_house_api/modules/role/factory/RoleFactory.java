@@ -9,15 +9,16 @@ import wl.open_house_api.modules.role.model.response.RoleResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class RoleFactory {
 
-    private final Long id;
+    private final UUID id;
     private final Roles nome;
 
 
     public RoleFactory() {
-        this.id = 1L;
+        this.id = UUID.fromString("c3c5358a-0d93-4132-8d33-cad1a453d440");
         this.nome = Roles.ROLE_USER;
     }
 
@@ -43,7 +44,7 @@ public class RoleFactory {
 
 
     public RoleResponse getRoleResponse(){
-        return new RoleResponse(1L, this.nome.toString());
+        return new RoleResponse(this.id, this.nome.toString());
     }
 
 

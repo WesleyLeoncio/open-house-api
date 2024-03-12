@@ -12,6 +12,8 @@ import wl.open_house_api.modules.filme.model.request.FilmeRequestEdit;
 import wl.open_house_api.modules.filme.model.response.FilmeResponse;
 import wl.open_house_api.modules.filme.repository.FilmeRepository;
 
+import java.util.UUID;
+
 
 @Service
 public class FilmeService implements IFilmeService {
@@ -32,7 +34,7 @@ public class FilmeService implements IFilmeService {
 
     @Override
     @Transactional
-    public FilmeResponse update(Long id, FilmeRequestEdit filmeRequestEdit) {
+    public FilmeResponse update(UUID id, FilmeRequestEdit filmeRequestEdit) {
         verfificarFilme(id);
         Filme filme = FilmeMapper.INSTANCE.filmeRequestEditToFilme(filmeRequestEdit);
         filme.setId(id);
@@ -47,18 +49,18 @@ public class FilmeService implements IFilmeService {
 
     @Override
     @Transactional
-    public FilmeResponse findMovie(Long id) {
+    public FilmeResponse findMovie(UUID id) {
         return FilmeMapper.INSTANCE.filmeToFilmeResponse(verfificarFilme(id));
     }
 
     @Override
     @Transactional
-    public void deleteMovie(Long id) {
+    public void deleteMovie(UUID id) {
         repository.delete(verfificarFilme(id));
     }
 
 
-    public Filme verfificarFilme(Long id) {
+    public Filme verfificarFilme(UUID id) {
         return repository.findById(id).orElseThrow(ObjectNotFoundExeption::new);
     }
 

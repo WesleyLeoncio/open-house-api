@@ -41,13 +41,12 @@ public class UsuarioService implements IUsuarioService {
         return UsuarioMapper.INSTANCE.usuarioToUsuarioResponse(repository.save(usuario));
     }
 
-    @Override //TODO REFATORAR
+    @Override
     @Transactional
     public UsuarioResponse insertUserProfileUser(UsuarioRequestCreatUser user) {
         Usuario usuario = UsuarioMapper.INSTANCE.usuarioResquestCreatUserToUsuario(user);
         usuario.setSenha(passwordEncoder.encode(usuario.getPassword()));
-        usuario.setRoles(Collections.singletonList(roleService.verificarRole(UUID.fromString("c3c5358a-0d93-4132-8d33-cad1a453d440"))));
-
+        usuario.setRoles(Collections.singletonList(roleService.buscarRoleUser()));
         return UsuarioMapper.INSTANCE.usuarioToUsuarioResponse(repository.save(usuario));
     }
 
@@ -100,7 +99,6 @@ public class UsuarioService implements IUsuarioService {
     public Boolean usuarioAtivo(UUID id) {
         return repository.findStatusById(id);
     }
-
 
 
 }

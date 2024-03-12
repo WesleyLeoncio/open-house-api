@@ -18,6 +18,7 @@ import wl.open_house_api.modules.filme.model.response.FilmeResponse;
 import wl.open_house_api.modules.filme.service.IFilmeService;
 
 import java.net.URI;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("filmes")
@@ -42,7 +43,7 @@ public class FilmeController {
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     @Operation( summary = "Edita um filme", tags = { "Endpoints De Filmes" } )
-    public ResponseEntity<FilmeResponse> editar(@PathVariable Long id, @RequestBody @Valid FilmeRequestEdit filme) {
+    public ResponseEntity<FilmeResponse> editar(@PathVariable UUID id, @RequestBody @Valid FilmeRequestEdit filme) {
         FilmeResponse response = service.update(id, filme);
         return ResponseEntity.ok(response);
     }
@@ -58,14 +59,14 @@ public class FilmeController {
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('USER')")
     @Operation( summary = "Detalhar um filme", tags = { "Endpoints De Filmes" } )
-    public ResponseEntity<FilmeResponse> detalharFilme(@PathVariable Long id) {
+    public ResponseEntity<FilmeResponse> detalharFilme(@PathVariable UUID id) {
         return ResponseEntity.ok(service.findMovie(id));
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     @Operation( summary = "Exclui um filme", tags = { "Endpoints De Filmes" } )
-    public ResponseEntity<HttpStatus> excluirFilme(@PathVariable Long id) {
+    public ResponseEntity<HttpStatus> excluirFilme(@PathVariable UUID id) {
         service.deleteMovie(id);
         return ResponseEntity.noContent().build();
     }
