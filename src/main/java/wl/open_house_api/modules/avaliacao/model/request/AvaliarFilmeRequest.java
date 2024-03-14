@@ -1,12 +1,14 @@
 package wl.open_house_api.modules.avaliacao.model.request;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.UUID;
+
 public record AvaliarFilmeRequest(
         @NotNull
-        Long idFilme,
+        UUID idFilme,
 
         @NotNull
-        Long idUsuario,
+        UUID idUsuario,
 
         @NotNull
         int nota

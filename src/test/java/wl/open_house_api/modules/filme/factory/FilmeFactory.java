@@ -7,11 +7,12 @@ import wl.open_house_api.modules.filme.model.request.FilmeRequestEdit;
 import wl.open_house_api.modules.filme.model.response.FilmeResponse;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 
 public class FilmeFactory {
 
-    private final Long id;
+    private final UUID id;
     private final String nome;
     private final String descricao;
     private final LocalDate data;
@@ -20,7 +21,7 @@ public class FilmeFactory {
     CategoriaFactory categoriaFactory = new CategoriaFactory();
 
     public FilmeFactory() {
-        this.id = 1L;
+        this.id = UUID.fromString("09b231da-8189-45ba-936c-65c32beaecb1");
         this.nome = "FILME 1";
         this.descricao = "DESCRICAO";
         this.data = LocalDate.now();

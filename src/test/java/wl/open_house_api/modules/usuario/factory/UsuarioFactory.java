@@ -6,8 +6,10 @@ import wl.open_house_api.modules.usuario.model.request.UsuarioRequestCreatMaster
 import wl.open_house_api.modules.usuario.model.request.UsuarioRequestCreatUser;
 import wl.open_house_api.modules.usuario.model.response.UsuarioResponse;
 
+import java.util.UUID;
+
 public class UsuarioFactory {
-    private final Long id;
+    private final UUID id;
     private final String nome;
     private final String login;
     private final String senha;
@@ -15,7 +17,7 @@ public class UsuarioFactory {
     RoleFactory roleFactory = new RoleFactory();
 
     public UsuarioFactory() {
-        this.id = 1L;
+        this.id = UUID.fromString("b4445c41-980d-4250-ae84-2449606735f3");
         this.nome = "Usuario";
         this.login = "usuario@email.com";
         this.senha = "123456";

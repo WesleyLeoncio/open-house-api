@@ -9,6 +9,7 @@ import wl.open_house_api.modules.filme.model.entity.Filme;
 import wl.open_house_api.modules.filme.model.response.FilmeResponse;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -60,7 +61,7 @@ class FilmeMapperTest {
 
         //then
         assertThat( filmeResponse ).isNotNull();
-        assertThat( filmeResponse.id()).isEqualTo( 1L );
+        assertThat( filmeResponse.id()).isEqualTo(UUID.fromString("09b231da-8189-45ba-936c-65c32beaecb1") );
         assertThat( filmeResponse.nome()).isEqualTo( "FILME 1" );
         assertThat( filmeResponse.descricao()).isEqualTo( "DESCRICAO" );
         assertThat( filmeResponse.dataLancamento()).isEqualTo(LocalDate.now());

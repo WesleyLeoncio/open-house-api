@@ -10,14 +10,15 @@ import wl.open_house_api.modules.categoria.model.response.CategoriaResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class CategoriaFactory {
 
-    private final Long id;
+    private final UUID id;
     private final Category nome;
 
     public CategoriaFactory() {
-        this.id = 1L;
+        this.id = UUID.fromString("08925059-5275-4e50-a1ca-487988345ca2");
         this.nome = Category.ACAO;
     }
 
@@ -34,21 +35,21 @@ public class CategoriaFactory {
     }
 
     public CategoriaResponse getCategoriaResponse() {
-        return new CategoriaResponse(1L, nome.toString());
+        return new CategoriaResponse(UUID.fromString("08925059-5275-4e50-a1ca-487988345ca2"), nome.toString());
     }
 
-    public List<CategoriaFilmeRequest> getCategoriaFilme(){
+    public List<CategoriaFilmeRequest> getCategoriaFilme() {
         return CategoriaMapper.INSTANCE.categoriaToCategoriaFilmeRequest(this.categoriaList());
     }
 
-    private List<Categoria> categoriaList(){
-        Categoria categoria = new Categoria(1L,  Category.ACAO);
+    private List<Categoria> categoriaList() {
+        Categoria categoria = new Categoria(UUID.fromString("08925059-5275-4e50-a1ca-487988345ca2"), Category.ACAO);
         List<Categoria> listCategoria = new ArrayList<>();
         listCategoria.add(categoria);
-        return  listCategoria;
+        return listCategoria;
     }
 
-    public List<CategoriaResponse> categoriaResponseList (){
+    public List<CategoriaResponse> categoriaResponseList() {
         CategoriaFactory categoriaFactory = new CategoriaFactory();
         List<CategoriaResponse> listCategoriasResponse = new ArrayList<>();
         listCategoriasResponse.add(categoriaFactory.getCategoriaResponse());

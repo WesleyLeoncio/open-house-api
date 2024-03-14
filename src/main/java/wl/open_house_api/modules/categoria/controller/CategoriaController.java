@@ -14,6 +14,7 @@ import wl.open_house_api.modules.categoria.model.response.CategoriaResponse;
 import wl.open_house_api.modules.categoria.service.ICategoriaService;
 
 import java.net.URI;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("categorias")
@@ -38,7 +39,7 @@ public class CategoriaController {
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     @Operation( summary = "Editar uma categoria", description = "As Categorias devem ser em caixa alta", tags = { "Endpoints De Categorias" } )
-    public ResponseEntity<CategoriaResponse> editar(@PathVariable Long id, @RequestBody @Valid CategoriaRequest categoriaRequest){
+    public ResponseEntity<CategoriaResponse> editar(@PathVariable UUID id, @RequestBody @Valid CategoriaRequest categoriaRequest){
         CategoriaResponse response = service.update(id,categoriaRequest);
         return ResponseEntity.ok(response);
     }
@@ -53,14 +54,14 @@ public class CategoriaController {
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     @Operation( summary = "Detalhar uma categoria", tags = { "Endpoints De Categorias" } )
-    public ResponseEntity<CategoriaResponse> detalharFilme(@PathVariable  Long id) {
+    public ResponseEntity<CategoriaResponse> detalharFilme(@PathVariable  UUID id) {
         return ResponseEntity.ok(service.findCategoria(id));
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     @Operation( summary = "Exclui uma categoria", description = "A Categoria não pode pertencer a nenhum filme para ser excluida.", tags = { "Endpoints De Categorias" } )
-    public ResponseEntity<HttpStatus> excluirFilme(@PathVariable  Long id) {
+    public ResponseEntity<HttpStatus> excluirFilme(@PathVariable UUID id) {
         service.deleteCategoria(id);
         return ResponseEntity.noContent().build();
     }

@@ -8,6 +8,8 @@ import wl.open_house_api.modules.categoria.model.entiy.Categoria;
 import wl.open_house_api.modules.categoria.model.enuns.Category;
 import wl.open_house_api.modules.categoria.model.response.CategoriaResponse;
 
+import java.util.UUID;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -59,7 +61,7 @@ class CategoriaMapperTest {
                 (categoriaFactory.getCategoria());
 
         assertThat(categoriaResponseId).isNotNull();
-        assertThat(categoriaResponseId.id()).isEqualTo(1L);
+        assertThat(categoriaResponseId.id()).isEqualTo(UUID.fromString("08925059-5275-4e50-a1ca-487988345ca2"));
         assertThat(categoriaResponseId.nome()).isEqualTo("ACAO");
 
     }

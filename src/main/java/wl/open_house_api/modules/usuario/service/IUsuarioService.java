@@ -8,25 +8,27 @@ import wl.open_house_api.modules.usuario.model.request.UsuarioRequestCreatUser;
 import wl.open_house_api.modules.usuario.model.request.UsuarioRequestEditMaster;
 import wl.open_house_api.modules.usuario.model.response.UsuarioResponse;
 
+import java.util.UUID;
+
 public interface IUsuarioService {
 
     UsuarioResponse insert(UsuarioRequestCreatMaster user);
 
     UsuarioResponse insertUserProfileUser(UsuarioRequestCreatUser user);
 
-    UsuarioResponse update(Long id, UsuarioRequestEditMaster user);
+    UsuarioResponse update(UUID id, UsuarioRequestEditMaster user);
 
-    UsuarioResponse findUser(Long id);
+    UsuarioResponse findUser(UUID id);
 
     Page<UsuarioResponse> findUsers(Pageable pageable);
 
     Page<UsuarioResponse> findUsersStatusTrue(Pageable pageable);
 
-    void deleteUser(Long id);
+    void deleteUser(UUID id);
 
-    void modifyStatus(Long id);
+    void modifyStatus(UUID id);
 
-    Usuario verificarUser(Long id);
+    Usuario verificarUser(UUID id);
 
 
 }

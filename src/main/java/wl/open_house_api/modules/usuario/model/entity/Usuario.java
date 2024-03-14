@@ -6,14 +6,15 @@ import wl.open_house_api.modules.avaliacao.model.entity.AvaliacaoDeFilmes;
 import wl.open_house_api.modules.role.model.entity.Role;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 @Table(name = "usuarios")
 @Entity(name = "Usuario")
 public class Usuario implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String nome;
     private String login;
     private String senha;
@@ -33,7 +34,7 @@ public class Usuario implements UserDetails {
         this.status = true;
     }
 
-    public Usuario(Long id, String nome, String login, String senha) {
+    public Usuario(UUID id, String nome, String login, String senha) {
         this.id = id;
         this.nome = nome;
         this.login = login;
@@ -78,11 +79,11 @@ public class Usuario implements UserDetails {
         this.status = status;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

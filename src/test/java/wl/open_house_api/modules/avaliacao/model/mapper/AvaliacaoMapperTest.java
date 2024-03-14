@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import wl.open_house_api.modules.avaliacao.factory.AvaliacaoFilmeFactory;
 import wl.open_house_api.modules.avaliacao.model.response.AvaliacaoDeFilmesResponse;
 
+import java.util.UUID;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -19,8 +21,8 @@ class AvaliacaoMapperTest {
                 AvaliacaoMapper.INSTANCE.avaliacaoFilmeToAvaliacaoFilmeResponse(avaliacaoFilmeFactory.getAvaliacaoFilmes());
 
         assertThat(avaliacaoDeFilmesResponse).isNotNull();
-//        assertThat(avaliacaoDeFilmesResponse.id()).isEqualTo(1L);
-        assertThat(avaliacaoDeFilmesResponse.filme().id()).isEqualTo(1L);
+//
+        assertThat(avaliacaoDeFilmesResponse.filme().id()).isEqualTo(UUID.fromString("09b231da-8189-45ba-936c-65c32beaecb1"));
         assertThat(avaliacaoDeFilmesResponse.nota()).isEqualTo(5);
 
     }

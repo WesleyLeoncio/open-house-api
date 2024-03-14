@@ -6,14 +6,15 @@ import wl.open_house_api.modules.categoria.model.entiy.Categoria;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Table(name = "filmes")
 @Entity(name = "Filme")
 public class Filme implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String nome;
     private String descricao;
     private LocalDate dataLancamento;
@@ -28,7 +29,7 @@ public class Filme implements Serializable {
 
     public Filme() {}
 
-    public Filme(Long id, String nome, String descricao, LocalDate dataLancamento, String duracao, String imagem) {
+    public Filme(UUID id, String nome, String descricao, LocalDate dataLancamento, String duracao, String imagem) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -37,11 +38,11 @@ public class Filme implements Serializable {
         this.imagem = imagem;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

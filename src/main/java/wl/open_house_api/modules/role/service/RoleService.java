@@ -6,10 +6,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wl.open_house_api.infra.exeptions.ObjectNotFoundExeption;
 import wl.open_house_api.modules.role.model.entity.Role;
+import wl.open_house_api.modules.role.model.enuns.Roles;
 import wl.open_house_api.modules.role.model.mapper.RoleMapper;
 import wl.open_house_api.modules.role.model.request.RoleRequest;
 import wl.open_house_api.modules.role.model.response.RoleResponse;
 import wl.open_house_api.modules.role.repository.RoleRepository;
+
+import java.util.UUID;
 
 
 @Service
@@ -30,7 +33,7 @@ public class RoleService implements IRoleService {
 
     @Override
     @Transactional
-    public RoleResponse update(Long id, RoleRequest roleRequest) {
+    public RoleResponse update(UUID id, RoleRequest roleRequest) {
         verificarRole(id);
         Role role = RoleMapper.INSTANCE.roleRequestToRole(roleRequest);
         role.setId(id);
@@ -39,7 +42,7 @@ public class RoleService implements IRoleService {
 
     @Override
     @Transactional
-    public RoleResponse findRole(Long id) {
+    public RoleResponse findRole(UUID id) {
         return RoleMapper.INSTANCE.roleToRoleResponse(verificarRole(id));
     }
 
@@ -50,13 +53,17 @@ public class RoleService implements IRoleService {
 
     @Override
     @Transactional
-    public void deleteRole(Long id) {
+    public void deleteRole(UUID id) {
         repository.delete(verificarRole(id));
     }
 
 
-    public Role verificarRole(Long id){
+    public Role verificarRole(UUID id){
         return repository.findById(id).orElseThrow(ObjectNotFoundExeption::new);
+    }
+
+    public Role buscarRoleUser(){
+        return repository.findByNome(Roles.ROLE_USER);
     }
 
 

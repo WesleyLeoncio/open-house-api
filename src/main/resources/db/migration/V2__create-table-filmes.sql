@@ -1,6 +1,6 @@
 CREATE TABLE filmes
 (
-    id               SERIAL       NOT NULL,
+    id               UUID         NOT NULL DEFAULT uuid_generate_v4(),
     nome             VARCHAR(100) NOT NULL,
     descricao        VARCHAR(100) NOT NULL,
     data_lancamento  DATE    NOT NULL,
