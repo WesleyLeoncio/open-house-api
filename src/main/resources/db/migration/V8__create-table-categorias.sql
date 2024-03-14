@@ -1,6 +1,6 @@
 CREATE TABLE categorias
 (
-    id               SERIAL       NOT NULL,
+    id               uuid         NOT NULL DEFAULT uuid_generate_v4(),
     nome             VARCHAR(100) NOT NULL UNIQUE,
 
     CONSTRAINT pk_categoria

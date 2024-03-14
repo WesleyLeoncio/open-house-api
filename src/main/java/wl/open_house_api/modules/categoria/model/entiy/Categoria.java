@@ -4,14 +4,15 @@ import jakarta.persistence.*;
 import wl.open_house_api.modules.categoria.model.enuns.Category;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 @Table(name = "categorias")
 @Entity(name = "Categoria")
 public class Categoria implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Enumerated(EnumType.STRING)
     private Category nome;
@@ -20,17 +21,17 @@ public class Categoria implements Serializable {
     public Categoria() {
     }
 
-    public Categoria(Long id, Category nome) {
+    public Categoria(UUID id, Category nome) {
         this.id = id;
         this.nome = nome;
     }
 
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

@@ -1,7 +1,7 @@
 CREATE TABLE categoria_filme
 (
-    categoria_id   INTEGER      NOT NULL,
-    filme_id       INTEGER      NOT NULL,
+    categoria_id   uuid         NOT NULL,
+    filme_id       uuid         NOT NULL,
 
     CONSTRAINT pk_categoria_filme
         PRIMARY KEY (categoria_id, filme_id),

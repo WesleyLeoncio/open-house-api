@@ -1,6 +1,6 @@
 CREATE TABLE usuarios
 (
-    id               SERIAL       NOT NULL,
+    id               UUID         NOT NULL DEFAULT uuid_generate_v4(),
     nome             VARCHAR(100) NOT NULL,
     login            VARCHAR(100) NOT NULL,
     senha            VARCHAR(100) NOT NULL,

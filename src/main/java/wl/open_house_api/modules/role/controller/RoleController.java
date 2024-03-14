@@ -15,6 +15,7 @@ import wl.open_house_api.modules.role.model.response.RoleResponse;
 import wl.open_house_api.modules.role.service.IRoleService;
 
 import java.net.URI;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("roles")
@@ -39,7 +40,7 @@ public class RoleController {
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('MASTER')")
     @Operation( summary = "Edita uma role", description = "O nome da role deve seguir o padrão ROLE_NOME_DA_ROLE", tags = { "Endpoints De Roles" } )
-    public ResponseEntity<RoleResponse> editar(@PathVariable Long id, @RequestBody @Valid RoleRequest roleRequest){
+    public ResponseEntity<RoleResponse> editar(@PathVariable UUID id, @RequestBody @Valid RoleRequest roleRequest){
         RoleResponse response = service.update(id, roleRequest);
         return ResponseEntity.ok(response);
     }
@@ -54,14 +55,14 @@ public class RoleController {
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('MASTER')")
     @Operation( summary = "Detalha uma role", tags = { "Endpoints De Roles" } )
-    public ResponseEntity<RoleResponse> detalharRole(@PathVariable  Long id){
+    public ResponseEntity<RoleResponse> detalharRole(@PathVariable  UUID id){
         return ResponseEntity.ok(service.findRole(id));
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyRole('MASTER')")
     @Operation( summary = "Exclui uma role", description = "A role não pode pertencer a nenhum profile para ser excluida.", tags = { "Endpoints De Roles" } )
-    public ResponseEntity<HttpStatus> excluirRole(@PathVariable Long id){
+    public ResponseEntity<HttpStatus> excluirRole(@PathVariable UUID id){
         service.deleteRole(id);
         return ResponseEntity.noContent().build();
     }

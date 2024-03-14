@@ -18,6 +18,7 @@ import wl.open_house_api.modules.usuario.service.IUsuarioService;
 import wl.open_house_api.validation.interfaces.IValidadorAvaliacaoDeFilme;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class AvaliacaoService implements IAvaliacaoService {
@@ -64,18 +65,18 @@ public class AvaliacaoService implements IAvaliacaoService {
     }
 
     @Override
-    public Page<AvaliacaoDeFilmesResponse> listarFilmesAvaliadosPorUser(Pageable pageable, Long id) {
+    public Page<AvaliacaoDeFilmesResponse> listarFilmesAvaliadosPorUser(Pageable pageable, UUID id) {
         return repository.findAllByUsuarioId(pageable, id).map(AvaliacaoMapper.INSTANCE::avaliacaoFilmeToAvaliacaoFilmeResponse);
     }
 
     @Override
-    public AvaliacaoDeFilmesResponse listaAvaliacaoPorFilmeIdUserId(Long filmeId, Long usuarioId) {
+    public AvaliacaoDeFilmesResponse listaAvaliacaoPorFilmeIdUserId(UUID filmeId, UUID usuarioId) {
         AvaliacaoDeFilmes avaliacao = repository.getReferenceById(new AvaliacaoId(filmeId, usuarioId));
         return AvaliacaoMapper.INSTANCE.avaliacaoFilmeToAvaliacaoFilmeResponse(avaliacao);
     }
 
     @Override
-    public AvaliacaoDeFilmesNotaResponse notaFilme(Long filmeId, Long usuarioId) {
+    public AvaliacaoDeFilmesNotaResponse notaFilme(UUID filmeId, UUID usuarioId) {
         Integer nota = repository.findNotaByFilmeIdAndUsuarioId(filmeId, usuarioId);
         return AvaliacaoMapper.INSTANCE.integerNotaToAvaliacaoDeFilmesNotaResponse(nota);
     }

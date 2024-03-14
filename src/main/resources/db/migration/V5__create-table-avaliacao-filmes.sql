@@ -1,7 +1,7 @@
 CREATE TABLE avaliacoes
 (
-    filme_id     INTEGER      NOT NULL,
-    usuario_id   INTEGER      NOT NULL,
+    filme_id     UUID         NOT NULL,
+    usuario_id   UUID         NOT NULL,
     nota         INTEGER      NOT NULL,
 
     CONSTRAINT pk_avaliacao

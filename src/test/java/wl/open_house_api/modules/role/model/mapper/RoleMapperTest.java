@@ -9,6 +9,8 @@ import wl.open_house_api.modules.role.model.entity.Role;
 import wl.open_house_api.modules.role.model.enuns.Roles;
 import wl.open_house_api.modules.role.model.response.RoleResponse;
 
+import java.util.UUID;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class RoleMapperTest {
@@ -43,7 +45,7 @@ class RoleMapperTest {
     void roleToRoleResponse() {
         RoleResponse roleResponse = RoleMapper.INSTANCE.roleToRoleResponse(roleFactory.getRole());
 
-        assertThat( roleResponse.id()).isEqualTo( 1L );
+        assertThat( roleResponse.id()).isEqualTo(UUID.fromString("c3c5358a-0d93-4132-8d33-cad1a453d440") );
         assertThat( roleResponse.nome()).isEqualTo( "ROLE_USER" );
     }
 }

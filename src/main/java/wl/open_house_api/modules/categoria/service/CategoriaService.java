@@ -11,6 +11,8 @@ import wl.open_house_api.modules.categoria.model.request.CategoriaRequest;
 import wl.open_house_api.modules.categoria.model.response.CategoriaResponse;
 import wl.open_house_api.modules.categoria.repository.CategoriaRepository;
 
+import java.util.UUID;
+
 
 @Service
 public class CategoriaService implements ICategoriaService {
@@ -30,7 +32,7 @@ public class CategoriaService implements ICategoriaService {
 
     @Override
     @Transactional
-    public CategoriaResponse update(Long id,CategoriaRequest categoriaRequest) {
+    public CategoriaResponse update(UUID id, CategoriaRequest categoriaRequest) {
         verificarCategoria(id);
         Categoria categoria = CategoriaMapper.INSTANCE.categoriaRequestToCategoria(categoriaRequest);
         categoria.setId(id);
@@ -38,7 +40,7 @@ public class CategoriaService implements ICategoriaService {
     }
 
     @Override
-    public CategoriaResponse findCategoria(Long id) {
+    public CategoriaResponse findCategoria(UUID id) {
         Categoria categoria = verificarCategoria(id);
         return CategoriaMapper.INSTANCE.categoriaToCategoriaResponse(categoria);
     }
@@ -49,12 +51,12 @@ public class CategoriaService implements ICategoriaService {
     }
 
     @Override
-    public void deleteCategoria(Long id) {
+    public void deleteCategoria(UUID id) {
         repository.delete(verificarCategoria(id));
     }
 
     @Override
-    public Categoria verificarCategoria(Long id) {
+    public Categoria verificarCategoria(UUID id) {
         return repository.findById(id).orElseThrow(ObjectNotFoundExeption::new);
     }
 
