@@ -1,6 +1,6 @@
 ## API SPRING BOOT DE EXEMPLO
 
-## API OPEN HOUSE
+## API OPEN HOUSE (PROJETO BASE)
 
 ## DESCRIÇÃO
 O desenvolvimento dessa API tem como objetivo criar uma aplicação que seja capas de cadastrar e gerenciar filmes além de poder realizar avaliações.
