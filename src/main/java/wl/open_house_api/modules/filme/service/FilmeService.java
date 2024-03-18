@@ -1,5 +1,6 @@
 package wl.open_house_api.modules.filme.service;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -43,7 +44,9 @@ public class FilmeService implements IFilmeService {
 
 
     @Override
+    @Cacheable("filmes")
     public Page<FilmeResponse> findMovies(Pageable pageable) {
+        System.out.println("SEM CACHE!");
         return repository.findAll(pageable).map(FilmeMapper.INSTANCE::filmeToFilmeResponse);
     }
 

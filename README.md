@@ -14,6 +14,7 @@ O desenvolvimento dessa API tem como objetivo criar uma aplicação que seja cap
 - Autorização - Spring Security
 - Autenticação - Spring Security
 - Documentação - Springdoc-openapi
+- Cache (Redis) 
 
 ### O QUE FOI DESENVOLVIDO
 - CRUD - FILMES
