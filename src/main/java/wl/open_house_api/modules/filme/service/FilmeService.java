@@ -1,5 +1,6 @@
 package wl.open_house_api.modules.filme.service;
 
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +29,7 @@ public class FilmeService implements IFilmeService {
 
     @Override
     @Transactional
+    @CacheEvict(cacheNames = "filmes", allEntries = true)
     public FilmeResponse insert(FilmeRequestCreat filmeRequest) {
         Filme filme = repository.save(FilmeMapper.INSTANCE.filmeRequestCreatToFilme(filmeRequest));
         return FilmeMapper.INSTANCE.filmeToFilmeResponse(filme);
@@ -35,6 +37,7 @@ public class FilmeService implements IFilmeService {
 
     @Override
     @Transactional
+    @CacheEvict(cacheNames = "filmes", allEntries = true)
     public FilmeResponse update(UUID id, FilmeRequestEdit filmeRequestEdit) {
         verfificarFilme(id);
         Filme filme = FilmeMapper.INSTANCE.filmeRequestEditToFilme(filmeRequestEdit);
@@ -44,9 +47,8 @@ public class FilmeService implements IFilmeService {
 
 
     @Override
-    @Cacheable("filmes")
+    @Cacheable(cacheNames = "filmes")
     public Page<FilmeResponse> findMovies(Pageable pageable) {
-        System.out.println("SEM CACHE!");
         return repository.findAll(pageable).map(FilmeMapper.INSTANCE::filmeToFilmeResponse);
     }
 
