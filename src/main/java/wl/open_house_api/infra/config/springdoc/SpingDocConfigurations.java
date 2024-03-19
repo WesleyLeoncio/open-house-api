@@ -23,7 +23,7 @@ public class SpingDocConfigurations {
                                 <html>
                                 <div>
                                     <img height="80" width="100"  src="https://titleinsurancewebdesign.com/firsttitleabstract/wp-content/uploads/sites/55/2014/03/open-house.jpg" alt="Imagem">
-                                    <p>API DE EXEMPLO UTILIZANDO SPRING BOOT 3.2.0</p>
+                                    <p>API DE EXEMPLO UTILIZANDO SPRING BOOT 3.2.3</p>
                                 </div>
                                 </html>
                                 """)

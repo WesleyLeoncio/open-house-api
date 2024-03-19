@@ -6,7 +6,7 @@
 O desenvolvimento dessa API tem como objetivo criar uma aplicação que seja capas de cadastrar e gerenciar filmes além de poder realizar avaliações.
 
 ### ✔️ TÉCNICAS E TECNOLOGIAS UTILIZADAS
-- Spring Boot 3.2.0
+- Spring Boot 3.2.3
 - SGBD (PostGresSQL)
 - Docker
 - Paginação
@@ -14,6 +14,7 @@ O desenvolvimento dessa API tem como objetivo criar uma aplicação que seja cap
 - Autorização - Spring Security
 - Autenticação - Spring Security
 - Documentação - Springdoc-openapi
+- Cache (Redis) 
 
 ### O QUE FOI DESENVOLVIDO
 - CRUD - FILMES
