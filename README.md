@@ -34,3 +34,4 @@ O desenvolvimento dessa API tem como objetivo criar uma aplicação que seja cap
 
 ### DOCUMENTAÇÃO DO PROJETO
 - Trello do projeto: `https://trello.com/b/wVRUa8eq/open-house`
+ 
