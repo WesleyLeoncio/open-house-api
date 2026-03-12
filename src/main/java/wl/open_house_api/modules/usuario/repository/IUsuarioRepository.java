@@ -9,7 +9,7 @@ import wl.open_house_api.modules.usuario.model.entity.Usuario;
 
 import java.util.UUID;
 
-public interface UsuarioRepository extends JpaRepository<Usuario, UUID> {
+public interface IUsuarioRepository extends JpaRepository<Usuario, UUID> {
     UserDetails findByLogin(String username);
 
     Page<Usuario> findAllByStatusTrue(Pageable pageable);

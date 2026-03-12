@@ -13,7 +13,7 @@ import wl.open_house_api.modules.usuario.model.request.UsuarioRequestCreatMaster
 import wl.open_house_api.modules.usuario.model.request.UsuarioRequestCreatUser;
 import wl.open_house_api.modules.usuario.model.request.UsuarioRequestEditMaster;
 import wl.open_house_api.modules.usuario.model.response.UsuarioResponse;
-import wl.open_house_api.modules.usuario.repository.UsuarioRepository;
+import wl.open_house_api.modules.usuario.repository.IUsuarioRepository;
 
 import java.util.Collections;
 import java.util.UUID;
@@ -21,13 +21,13 @@ import java.util.UUID;
 @Service
 public class UsuarioService implements IUsuarioService {
 
-    final UsuarioRepository repository;
+    final IUsuarioRepository repository;
 
     final IRoleService roleService;
 
     final PasswordEncoder passwordEncoder;
 
-    public UsuarioService(UsuarioRepository repository, IRoleService roleService, PasswordEncoder passwordEncoder) {
+    public UsuarioService(IUsuarioRepository repository, IRoleService roleService, PasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;

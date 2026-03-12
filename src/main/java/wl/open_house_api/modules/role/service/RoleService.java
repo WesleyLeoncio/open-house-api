@@ -10,7 +10,7 @@ import wl.open_house_api.modules.role.model.enuns.Roles;
 import wl.open_house_api.modules.role.model.mapper.RoleMapper;
 import wl.open_house_api.modules.role.model.request.RoleRequest;
 import wl.open_house_api.modules.role.model.response.RoleResponse;
-import wl.open_house_api.modules.role.repository.RoleRepository;
+import wl.open_house_api.modules.role.repository.IRoleRepository;
 
 import java.util.UUID;
 
@@ -18,9 +18,9 @@ import java.util.UUID;
 @Service
 public class RoleService implements IRoleService {
 
-    final RoleRepository repository;
+    final IRoleRepository repository;
 
-    public RoleService(RoleRepository repository) {
+    public RoleService(IRoleRepository repository) {
         this.repository = repository;
     }
 

@@ -80,4 +80,20 @@ public class AvaliacaoController {
     public ResponseEntity<AvaliacaoDeFilmesNotaResponse> notaAvaliacaoFilme(@PathVariable UUID filmeId, @AuthenticationPrincipal Usuario usuario) {
         return ResponseEntity.ok(service.notaFilme(filmeId, usuario.getId()));
     }
+
+    @DeleteMapping("filme/{filmeId}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @Operation( summary = "Exclui as avaliações de um filme pelo ID", description = "Remove todas as avaliações de um filme.", tags = { "Endpoints De Avaliar Filmes" } )
+    public ResponseEntity<HttpStatus> excluirFilme(@PathVariable UUID filmeId) {
+        service.deleteByFilmeId(filmeId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/filme/{filmeId}/{usuarioId}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @Operation( summary = "Exclui as avaliações de um filme pelo ID", description = "Remove todas as avaliações de um filme.", tags = { "Endpoints De Avaliar Filmes" } )
+    public ResponseEntity<HttpStatus> excluirFilmePeloIdFilmeEIdUsuario(@PathVariable UUID filmeId, @PathVariable UUID usuarioId) {
+        service.deleteByFilmeIdAndUsuarioId(filmeId,usuarioId);
+        return ResponseEntity.noContent().build();
+    }
 }

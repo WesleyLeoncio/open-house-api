@@ -9,7 +9,7 @@ import wl.open_house_api.modules.categoria.model.entiy.Categoria;
 import wl.open_house_api.modules.categoria.model.mapper.CategoriaMapper;
 import wl.open_house_api.modules.categoria.model.request.CategoriaRequest;
 import wl.open_house_api.modules.categoria.model.response.CategoriaResponse;
-import wl.open_house_api.modules.categoria.repository.CategoriaRepository;
+import wl.open_house_api.modules.categoria.repository.ICategoriaRepository;
 
 import java.util.UUID;
 
@@ -17,9 +17,9 @@ import java.util.UUID;
 @Service
 public class CategoriaService implements ICategoriaService {
 
-    private final CategoriaRepository repository;
+    private final ICategoriaRepository repository;
 
-    public CategoriaService(CategoriaRepository repository) {
+    public CategoriaService(ICategoriaRepository repository) {
         this.repository = repository;
     }
 

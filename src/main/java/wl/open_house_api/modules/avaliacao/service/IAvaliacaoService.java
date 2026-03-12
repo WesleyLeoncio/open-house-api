@@ -19,4 +19,8 @@ public interface IAvaliacaoService {
     AvaliacaoDeFilmesResponse listaAvaliacaoPorFilmeIdUserId(UUID filmeId, UUID usuarioId);
 
     AvaliacaoDeFilmesNotaResponse notaFilme(UUID filmeId, UUID usuarioId);
+
+    void deleteByFilmeId(UUID filmeId);
+
+    void deleteByFilmeIdAndUsuarioId(UUID filmeId, UUID usuarioId);
 }

@@ -12,7 +12,7 @@ import wl.open_house_api.modules.filme.model.mapper.FilmeMapper;
 import wl.open_house_api.modules.filme.model.request.FilmeRequestCreat;
 import wl.open_house_api.modules.filme.model.request.FilmeRequestEdit;
 import wl.open_house_api.modules.filme.model.response.FilmeResponse;
-import wl.open_house_api.modules.filme.repository.FilmeRepository;
+import wl.open_house_api.modules.filme.repository.IFilmeRepository;
 
 import java.util.UUID;
 
@@ -20,10 +20,10 @@ import java.util.UUID;
 @Service
 public class FilmeService implements IFilmeService {
 
-    private final FilmeRepository repository;
+    private final IFilmeRepository repository;
 
 
-    public FilmeService(FilmeRepository repository) {
+    public FilmeService(IFilmeRepository repository) {
         this.repository = repository;
     }
 

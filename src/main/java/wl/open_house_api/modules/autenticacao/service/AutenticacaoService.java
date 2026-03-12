@@ -5,14 +5,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import wl.open_house_api.modules.usuario.repository.UsuarioRepository;
+import wl.open_house_api.modules.usuario.repository.IUsuarioRepository;
 
 @Service
 public class AutenticacaoService implements UserDetailsService {
 
-    final UsuarioRepository repository;
+    final IUsuarioRepository repository;
 
-    public AutenticacaoService(UsuarioRepository repository) {
+    public AutenticacaoService(IUsuarioRepository repository) {
         this.repository = repository;
     }
 

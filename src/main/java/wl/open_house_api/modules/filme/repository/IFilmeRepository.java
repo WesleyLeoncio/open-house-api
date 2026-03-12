@@ -7,7 +7,7 @@ import wl.open_house_api.modules.filme.model.entity.Filme;
 
 import java.util.UUID;
 
-public interface FilmeRepository extends JpaRepository<Filme, UUID> {
+public interface IFilmeRepository extends JpaRepository<Filme, UUID> {
 
     Page<Filme> findByNomeContainingIgnoreCase(Pageable pageable,String name);
 }

@@ -6,6 +6,6 @@ import wl.open_house_api.modules.role.model.enuns.Roles;
 
 import java.util.UUID;
 
-public interface RoleRepository extends JpaRepository<Role, UUID> {
+public interface IRoleRepository extends JpaRepository<Role, UUID> {
     Role findByNome(Roles role);
 }

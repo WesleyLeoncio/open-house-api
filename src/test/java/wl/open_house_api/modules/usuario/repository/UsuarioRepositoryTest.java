@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class UsuarioRepositoryTest {
 
     @Autowired
-    UsuarioRepository usuarioRepository;
+    IUsuarioRepository usuarioRepository;
 
     private UsuarioFactory usuarioFactory;
 

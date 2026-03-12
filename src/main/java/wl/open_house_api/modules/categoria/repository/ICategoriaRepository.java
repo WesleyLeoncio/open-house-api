@@ -5,5 +5,5 @@ import wl.open_house_api.modules.categoria.model.entiy.Categoria;
 
 import java.util.UUID;
 
-public interface CategoriaRepository extends JpaRepository<Categoria, UUID> {
+public interface ICategoriaRepository extends JpaRepository<Categoria, UUID> {
 }
