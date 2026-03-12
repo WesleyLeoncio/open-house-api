@@ -19,6 +19,8 @@ public interface IFilmeService {
 
     FilmeResponse findMovie(UUID id);
 
+    Page<FilmeResponse> findMoviesByName(Pageable pageable, String name);
+
     void deleteMovie(UUID id);
 
     Filme verfificarFilme(UUID id);

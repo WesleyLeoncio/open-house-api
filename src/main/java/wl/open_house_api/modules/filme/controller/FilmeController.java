@@ -56,6 +56,14 @@ public class FilmeController {
         return ResponseEntity.ok(service.findMovies(pageable));
     }
 
+    @GetMapping("/buscar")
+    @PreAuthorize("hasAnyRole('USER')")
+    @Operation( summary = "Lista todos os filmes cadastrados pelo nome", tags = { "Endpoints De Filmes" } )
+    public ResponseEntity<Page<FilmeResponse>> listarFilmesPeloNome(@RequestParam(required = false) String name, @PageableDefault(sort = {"dataLancamento"},
+            direction = Sort.Direction.DESC) Pageable pageable) {
+        return ResponseEntity.ok(service.findMoviesByName(pageable, name));
+    }
+
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('USER')")
     @Operation( summary = "Detalhar um filme", tags = { "Endpoints De Filmes" } )

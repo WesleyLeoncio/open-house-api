@@ -53,6 +53,16 @@ public class FilmeService implements IFilmeService {
     }
 
     @Override
+    @Cacheable(cacheNames = "filmes")
+    public Page<FilmeResponse> findMoviesByName(Pageable pageable, String name) {
+        Page<Filme> filmes = (name == null || name.isBlank())
+                ? repository.findAll(pageable)
+                : repository.findByNomeContainingIgnoreCase(pageable, name);
+
+        return filmes.map(FilmeMapper.INSTANCE::filmeToFilmeResponse);
+    }
+
+    @Override
     @Transactional
     public FilmeResponse findMovie(UUID id) {
         return FilmeMapper.INSTANCE.filmeToFilmeResponse(verfificarFilme(id));
