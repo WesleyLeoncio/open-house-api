@@ -7,6 +7,8 @@ import wl.open_house_api.modules.avaliacao.model.request.AvaliarFilmeRequest;
 import wl.open_house_api.modules.usuario.service.UsuarioService;
 import wl.open_house_api.validation.interfaces.IValidadorAvaliacaoDeFilme;
 
+import java.util.UUID;
+
 @Service
 public class ValidadorUsuariosDesativados implements IValidadorAvaliacaoDeFilme {
 
@@ -17,8 +19,8 @@ public class ValidadorUsuariosDesativados implements IValidadorAvaliacaoDeFilme 
     }
 
     @Override
-    public void validar(AvaliarFilmeRequest avaliar) {
-        Boolean usuarioAtivo = service.usuarioAtivo(avaliar.idUsuario());
+    public void validar(AvaliarFilmeRequest avaliar, UUID userID) {
+        Boolean usuarioAtivo = service.usuarioAtivo(userID);
         if(Boolean.FALSE.equals(usuarioAtivo)){
             throw new ValidacaoException("Usuarios Que Não Estão Ativos Não Podem Avaliar Filmes!");
         }

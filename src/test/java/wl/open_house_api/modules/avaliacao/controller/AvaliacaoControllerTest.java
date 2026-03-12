@@ -61,7 +61,7 @@ class AvaliacaoControllerTest {
     @WithMockUser(authorities = "ROLE_USER")
     void avaliarFilmesCenario2() throws Exception {
 
-        doNothing().when(avaliacaoService).avaliarFilme(any());
+        doNothing().when(avaliacaoService).avaliarFilme(any(), any());
 
         MockHttpServletResponse response = mvc.perform(
                 post("/avaliacoes")

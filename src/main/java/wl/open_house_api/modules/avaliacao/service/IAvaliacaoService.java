@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public interface IAvaliacaoService {
 
-    void avaliarFilme(AvaliarFilmeRequest avaliar);
+    void avaliarFilme(AvaliarFilmeRequest avaliar, UUID userID);
 
     Page<AvaliacaoDeFilmesResponse> listarFilmesAvaliados(Pageable pageable);
 

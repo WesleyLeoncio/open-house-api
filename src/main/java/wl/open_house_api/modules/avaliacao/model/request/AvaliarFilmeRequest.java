@@ -8,10 +8,6 @@ public record AvaliarFilmeRequest(
         UUID idFilme,
 
         @NotNull
-        UUID idUsuario,
-
-        @NotNull
         int nota
-
 ) {
 }

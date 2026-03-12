@@ -8,6 +8,7 @@ import wl.open_house_api.modules.filme.service.FilmeService;
 import wl.open_house_api.validation.interfaces.IValidadorAvaliacaoDeFilme;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Service
 public class ValidadorFilmesQueNaoForamLancados implements IValidadorAvaliacaoDeFilme {
@@ -19,7 +20,7 @@ public class ValidadorFilmesQueNaoForamLancados implements IValidadorAvaliacaoDe
     }
 
     @Override
-    public void validar(AvaliarFilmeRequest avaliar) {
+    public void validar(AvaliarFilmeRequest avaliar, UUID userID) {
         LocalDate hoje = LocalDate.now();
         FilmeResponse filme = service.findMovie(avaliar.idFilme());
         boolean verificarData = hoje.isBefore(filme.dataLancamento());

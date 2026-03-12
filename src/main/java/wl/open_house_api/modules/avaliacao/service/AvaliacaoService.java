@@ -40,16 +40,16 @@ public class AvaliacaoService implements IAvaliacaoService {
 
     @Override
     @Transactional
-    public void avaliarFilme(AvaliarFilmeRequest avaliarFilme) {
+    public void avaliarFilme(AvaliarFilmeRequest avaliarFilme, UUID userID) {
 
-        validarAvaliacao.forEach(v -> v.validar(avaliarFilme));
+        validarAvaliacao.forEach(v -> v.validar(avaliarFilme,userID));
 
-        realizarAvaliacao(avaliarFilme);
+        realizarAvaliacao(avaliarFilme,userID);
     }
 
-    private void realizarAvaliacao(AvaliarFilmeRequest avaliarFilme) {
+    private void realizarAvaliacao(AvaliarFilmeRequest avaliarFilme,UUID userID) {
         Filme filme = filmeService.verfificarFilme(avaliarFilme.idFilme());
-        Usuario usuario = usuarioService.verificarUser(avaliarFilme.idUsuario());
+        Usuario usuario = usuarioService.verificarUser(userID);
 
         AvaliacaoId avaliacaoId = new AvaliacaoId(filme.getId(), usuario.getId());
 
